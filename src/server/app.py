@@ -1,13 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 
 from config import JWT_SECRET_KEY
 
-app = Flask(
-    __name__,
-)
+app = Flask(__name__)
 
 CORS(app)
 
@@ -20,6 +18,3 @@ bcrypt = Bcrypt(app)
 @app.route("/")
 def index():
     return "Hello world"
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
