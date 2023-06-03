@@ -19,7 +19,6 @@ bcrypt = Bcrypt(app)
 
 @app.route("/")
 def index():
-    """Return React frontend as default route"""
     return "Hello world"
 
 if __name__ == "__main__":
