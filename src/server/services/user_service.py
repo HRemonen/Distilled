@@ -4,7 +4,7 @@ class UserService:
     def __init__(self, user_repository=user_repository):
         self._user_repository = user_repository
     
-    def login():
+    def login(self):
         return True
     
 user_service = UserService()
