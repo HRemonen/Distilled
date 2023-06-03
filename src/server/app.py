@@ -1,3 +1,4 @@
+import psycopg2
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
@@ -15,6 +16,4 @@ app.config["JWT EXPIRATION_DELTA"] = 3600
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 
-@app.route("/")
-def index():
-    return "Hello world"
+import routes
