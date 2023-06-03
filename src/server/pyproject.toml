@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "tsoha"
+version = "0.1.0"
+description = ""
+authors = ["Henri Remonen <henri@remonen.fi>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Flask = "^2.3.2"
+Flask-SQLAlchemy = "^3.0.3"
+psycopg2-binary = "^2.9.6"
+python-dotenv = "^1.0.0"
+flask-cors = "^3.0.10"
+flask-jwt-extended = "^4.5.2"
+flask-bcrypt = "^1.0.1"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
+pylint = "^2.17.4"
+pylint-flask = "^0.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
