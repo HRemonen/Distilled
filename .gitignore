@@ -123,3 +123,36 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+/tmp/*
+
+*/tmp/*
+
+# Env files
+.env
+
+# Node stuff
+node_modules
+
+# Cypress stuff
+cypress/videos
+cypress/screenshots
+
+# Postgres data
+postgres_data

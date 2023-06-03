@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+    image: tsoha-api
+    container_name: tsoha-api
+    build:
+      context: ./src/server/
+      dockerfile: Dockerfile
+    env_file:
+      - ./src/server/.env
+    ports:
+      - 5000:5000
+    volumes:
+      - ./src/server/:/usr/src/app
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: tsoha-db
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=tsoha-db
+    volumes:
+      - ./src/server/postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
