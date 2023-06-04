@@ -24,6 +24,7 @@ class UserService:
         query_result = self._user_repository.login(user)
         
         found_user = {
+            "id": query_result[0],
             "username": query_result[1],
             "password": query_result[2]
         }
