@@ -1,3 +1,4 @@
+from sqlalchemy.engine.result import Row
 from sqlalchemy.sql import text
 from werkzeug.security import generate_password_hash
 
@@ -7,7 +8,7 @@ class UserRepository:
     def __init__(self, db=db):
         self._db = db
 
-    def register(self, user):
+    def register(self, user: object) -> None:
         password_hash = generate_password_hash(user["password"])
         
         register_input = {
@@ -31,7 +32,7 @@ class UserRepository:
         self._db.session.execute(text(sql), register_input)
         self._db.session.commit()
         
-    def login(self, user):
+    def login(self, user: object) -> Row:
         login_input = {
             "username": user["username"],
         }
