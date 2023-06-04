@@ -20,7 +20,7 @@ class DistilleryRepository:
         
         return self._db.session.execute(text(sql), distillery_input).fetchone() 
         
-    def create_distillery(self, distillery) -> None:
+    def create_distillery(self, distillery) -> Row:
         coordinates = distillery["location"]
         
         distillery_input = {
@@ -45,9 +45,12 @@ class DistilleryRepository:
                 :year_established,
                 :website
             )
+            RETURNING *
         """
 
-        self._db.session.execute(text(sql), distillery_input)
+        result = self._db.session.execute(text(sql), distillery_input)
         self._db.session.commit()
+        
+        return result.fetchone()
         
 distillery_repository = DistilleryRepository()

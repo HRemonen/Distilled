@@ -24,8 +24,17 @@ class DistilleryService:
         return found_distillery
     
     def create_distillery(self, distillery):
-        new_distillery = NewDistillerySchema().load(distillery)
-        self._distillery_repository.create_distillery(distillery)
+        NewDistillerySchema().load(distillery)
+        query_result = self._distillery_repository.create_distillery(distillery)
+        
+        new_distillery = {
+            "id": query_result[0],
+            "name": query_result[1],
+            "location": literal_eval(query_result[2]),
+            "country": query_result[3],
+            "year_established": query_result[4],
+            "website": query_result[5]
+        }
         
         return new_distillery
     
