@@ -1,5 +1,6 @@
 from flask import request
 from marshmallow import ValidationError
+from werkzeug.exceptions import Unauthorized
 
 from app import app
 from services.user_service import user_service
@@ -44,5 +45,44 @@ def register_user():
         return {
             "status": "error",
             "message": "user creation failed",
+            "data": None
+        }, 404
+        
+@app.route("/api/user/login", methods=["POST"])
+def login_user():
+    """Login a user
+
+    ---
+    tags:
+        - users
+    responses:
+        200:
+            description: Login successful
+        401:
+            description: Invalid credentials
+        404:
+            description: Something went wrong logging in
+    """
+    
+    body = request.json
+    try:
+        login_data = user_service.login(body)
+        return {
+                "status": "success",
+                "message": "login successful",
+                "data": login_data
+            }, 200
+    
+    except Unauthorized:
+        return {
+            "status": "error",
+            "message": "invalid credentials",
+            "data": None
+        }, 401
+    
+    except Exception as err:
+        return {
+            "status": "error",
+            "message": "something went wrong logging in",
             "data": None
         }, 404

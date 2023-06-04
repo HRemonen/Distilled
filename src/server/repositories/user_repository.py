@@ -1,4 +1,5 @@
 from sqlalchemy.sql import text
+from werkzeug.security import generate_password_hash
 
 from db import db
 
@@ -7,9 +8,11 @@ class UserRepository:
         self._db = db
 
     def register(self, user):
-        user_fields = {
+        password_hash = generate_password_hash(user["password"])
+        
+        register_input = {
             "username": user["username"],
-            "password": user["password"],
+            "password": password_hash,
             "role": user["role"]
         }
         sql = """
@@ -25,7 +28,19 @@ class UserRepository:
             )
         """
         
-        self._db.session.execute(text(sql), user_fields)
+        self._db.session.execute(text(sql), register_input)
         self._db.session.commit()
+        
+    def login(self, user):
+        login_input = {
+            "username": user["username"],
+        }
+        sql = """
+            SELECT * 
+            FROM users 
+            WHERE username=:username
+        """
+        
+        return self._db.session.execute(text(sql), login_input).fetchone() 
 
 user_repository = UserRepository()
