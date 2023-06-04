@@ -119,6 +119,34 @@ def get_distillery(id):
             "data": None
         }, 404
 
+@app.route("/api/distillery", methods=["GET"])
+def get_distilleries():
+    """Get all distilleries ordered by name
+
+    ---
+    tags:
+        - distilleries
+    responses:
+        200:
+            description: Distilleries found
+        404:
+            description: Distilleries not found
+    """
+    try:
+        distillery_data = distillery_service.get_distilleries()
+        return {
+                "status": "success",
+                "message": "distilleries found",
+                "data": distillery_data
+            }, 200
+    
+    except Exception:
+        return {
+            "status": "error",
+            "message": "distilleries not found",
+            "data": None
+        }, 404
+
 @app.route("/api/distillery", methods=["POST"])
 @jwt_required()
 def create_distillery():

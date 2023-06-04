@@ -6,6 +6,8 @@ from entities.distillery_entity import NewDistillerySchema
 from repositories.distillery_repository import distillery_repository
 from services.user_service import user_service
 
+from app import app
+
 class DistilleryService:
     def __init__(self, distillery_repository=distillery_repository) -> None:
         self._distillery_repository = distillery_repository
@@ -32,11 +34,20 @@ class DistilleryService:
     def get_distillery(self, id: int):
         query_result = self._distillery_repository.get_distillery(id)
         
+        if not query_result: return None
+        
         found_distillery = self._to_json(query_result)
-        
-        if not found_distillery: return None
-        
+                
         return found_distillery
+    
+    def get_distilleries(self):
+        query_result = self._distillery_repository.get_distilleries()
+        
+        if not query_result: return None
+        
+        found_distilleries = map(self._to_json, query_result)
+                
+        return list(found_distilleries)
     
     def create_distillery(self, distillery):
         if not user_service.is_admin(): 

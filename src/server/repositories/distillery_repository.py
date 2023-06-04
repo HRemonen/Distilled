@@ -17,7 +17,16 @@ class DistilleryRepository:
             WHERE id=:id
         """
         
-        return self._db.session.execute(text(sql), distillery_input).fetchone() 
+        return self._db.session.execute(text(sql), distillery_input).fetchone()
+    
+    def get_distilleries(self):
+        sql = """
+            SELECT *
+            FROM distilleries
+            ORDER BY distilleries.name ASC
+        """
+        
+        return self._db.session.execute(text(sql)).fetchall()
         
     def create_distillery(self, distillery) -> Row:
         coordinates = distillery["location"]
