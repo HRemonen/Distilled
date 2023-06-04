@@ -1,6 +1,9 @@
 from flask import request
 from marshmallow import ValidationError
+
 from werkzeug.exceptions import Unauthorized
+
+from flask_jwt_extended import jwt_required
 
 from app import app
 from services.user_service import user_service
@@ -117,6 +120,7 @@ def get_distillery(id):
         }, 404
 
 @app.route("/api/distillery", methods=["POST"])
+@jwt_required()
 def create_distillery():
     """Create a new distillery
 
@@ -126,6 +130,8 @@ def create_distillery():
     responses:
         201:
             description: A distillery is created successfully
+        401:
+            description: Unauthorized action, only admins can create new distilleries
         404:
             description: Something went wrong creating new distillery
         422:
@@ -140,6 +146,13 @@ def create_distillery():
                 "message": "distillery created",
                 "data": distillery
             }, 201
+    
+    except Unauthorized:
+        return {
+            "status": "error",
+            "message": "unauthorized action",
+            "data": None
+        }, 401
         
     except ValidationError as err:
         return {
