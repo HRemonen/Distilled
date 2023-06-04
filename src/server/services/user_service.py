@@ -3,6 +3,8 @@ from flask import jsonify
 from werkzeug.security import check_password_hash
 from werkzeug.exceptions import Unauthorized
 
+from flask_jwt_extended import create_access_token
+
 from entities.user_entity import NewUserSchema
 from repositories.user_repository import user_repository
 
@@ -30,7 +32,13 @@ class UserService:
         
         if not check_password_hash(found_user["password"], user["password"]):
             raise Unauthorized("Invalid credentials")
-        return found_user
+        
+        access_token = create_access_token(identity=found_user["username"])
+
+        return {
+            "user": found_user,
+            "token": access_token
+        }
 
             
 user_service = UserService()
