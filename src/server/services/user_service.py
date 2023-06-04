@@ -8,7 +8,6 @@ class UserService:
         self._user_repository = user_repository
     
     def register(self, user):
-        app.logger.info(user)
         new_user = NewUserSchema().load(user)
         self._user_repository.register(user)
         

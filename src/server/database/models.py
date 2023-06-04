@@ -6,9 +6,9 @@ DROP_TABLES = """
 CREATE_USERS = """
     CREATE TABLE IF NOT EXISTS Users (
         id SERIAL PRIMARY KEY,
-        username TEXT NOT NULL UNIQUE CHECK(username IS NOT NULL AND length(username) > 7),
+        username TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
-        admin BOOLEAN default false,
+        role VARCHAR(8) DEFAULT 'user',
         created TIMESTAMP DEFAULT CURRENT_TIMESTAMP(0)
     )
 """
