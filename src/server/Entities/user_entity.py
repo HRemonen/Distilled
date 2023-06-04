@@ -1,5 +1,3 @@
-from datetime import date
-
 from marshmallow import Schema, fields, validates_schema, validate, ValidationError
 
 class NewUserSchema(Schema):

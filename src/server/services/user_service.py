@@ -1,5 +1,3 @@
-from flask import jsonify
-
 from werkzeug.security import check_password_hash
 from werkzeug.exceptions import Unauthorized
 
