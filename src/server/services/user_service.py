@@ -2,15 +2,21 @@ from werkzeug.security import check_password_hash
 from werkzeug.exceptions import Unauthorized
 
 from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
 
 from entities.user_entity import NewUserSchema
 from repositories.user_repository import user_repository
 
-from app import app
-
 class UserService:
     def __init__(self, user_repository=user_repository):
         self._user_repository = user_repository
+        
+    def is_admin(self):
+        username = get_jwt_identity()
+        
+        user_role = self._user_repository.get_user_role(username)
+        
+        return user_role[0] == "admin"
     
     def register(self, user):
         new_user = NewUserSchema().load(user)
