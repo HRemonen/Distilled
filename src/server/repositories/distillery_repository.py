@@ -2,7 +2,6 @@ from sqlalchemy.engine.result import Row
 from sqlalchemy.sql import text
 
 from db import db
-from app import app
 
 class DistilleryRepository:
     def __init__(self, db=db):
