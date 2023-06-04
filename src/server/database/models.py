@@ -17,7 +17,7 @@ CREATE_DISTILLERIES="""
     CREATE TABLE IF NOT EXISTS Distilleries (
         id SERIAL PRIMARY KEY,
         name VARCHAR(50) NOT NULL,
-        location GEOMETRY NOT NULL,
+        location POINT NOT NULL,
         country VARCHAR(50) NOT NULL,
         year_established INT,
         website VARCHAR(100),
@@ -57,7 +57,7 @@ CREATE_COMMENTS="""
         whiskey_id INT NOT NULL,
         comment TEXT NOT NULL,
         FOREIGN KEY (user_id) REFERENCES Users(id),
-        FOREIGN KEY (whiskey_id) REFERENCES Whiskeys(id)
+        FOREIGN KEY (whiskey_id) REFERENCES Whiskeys(id),
         created TIMESTAMP DEFAULT CURRENT_TIMESTAMP(0)
     )
 """

@@ -12,5 +12,9 @@ db = SQLAlchemy(app)
 
 with app.app_context():
     db.session.execute(text(models.CREATE_USERS))
+    db.session.execute(text(models.CREATE_DISTILLERIES))
+    db.session.execute(text(models.CREATE_WHISKEYS))
+    db.session.execute(text(models.CREATE_RATINGS))
+    db.session.execute(text(models.CREATE_COMMENTS))
     db.session.commit()
     app.logger.info("Seeded the database")
