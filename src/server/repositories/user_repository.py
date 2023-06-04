@@ -2,6 +2,7 @@ from sqlalchemy.sql import text
 
 from db import db
 from app import app
+
 from database import models
 
 class UserRepository:
@@ -10,15 +11,28 @@ class UserRepository:
         with app.app_context():
             self._db.session.execute(text(models.CREATE_USERS))
             self._db.session.commit()
+            app.logger.info("Init db")
 
-    def login(self, username):
-        try:
-            sql = """SELECT id, username, password, role
-                    FROM users
-                    WHERE username=:username"""
-            return self._db.session.execute(sql,
-                                {"username":username}).fetchone()
-        except:
-            return False
+    def register(self, user):
+        user_fields = {
+            "username": user["username"],
+            "password": user["password"],
+            "role": user["role"]
+        }
+        sql = """
+            INSERT INTO users (
+                username,
+                password,
+                role
+            )
+            VALUES (
+                :username,
+                :password,
+                :role
+            )
+        """
+        
+        self._db.session.execute(text(sql), user_fields)
+        self._db.session.commit()
 
 user_repository = UserRepository()

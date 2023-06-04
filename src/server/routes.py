@@ -39,7 +39,8 @@ def register_user():
             "message": "user validation failed",
             "data": err.messages
         }, 422
-    except:
+    except Exception as err:
+        app.logger.error(err)
         return {
             "status": "error",
             "message": "user creation failed",
