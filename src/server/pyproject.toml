@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "tsoha"
+name = "distillery"
 version = "0.1.0"
 description = ""
 authors = ["Henri Remonen <henri@remonen.fi>"]

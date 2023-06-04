@@ -1,17 +1,9 @@
-
+# Distillery
 
 ## Development
 Replace [the template env file](server/env.template) with a .env file with your setup.
 
 Launch the app in development mode by running `docker-compose up --build` in the root folder.
-
-### Init database tables
-
-After launching the application in development mode initialize the Postgres database with
-
-``` bash
-docker exec tsoha-api poetry run python3 database/init_db.py
-```
 
 ### View database in development
 
