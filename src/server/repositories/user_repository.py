@@ -2,6 +2,8 @@ from sqlalchemy.engine.result import Row
 from sqlalchemy.sql import text
 from werkzeug.security import generate_password_hash
 
+from uuid import uuid4
+
 from db import db
 
 class UserRepository:
@@ -23,17 +25,20 @@ class UserRepository:
         password_hash = generate_password_hash(user["password"])
         
         register_input = {
+            "id": uuid4(),
             "username": user["username"],
             "password": password_hash,
             "role": user["role"]
         }
         sql = """
             INSERT INTO users (
+                id,
                 username,
                 password,
                 role
             )
             VALUES (
+                :id,
                 :username,
                 :password,
                 :role
