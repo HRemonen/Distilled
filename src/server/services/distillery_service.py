@@ -3,10 +3,9 @@ from ast import literal_eval
 from werkzeug.exceptions import Unauthorized
 
 from entities.distillery_entity import NewDistillerySchema
+from entities.distillery_entity import UpdatedDistillerySchema
 from repositories.distillery_repository import distillery_repository
 from services.user_service import user_service
-
-from app import app
 
 class DistilleryService:
     def __init__(self, distillery_repository=distillery_repository) -> None:
@@ -57,7 +56,7 @@ class DistilleryService:
                 
         return list(found_distilleries)
     
-    def create_distillery(self, distillery):
+    def create_distillery(self, distillery: dict):
         if not user_service.is_admin(): 
             raise Unauthorized("You don't have permission to create new distilleries")
         
@@ -68,5 +67,17 @@ class DistilleryService:
         new_distillery = self._to_json(query_result)
         
         return new_distillery
+    
+    def update_distillery_website(self, id: str, updates: dict):
+        if not user_service.is_admin():
+            raise Unauthorized("You don't have permission to create new distilleries")
+        
+        UpdatedDistillerySchema().load(updates)
+        
+        query_result = self._distillery_repository.update_distillery_website(id, updates)
+        
+        updated_distillery = self._to_json(query_result)
+        
+        return updated_distillery
     
 distillery_service = DistilleryService()

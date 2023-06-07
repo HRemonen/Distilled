@@ -37,7 +37,7 @@ class DistilleryRepository:
             ) AS r ON d.id = r.entity_id
             LEFT JOIN 
                 comments AS c ON d.id = c.entity_id
-            WHERE d.id=:id
+            WHERE d.id = :id
             GROUP BY
                 d.id, r.avg_rating
         """
@@ -53,13 +53,13 @@ class DistilleryRepository:
         
         return self._db.session.execute(text(sql)).fetchall()
         
-    def create_distillery(self, distillery) -> Row:
+    def create_distillery(self, distillery: dict) -> Row:
         coordinates = distillery["location"]
         
         entity = self._entity_repository.create_entity()
         
         distillery_input = {
-            "id": entity[0],
+            "id": entity.id,
             "name": distillery["name"],
             "location": f"({coordinates[0]}, {coordinates[1]})",
             "country": distillery["country"],
@@ -90,5 +90,24 @@ class DistilleryRepository:
         self._db.session.commit()
         
         return result.fetchone()
+    
+    def update_distillery_website(self, id: str, updates: dict) -> Row:
+        update_input = {
+            "id": id,
+            "website": updates["website"]
+        }
+        sql = """
+            UPDATE distilleries
+            SET website = :website
+            WHERE id = :id
+            RETURNING *
+        """
+        
+        result = self._db.session.execute(text(sql), update_input)
+        self._db.session.commit()
+        
+        return result.fetchone()
+        
+        
         
 distillery_repository = DistilleryRepository()

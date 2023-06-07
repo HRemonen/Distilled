@@ -8,3 +8,6 @@ class NewDistillerySchema(Schema):
     country = fields.String(required=True)
     year_established = fields.Integer(required=False, validate=validate.Range(min=0, max=datetime.datetime.now().year))
     website = fields.Url(required=False)
+    
+class UpdatedDistillerySchema(Schema):
+    website = fields.Url(required=True)

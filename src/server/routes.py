@@ -92,7 +92,7 @@ def login_user():
         }, 404
 
 @app.route("/api/distillery/<string:id>", methods=["GET"])
-def get_distillery(id):
+def get_distillery(id: str):
     """Get distillery by id
 
     ---
@@ -190,9 +190,59 @@ def create_distillery():
         }, 422
         
     except Exception as err:
-        app.logger.info(err)
         return {
             "status": "error",
             "message": "distillery creation failed",
+            "data": None
+        }, 404
+        
+@app.route("/api/distillery/<string:id>", methods=["PUT"])
+@jwt_required()
+def update_distillery_website(id: str):
+    """Update a distillery website
+
+    ---
+    tags:
+        - distilleries
+    responses:
+        200:
+            description: A distillery is updated successfully
+        401:
+            description: Unauthorized action, only admins can update distilleries
+        404:
+            description: Something went wrong updating distillery
+        422:
+            description: Input validation failed
+    """
+    
+    body = request.json
+    
+    app.logger.info(body)
+    try:
+        distillery = distillery_service.update_distillery_website(id, body)
+        return {
+                "status": "success",
+                "message": "distillery updated",
+                "data": distillery
+            }, 200
+    
+    except Unauthorized:
+        return {
+            "status": "error",
+            "message": "unauthorized action",
+            "data": None
+        }, 401
+        
+    except ValidationError as err:
+        return {
+            "status": "error",
+            "message": "validation failed",
+            "data": err.messages
+        }, 422
+        
+    except Exception as err:
+        return {
+            "status": "error",
+            "message": "distillery update failed",
             "data": None
         }, 404

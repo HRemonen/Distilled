@@ -16,7 +16,7 @@ class UserRepository:
         }
         
         sql = """
-            SELECT role FROM users WHERE username=:username
+            SELECT role FROM users WHERE username = :username
         """
         
         return self._db.session.execute(text(sql), role_input).fetchone() 
@@ -55,7 +55,7 @@ class UserRepository:
         sql = """
             SELECT * 
             FROM users 
-            WHERE username=:username
+            WHERE username = :username
         """
         
         return self._db.session.execute(text(sql), login_input).fetchone() 
