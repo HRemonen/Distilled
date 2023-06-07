@@ -98,7 +98,9 @@ class DistilleryRepository:
         }
         sql = """
             UPDATE distilleries
-            SET website = :website
+            SET 
+                website = :website,
+                updated_at = CURRENT_TIMESTAMP(0)
             WHERE id = :id
             RETURNING *
         """
