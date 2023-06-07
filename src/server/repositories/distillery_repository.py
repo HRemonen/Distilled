@@ -15,9 +15,31 @@ class DistilleryRepository:
             "id": id,
         }
         sql = """
-            SELECT *
-            FROM distilleries
-            WHERE id=:id
+            SELECT 
+                d.id,
+                d.name,
+                d.location,
+                d.country,
+                d.year_established,
+                d.website,
+                r.avg_rating,
+                array_agg(c.comment) AS comments
+            FROM 
+                distilleries AS d
+            LEFT JOIN (
+                SELECT
+                    entity_id,
+                    AVG(rating) AS avg_rating
+                FROM
+                    ratings
+                GROUP BY
+                    entity_id
+            ) AS r ON d.id = r.entity_id
+            LEFT JOIN 
+                comments AS c ON d.id = c.entity_id
+            WHERE d.id=:id
+            GROUP BY
+                d.id, r.avg_rating
         """
         
         return self._db.session.execute(text(sql), distillery_input).fetchone()
@@ -26,7 +48,7 @@ class DistilleryRepository:
         sql = """
             SELECT *
             FROM distilleries
-            ORDER BY distilleries.name ASC
+            ORDER BY name ASC
         """
         
         return self._db.session.execute(text(sql)).fetchall()

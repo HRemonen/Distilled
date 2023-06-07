@@ -36,6 +36,8 @@ class DistilleryService:
         
         if not query_result: return None
         
+        app.logger.info(query_result)
+        
         found_distillery = self._to_json(query_result)
                 
         return found_distillery
