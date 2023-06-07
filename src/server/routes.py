@@ -217,7 +217,6 @@ def update_distillery_website(id: str):
     
     body = request.json
     
-    app.logger.info(body)
     try:
         distillery = distillery_service.update_distillery_website(id, body)
         return {
@@ -244,5 +243,44 @@ def update_distillery_website(id: str):
         return {
             "status": "error",
             "message": "distillery update failed",
+            "data": None
+        }, 404
+        
+@app.route("/api/distillery/<string:id>", methods=["DELETE"])
+@jwt_required()
+def delete_distillery(id: str):
+    """Delete a distillery, works as a soft delete
+
+    ---
+    tags:
+        - distilleries
+    responses:
+        200:
+            description: A distillery is deleted successfully
+        401:
+            description: Unauthorized action, only admins can delete distilleries
+        404:
+            description: Something went wrong deleting distillery
+    """
+    
+    try:
+        distillery = distillery_service.delete_distillery(id)
+        return {
+                "status": "success",
+                "message": "distillery deleted",
+                "data": distillery
+            }, 201
+    
+    except Unauthorized:
+        return {
+            "status": "error",
+            "message": "unauthorized action",
+            "data": None
+        }, 401
+        
+    except Exception as err:
+        return {
+            "status": "error",
+            "message": "distillery delete failed",
             "data": None
         }, 404

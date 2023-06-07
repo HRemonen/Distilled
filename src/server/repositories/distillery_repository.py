@@ -107,7 +107,22 @@ class DistilleryRepository:
         self._db.session.commit()
         
         return result.fetchone()
+    
+    def delete_distillery(self, id: str) -> None:  
+        delete_input = {
+            "id": id,
+        }
+        sql = """
+            UPDATE distilleries
+            SET deleted_at = CURRENT_TIMESTAMP(0)
+            WHERE id = :id
+            RETURNING *
+        """
         
+        result = self._db.session.execute(text(sql), delete_input)
+        self._db.session.commit()
+        
+        return result.fetchone()
         
         
 distillery_repository = DistilleryRepository()

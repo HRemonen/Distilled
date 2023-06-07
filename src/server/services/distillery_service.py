@@ -80,4 +80,14 @@ class DistilleryService:
         
         return updated_distillery
     
+    def delete_distillery(self, id: str):
+        if not user_service.is_admin():
+            raise Unauthorized("You don't have permission to create new distilleries")
+        
+        query_result = self._distillery_repository.delete_distillery(id)
+        
+        deleted_distillery = self._to_json(query_result)
+        
+        return deleted_distillery
+    
 distillery_service = DistilleryService()
