@@ -37,7 +37,7 @@ class DistilleryRepository:
             ) AS r ON d.id = r.entity_id
             LEFT JOIN 
                 comments AS c ON d.id = c.entity_id
-            WHERE d.id = :id
+            WHERE d.id = :id AND d.deleted_at IS NULL
             GROUP BY
                 d.id, r.avg_rating
         """
@@ -48,6 +48,7 @@ class DistilleryRepository:
         sql = """
             SELECT *
             FROM distilleries
+            WHERE deleted_at IS NULL
             ORDER BY name ASC
         """
         
