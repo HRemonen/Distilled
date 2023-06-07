@@ -102,7 +102,7 @@ class DistilleryRepository:
             SET 
                 website = :website,
                 updated_at = CURRENT_TIMESTAMP(0)
-            WHERE id = :id
+            WHERE id = :id AND deleted_at IS NULL
             RETURNING *
         """
         
@@ -118,7 +118,7 @@ class DistilleryRepository:
         sql = """
             UPDATE distilleries
             SET deleted_at = CURRENT_TIMESTAMP(0)
-            WHERE id = :id
+            WHERE id = :id AND deleted_at IS NULL
             RETURNING *
         """
         

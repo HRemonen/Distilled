@@ -13,6 +13,7 @@ from services.distillery_service import distillery_service
 def index():
     return "Hello world"
 
+# ============= USER RELATED ENDPOINTS ============= #
 @app.route("/api/user/register", methods=["POST"])
 def register_user():
     """Register a new user
@@ -90,6 +91,8 @@ def login_user():
             "message": "something went wrong logging in, check inputs",
             "data": None
         }, 404
+
+# ============= DISTILLERY RELATED ENDPOINTS ============= #
 
 @app.route("/api/distillery/<string:id>", methods=["GET"])
 def get_distillery(id: str):
@@ -284,3 +287,5 @@ def delete_distillery(id: str):
             "message": "distillery delete failed",
             "data": None
         }, 404
+        
+# ============= WHISKEY RELATED ENDPOINTS ============= #
