@@ -22,21 +22,27 @@ class DistilleryService:
         Returns:
             json: JSON result from the SQLAlchemy Row
         """
-        return {
-            "id": query_result[0],
-            "name": query_result[1],
-            "location": literal_eval(query_result[2]),
-            "country": query_result[3],
-            "year_established": query_result[4],
-            "website": query_result[5]
+        json_object = {
+            "id": query_result.id,
+            "name": query_result.name,
+            "location": literal_eval(query_result.location),
+            "country": query_result.country,
+            "year_established": query_result.year_established,
+            "website": query_result.website
         }
+
+        if hasattr(query_result, 'avg_rating'):
+            json_object["rating"] = query_result.avg_rating
+        
+        if hasattr(query_result, 'comments'):
+            json_object["comments"] = query_result.comments
+
+        return json_object
     
     def get_distillery(self, id: str):
         query_result = self._distillery_repository.get_distillery(id)
         
         if not query_result: return None
-        
-        app.logger.info(query_result)
         
         found_distillery = self._to_json(query_result)
                 
