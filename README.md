@@ -26,7 +26,7 @@ Launch the app in development mode by running `docker-compose up --build` in the
 You can view database tables and interact with the database with
 
 ```bash
-docker exec -it tsoha-db psql tsoha-db -U postgres -W
+docker exec -it distillery-db psql distillery-db -U postgres -W
 ```
 
 If you have changes the docker-compose.yml and your database strings in .env file the command will be in form
