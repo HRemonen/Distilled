@@ -91,7 +91,7 @@ def login_user():
             "data": None
         }, 404
 
-@app.route("/api/distillery/<int:id>", methods=["GET"])
+@app.route("/api/distillery/<string:id>", methods=["GET"])
 def get_distillery(id):
     """Get distillery by id
 

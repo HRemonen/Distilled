@@ -31,7 +31,7 @@ class DistilleryService:
             "website": query_result[5]
         }
     
-    def get_distillery(self, id: int):
+    def get_distillery(self, id: str):
         query_result = self._distillery_repository.get_distillery(id)
         
         if not query_result: return None

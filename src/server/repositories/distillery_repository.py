@@ -1,13 +1,16 @@
 from sqlalchemy.engine.result import Row
 from sqlalchemy.sql import text
 
+from app import app
 from db import db
+from repositories.entity_repository import entity_repository
 
 class DistilleryRepository:
     def __init__(self, db=db):
         self._db = db
+        self._entity_repository = entity_repository
         
-    def get_distillery(self, id: int) -> Row:
+    def get_distillery(self, id: str) -> Row:
         distillery_input = {
             "id": id,
         }
@@ -31,15 +34,19 @@ class DistilleryRepository:
     def create_distillery(self, distillery) -> Row:
         coordinates = distillery["location"]
         
+        entity = self._entity_repository.create_entity()
+        
         distillery_input = {
+            "id": entity[0],
             "name": distillery["name"],
             "location": f"({coordinates[0]}, {coordinates[1]})",
             "country": distillery["country"],
-            "year_established": None if not distillery["year_established"] else distillery["year_established"],
-            "website": None if not distillery["website"] else distillery["website"],
+            "year_established": '' if not distillery["year_established"] else distillery["year_established"],
+            "website": '' if not distillery["website"] else distillery["website"],
         }
         sql = """
             INSERT INTO distilleries (
+                id,
                 name,
                 location,
                 country,
@@ -47,6 +54,7 @@ class DistilleryRepository:
                 website
             )
             VALUES (
+                :id,
                 :name,
                 :location,
                 :country,
