@@ -64,8 +64,8 @@ class DistilleryRepository:
             "name": distillery["name"],
             "location": f"({coordinates[0]}, {coordinates[1]})",
             "country": distillery["country"],
-            "year_established": '' if not distillery["year_established"] else distillery["year_established"],
-            "website": '' if not distillery["website"] else distillery["website"],
+            "year_established": None if not distillery["year_established"] else distillery["year_established"],
+            "website": None if not distillery["website"] else distillery["website"],
         }
         sql = """
             INSERT INTO distilleries (
