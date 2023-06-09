@@ -1,3 +1,4 @@
+from sqlalchemy.engine.result import Row
 from ast import literal_eval
 
 from werkzeug.exceptions import Unauthorized
@@ -11,7 +12,7 @@ class DistilleryService:
     def __init__(self, distillery_repository=distillery_repository) -> None:
         self._distillery_repository = distillery_repository
         
-    def _to_json(self, query_result):
+    def _to_json(self, query_result: Row) -> dict:
         """Generate JSON format entity for the query result
         that is type of Row from the database
 
