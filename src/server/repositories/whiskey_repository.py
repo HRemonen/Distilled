@@ -1,7 +1,6 @@
 from sqlalchemy.engine.result import Row
 from sqlalchemy.sql import text
 
-from app import app
 from db import db
 from repositories.entity_repository import entity_repository
 
@@ -127,4 +126,4 @@ class WhiskeyRepository:
         
         return result.fetchone()
 
-whiskey_distillery = WhiskeyRepository
+whiskey_repository = WhiskeyRepository()
