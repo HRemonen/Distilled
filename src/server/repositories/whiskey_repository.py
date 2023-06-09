@@ -10,7 +10,7 @@ class WhiskeyRepository:
         self._db = db
         self._entity_repository = entity_repository
         
-    def get_whiskey(self, id: str):
+    def get_whiskey(self, id: str) -> Row:
         whiskey_input = {
             "id": id
         }
@@ -55,7 +55,7 @@ class WhiskeyRepository:
         
         return self._db.session.execute(text(sql)).fetchall()
     
-    def create_whiskey(self, whiskey: dict):
+    def create_whiskey(self, whiskey: dict) -> Row:
         entity = self._entity_repository.create_entity()
         
         whiskey_input = {
@@ -87,6 +87,41 @@ class WhiskeyRepository:
         """
         
         result = self._db.session.execute(text(sql), whiskey_input)
+        self._db.session.commit()
+        
+        return result.fetchone()
+    
+    def update_whiskey_description(self, id: str, updates: dict) -> Row:
+        update_input = {
+            "id": id,
+            "description": updates["description"]    
+        }
+        sql = """
+            UPDATE whiskeys
+            SET
+                description = :description,
+                updated_at = CURRENT_TIMESTAMP(0)
+            WHERE id = :id AND deleted_at IS NULL
+            RETURNING *
+        """
+        
+        result = self._db.session.execute(text(sql), update_input)
+        self._db.session.commit()
+        
+        return result.fetchone()
+    
+    def delete_whiskey(self, id: str) -> Row:
+        delete_input = {
+            "id": id,
+        }
+        sql = """
+            UPDATE whiskeys
+            SET deleted_at = CURRENT_TIMESTAMP(0)
+            WHERE id = :id AND deleted_at IS NULL
+            RETURNING *
+        """
+        
+        result = self._db.session.execute(text(sql), delete_input)
         self._db.session.commit()
         
         return result.fetchone()

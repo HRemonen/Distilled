@@ -111,7 +111,7 @@ class DistilleryRepository:
         
         return result.fetchone()
     
-    def delete_distillery(self, id: str) -> None:  
+    def delete_distillery(self, id: str) -> Row:  
         delete_input = {
             "id": id,
         }
