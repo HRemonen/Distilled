@@ -18,11 +18,12 @@ class WhiskeyRepository:
             SELECT 
                 w.id,
                 w.name,
+                w.distillery_id,
                 w.type,
                 w.age,
                 w.description,
-                d.name,
-                d.country
+                d.name AS distillery_name,
+                d.country AS distillery_country
             FROM whiskeys AS w
             LEFT JOIN
                 distilleries as d ON w.distillery_id = d.id
