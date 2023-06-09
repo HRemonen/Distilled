@@ -71,7 +71,7 @@ class DistilleryService:
     
     def update_distillery_website(self, id: str, updates: dict):
         if not user_service.is_admin():
-            raise Unauthorized("You don't have permission to create new distilleries")
+            raise Unauthorized("You don't have permission to update distilleries")
         
         UpdatedDistillerySchema().load(updates)
         
@@ -83,7 +83,7 @@ class DistilleryService:
     
     def delete_distillery(self, id: str):
         if not user_service.is_admin():
-            raise Unauthorized("You don't have permission to create new distilleries")
+            raise Unauthorized("You don't have permission to delete distilleries")
         
         query_result = self._distillery_repository.delete_distillery(id)
         
