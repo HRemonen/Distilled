@@ -15,6 +15,8 @@ The Distillery Application is built using the following technologies:
 - **Database Enchantment**: PostgreSQL
 - **Mapping Mayhem**: Mapbox API
 - **Authentication Sorcery**: JWT
+- **Validation Anarchy**: Zod, Marshmallow
+- **Environment**: Docker, docker compose
 
 ## Development
 Replace [the template env file](server/env.template) with a .env file with your setup.
