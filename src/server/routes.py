@@ -268,11 +268,11 @@ def delete_distillery(id: str):
     """
     
     try:
-        distillery = distillery_service.delete_distillery(id)
+        distillery_service.delete_distillery(id)
         return {
                 "status": "success",
                 "message": "distillery deleted",
-                "data": distillery
+                "data": None
             }, 201
     
     except Unauthorized:
@@ -475,7 +475,7 @@ def update_whiskey_description(id: str):
             "data": None
         }, 404
         
-@app.route("/api/distillery/<string:id>", methods=["DELETE"])
+@app.route("/api/whiskey/<string:id>", methods=["DELETE"])
 @jwt_required()
 def delete_whiskey(id: str):
     """Delete a whiskey, works as a soft delete
@@ -493,11 +493,11 @@ def delete_whiskey(id: str):
     """
     
     try:
-        whiskey_data = whiskey_service.delete_whiskey(id)
+        whiskey_service.delete_whiskey(id)
         return {
                 "status": "success",
                 "message": "whiskey deleted",
-                "data": whiskey_data
+                "data": None
             }, 201
     
     except Unauthorized:
@@ -510,7 +510,7 @@ def delete_whiskey(id: str):
     except Exception as err:
         return {
             "status": "error",
-            "message": "whiskey delete failed",
+            "message": "whiskey deletion failed",
             "data": None
         }, 404
         

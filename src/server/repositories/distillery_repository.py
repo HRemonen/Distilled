@@ -23,7 +23,7 @@ class DistilleryRepository:
                 d.year_established,
                 d.website,
                 r.avg_rating,
-                array_agg(c.comment) AS comments
+                ARRAY_AGG(c.comment) AS comments
             FROM 
                 distilleries AS d
             LEFT JOIN (
