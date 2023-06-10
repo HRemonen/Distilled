@@ -539,7 +539,7 @@ def delete_whiskey(id: str):
 @app.route("/api/entity/comment/<string:id>", methods=["POST"])
 @jwt_required()
 def comment_entity(id: str):
-    """Comment an whiskey or distillery
+    """Comment a whiskey or distillery
 
     ---
     tags:
@@ -562,11 +562,11 @@ def comment_entity(id: str):
         if not user_id:
             raise Unauthorized("Unauthorized action, only authenticated users can comment")
         
-        entity_service.comment_entity(id, user_id, body)
+        new_comment = entity_service.comment_entity(id, user_id, body)
         return {
                 "status": "success",
                 "message": "commented entity",
-                "data": None
+                "data": new_comment
             }, 200
     
     except Unauthorized:
@@ -587,6 +587,60 @@ def comment_entity(id: str):
         return {
             "status": "error",
             "message": "commenting failed",
+            "data": None
+        }, 404
+    
+@app.route("/api/entity/rate/<string:id>", methods=["POST"])
+@jwt_required()
+def rate_entity(id: str):
+    """Rate a whiskey or distillery
+
+    ---
+    tags:
+        - entities
+    responses:
+        200:
+            description: An entity was rated successfully
+        401:
+            description: Unauthorized action, only authorized users can give a rating
+        404:
+            description: Something went wrong giving a rating
+        422:
+            description: Input validation failed
+    """
+    
+    body = request.json
+    
+    try:
+        user_id = user_service.get_user_id()
+        if not user_id:
+            raise Unauthorized("Unauthorized action, only authenticated users can give a rating")
+        
+        new_rating = entity_service.rate_entity(id, user_id, body)
+        return {
+                "status": "success",
+                "message": "rated entity",
+                "data": new_rating
+            }, 200
+    
+    except Unauthorized:
+        return {
+            "status": "error",
+            "message": "unauthorized action",
+            "data": None
+        }, 401
+        
+    except ValidationError as err:
+        return {
+            "status": "error",
+            "message": "validation failed",
+            "data": err.messages
+        }, 422
+        
+    except Exception as err:
+        return {
+            "status": "error",
+            "message": "giving a rating failed",
             "data": None
         }, 404
       

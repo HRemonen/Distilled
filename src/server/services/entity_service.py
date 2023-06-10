@@ -44,6 +44,25 @@ class EntityService:
             
         return json_object
     
+    def _rating_to_json(self, query_result: Row) -> dict:
+        """Generate JSON format entity for the query result
+        that is type of Row from the database
+
+        Args:
+            query_result (sqlalchemy.engine.result.Row): SQLAlchemy Row datatype
+
+        Returns:
+            json: JSON result from the SQLAlchemy Row
+        """
+        json_object = {
+            "id": query_result.id,
+            "user_id": query_result.user_id,
+            "entity_id": query_result.entity_id,
+            "rating": query_result.rating,
+        }
+            
+        return json_object
+    
     def create_entity(self):
         id = uuid4()
         
@@ -61,6 +80,15 @@ class EntityService:
         new_comment = self._comment_to_json(query_result)
         
         return new_comment
+    
+    def rate_entity(self, id: str, user_id: str, rating: dict) -> dict:
+        NewRatingSchema().load(rating)
+        
+        query_result = self._entity_repository.rate_entity(id, user_id, rating)
+        
+        new_rating = self._rating_to_json(query_result)
+        
+        return new_rating
         
         
 entity_service = EntityService()

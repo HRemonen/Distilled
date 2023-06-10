@@ -47,5 +47,30 @@ class EntityRepository:
         self._db.session.commit()
         
         return result.fetchone()
+    
+    def rate_entity(self, id: str, user_id: str, rating: dict) -> Row:
+        rating_input = {
+            "user_id": user_id,
+            "entity_id": id,
+            "rating": rating["rating"]
+        }
+        sql = """
+         INSERT INTO ratings(
+             user_id,
+             entity_id,
+             rating
+         )
+        VALUES (
+            :user_id,
+            :entity_id,
+            :rating
+        )
+        RETURNING *
+        """
+        
+        result = self._db.session.execute(text(sql), rating_input)
+        self._db.session.commit()
+        
+        return result.fetchone()
         
 entity_repository = EntityRepository()
