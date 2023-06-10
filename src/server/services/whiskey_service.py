@@ -7,8 +7,6 @@ from validators.whiskey_validators import UpdatedWhiskeySchema
 from repositories.whiskey_repository import whiskey_repository
 from services.user_service import user_service
 
-from app import app
-
 class WhiskeyService:
     def __init__(self, whiskey_repository=whiskey_repository) -> None:
         self._whiskey_repository = whiskey_repository
@@ -40,7 +38,7 @@ class WhiskeyService:
             
         return json_object
     
-    def get_whiskey(self, id: str) -> Row:
+    def get_whiskey(self, id: str) -> dict:
         query_result = self._whiskey_repository.get_whiskey(id)
         
         if not query_result:
@@ -50,7 +48,7 @@ class WhiskeyService:
         
         return found_whiskey
     
-    def get_whiskeys_by_distillery(self, distillery_id: str):        
+    def get_whiskeys_by_distillery(self, distillery_id: str) -> list(dict):        
         query_result = self._whiskey_repository.get_whiskeys_by_distillery(distillery_id)
         
         if not query_result:
@@ -60,7 +58,7 @@ class WhiskeyService:
         
         return list(found_whiskeys)
     
-    def get_whiskeys(self):
+    def get_whiskeys(self) -> list(dict):
         query_result = self._whiskey_repository.get_whiskeys()
         
         if not query_result:
@@ -70,7 +68,7 @@ class WhiskeyService:
         
         return list(found_whiskeys)
     
-    def create_whiskey(self, whiskey: dict) -> Row:
+    def create_whiskey(self, whiskey: dict) -> dict:
         if not user_service.is_admin(): 
             raise Unauthorized("You don't have permission to create new whiskeys")
         
@@ -82,7 +80,7 @@ class WhiskeyService:
         
         return new_whiskey
     
-    def update_whiskey_description(self, id: str, updates: dict) -> Row:
+    def update_whiskey_description(self, id: str, updates: dict) -> dict:
         if not user_service.is_admin():
             raise Unauthorized("You don't have permission to update whiskeys")
         
@@ -94,7 +92,7 @@ class WhiskeyService:
         
         return updated_whiskey
     
-    def delete_whiskey(self, id: str) -> Row:
+    def delete_whiskey(self, id: str) -> dict:
         if not user_service.is_admin():
             raise Unauthorized("You don't have permission to delete whiskeys")
         
