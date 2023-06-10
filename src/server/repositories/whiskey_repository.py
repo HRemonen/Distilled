@@ -1,7 +1,6 @@
 from sqlalchemy.engine.result import Row
 from sqlalchemy.sql import text
 
-from app import app
 from db import db
 from repositories.entity_repository import entity_repository
 
@@ -32,7 +31,6 @@ class WhiskeyRepository:
         """
         result = self._db.session.execute(text(sql), whiskey_input).fetchone()
         
-        app.logger.info(result)
         return result
     
     def get_whiskeys_by_distillery(self, distillery_id: str):      

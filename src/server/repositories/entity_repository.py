@@ -22,5 +22,27 @@ class EntityRepository:
         self._db.session.commit()
         
         return result.fetchone()
+    
+    def comment_entity(self, id: str, user_id: str, comment: dict) -> Row:
+        comment_input = {
+            "user_id": user_id,
+            "entity_id": id,
+            "comment": comment["comment"]
+        }
+        sql = """
+         INSERT INTO 
+            entities
+        VALUES (
+            :user_id,
+            :entity_id,
+            :comment
+        )
+        RETURNING *
+        """
+        
+        result = self._db.session.execute(text(sql), comment_input)
+        self._db.session.commit()
+        
+        return result.fetchone()
         
 entity_repository = EntityRepository()
