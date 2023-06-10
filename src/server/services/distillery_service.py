@@ -42,7 +42,8 @@ class DistilleryService:
     def get_distillery(self, id: str):
         query_result = self._distillery_repository.get_distillery(id)
         
-        if not query_result: return None
+        if not query_result:
+            raise Exception("distillery not found")
         
         found_distillery = self._to_json(query_result)
                 
@@ -51,7 +52,8 @@ class DistilleryService:
     def get_distilleries(self):
         query_result = self._distillery_repository.get_distilleries()
         
-        if not query_result: return None
+        if not query_result:
+            raise Exception("distilleries not found")
         
         found_distilleries = map(self._to_json, query_result)
                 

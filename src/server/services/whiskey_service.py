@@ -43,7 +43,8 @@ class WhiskeyService:
     def get_whiskey(self, id: str) -> Row:
         query_result = self._whiskey_repository.get_whiskey(id)
         
-        if not query_result: return None
+        if not query_result:
+            raise Exception("whiskey not found")
         
         found_whiskey = self._to_json(query_result)
         
@@ -52,7 +53,8 @@ class WhiskeyService:
     def get_whiskeys_by_distillery(self, distillery_id: str):        
         query_result = self._whiskey_repository.get_whiskeys_by_distillery(distillery_id)
         
-        if not query_result: return None
+        if not query_result:
+            raise Exception("whiskeys not found")
         
         found_whiskeys = map(self._to_json, query_result)
         
@@ -61,7 +63,8 @@ class WhiskeyService:
     def get_whiskeys(self):
         query_result = self._whiskey_repository.get_whiskeys()
         
-        if not query_result: return None
+        if not query_result:
+            raise Exception("whiskeys not found")
         
         found_whiskeys = map(self._to_json, query_result)
         

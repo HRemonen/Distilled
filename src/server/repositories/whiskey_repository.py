@@ -1,6 +1,7 @@
 from sqlalchemy.engine.result import Row
 from sqlalchemy.sql import text
 
+from app import app
 from db import db
 from repositories.entity_repository import entity_repository
 
@@ -29,8 +30,10 @@ class WhiskeyRepository:
             WHERE w.id = :id AND w.deleted_at IS NULL
             GROUP BY w.id, d.name, d.country
         """
+        result = self._db.session.execute(text(sql), whiskey_input).fetchone()
         
-        return self._db.session.execute(text(sql), whiskey_input).fetchone()
+        app.logger.info(result)
+        return result
     
     def get_whiskeys_by_distillery(self, distillery_id: str):      
         whiskey_input = {
