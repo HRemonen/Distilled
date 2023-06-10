@@ -26,29 +26,43 @@ class WhiskeyRepository:
             FROM whiskeys AS w
             LEFT JOIN
                 distilleries as d ON w.distillery_id = d.id
-            WHERE id = :id AND d.deleted_at IS NULL
-            GROUP BY d.name
+            WHERE w.id = :id AND w.deleted_at IS NULL
+            GROUP BY w.id, d.name, d.country
         """
         
         return self._db.session.execute(text(sql), whiskey_input).fetchone()
     
-    def get_whiskeys_by_country_iso(self, country_iso: str):        
+    def get_whiskeys_by_distillery(self, distillery_id: str):      
         whiskey_input = {
-            "country": country_iso
+            "distillery_id": distillery_id
         }
         sql = """
-            SELECT *
-            FROM whiskeys
-            WHERE country = :country
+            SELECT 
+                w.id,
+                w.name,
+                w.distillery_id,
+                w.type,
+                w.age,
+                w.description
+            FROM whiskeys AS w
+            WHERE w.distillery_id = :distillery_id
             ORDER BY name ASC
         """
         
-        return self._db.session.execute(text(sql), whiskey_input).fetchall()
+        result = self._db.session.execute(text(sql), whiskey_input)
+
+        return result.fetchall()
     
     def get_whiskeys(self):
         sql = """
-            SELECT *
-            FROM whiskeys
+            SELECT 
+                w.id,
+                w.name,
+                w.distillery_id,
+                w.type,
+                w.age,
+                w.description
+            FROM whiskeys AS w
             WHERE deleted_at IS NULL
             ORDER BY name ASC
         """

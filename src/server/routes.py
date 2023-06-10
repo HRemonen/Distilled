@@ -318,33 +318,32 @@ def get_whiskey(id: str):
             "data": None
         }, 404
 
-@app.route("/api/whiskey/country/<string:country>", methods=["GET"])   
-def get_whiskeys_by_country_iso(country: str):
-    """Get whiskey by country
+@app.route("/api/whiskey/distillery/<string:distillery_id>", methods=["GET"])   
+def get_whiskeys_by_distillery(distillery_id: str):
+    """Get whiskey by distillery id
 
     ---
     tags:
         - whiskeys
     responses:
         200:
-            description: Whiskey found
+            description: Whiskeys found
         404:
-            description: Whiskey not found
+            description: Whiskeys not found
     """
     
-    
     try:
-        whiskey_data = whiskey_service.get_whiskeys_by_country_iso(country)
+        whiskey_data = whiskey_service.get_whiskeys_by_distillery(distillery_id)
         return {
                 "status": "success",
-                "message": "whiskey found",
+                "message": "whiskeys found",
                 "data": whiskey_data
             }, 200
     
     except Exception:
         return {
             "status": "error",
-            "message": "whiskey not found",
+            "message": "whiskeys not found",
             "data": None
         }, 404
 

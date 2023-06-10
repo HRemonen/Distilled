@@ -7,6 +7,8 @@ from entities.whiskey_entity import UpdatedWhiskeySchema
 from repositories.whiskey_repository import whiskey_repository
 from services.user_service import user_service
 
+from app import app
+
 class WhiskeyService:
     def __init__(self, whiskey_repository=whiskey_repository) -> None:
         self._whiskey_repository = whiskey_repository
@@ -47,14 +49,14 @@ class WhiskeyService:
         
         return found_whiskey
     
-    def get_whiskeys_by_country_iso(self, country_iso: str):        
-        query_result = self._whiskey_repository.get_whiskeys_by_country_iso(country_iso)
+    def get_whiskeys_by_distillery(self, distillery_id: str):        
+        query_result = self._whiskey_repository.get_whiskeys_by_distillery(distillery_id)
         
         if not query_result: return None
         
-        found_whiskey = self._to_json(query_result)
+        found_whiskeys = map(self._to_json, query_result)
         
-        return found_whiskey
+        return list(found_whiskeys)
     
     def get_whiskeys(self):
         query_result = self._whiskey_repository.get_whiskeys()
