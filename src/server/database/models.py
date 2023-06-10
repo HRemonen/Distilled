@@ -24,7 +24,7 @@ CREATE_ENTITIES = """
 
 CREATE_RATINGS="""
     CREATE TABLE IF NOT EXISTS Ratings (
-        id UUID PRIMARY KEY,
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL,
         entity_id UUID NOT NULL ,
         rating INT NOT NULL CHECK (rating >= 0 AND rating <= 5),
@@ -40,7 +40,7 @@ CREATE_RATINGS="""
 
 CREATE_COMMENTS="""
     CREATE TABLE IF NOT EXISTS Comments (
-        id UUID PRIMARY KEY,
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL,
         entity_id UUID NOT NULL ,
         comment TEXT NOT NULL,
