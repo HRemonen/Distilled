@@ -3,8 +3,8 @@ from ast import literal_eval
 
 from werkzeug.exceptions import Unauthorized
 
-from entities.distillery_entity import NewDistillerySchema
-from entities.distillery_entity import UpdatedDistillerySchema
+from validators.distillery_validators import NewDistillerySchema
+from validators.distillery_validators import UpdatedDistillerySchema
 from repositories.distillery_repository import distillery_repository
 from services.user_service import user_service
 

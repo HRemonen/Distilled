@@ -4,7 +4,7 @@ from werkzeug.exceptions import Unauthorized
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 
-from entities.user_entity import NewUserSchema
+from validators.user_validators import NewUserSchema
 from repositories.user_repository import user_repository
 
 class UserService:

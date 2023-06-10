@@ -2,8 +2,8 @@ from sqlalchemy.engine.result import Row
 
 from werkzeug.exceptions import Unauthorized
 
-from entities.whiskey_entity import NewWhiskeySchema
-from entities.whiskey_entity import UpdatedWhiskeySchema
+from validators.whiskey_validators import NewWhiskeySchema
+from validators.whiskey_validators import UpdatedWhiskeySchema
 from repositories.whiskey_repository import whiskey_repository
 from services.user_service import user_service
 
