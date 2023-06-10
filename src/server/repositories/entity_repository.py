@@ -1,16 +1,16 @@
 from sqlalchemy.engine.result import Row
 from sqlalchemy.sql import text
 
-from uuid import uuid4
-
 from db import db
 
 class EntityRepository:
     def __init__(self, db=db):
         self._db = db
     
-    def create_entity(self) -> Row:
-        id = uuid4()
+    def create_entity(self, id) -> Row:
+        entity_input = {
+            "id": id
+        }
         
         sql = """
             INSERT INTO entities (id) 
@@ -18,7 +18,7 @@ class EntityRepository:
             RETURNING id
         """
         
-        result = self._db.session.execute(text(sql), { "id": id })
+        result = self._db.session.execute(text(sql), entity_input)
         self._db.session.commit()
         
         return result.fetchone()

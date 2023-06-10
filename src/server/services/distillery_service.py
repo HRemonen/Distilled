@@ -58,10 +58,10 @@ class DistilleryService:
                 
         return list(found_distilleries)
     
-    def create_distillery(self, distillery: dict):
+    def create_distillery(self, entity_id: str, distillery: dict):
         NewDistillerySchema().load(distillery)
         
-        query_result = self._distillery_repository.create_distillery(distillery)
+        query_result = self._distillery_repository.create_distillery(entity_id, distillery)
         
         new_distillery = self._to_json(query_result)
         

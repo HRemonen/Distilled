@@ -9,6 +9,7 @@ from app import app
 from services.user_service import user_service
 from services.distillery_service import distillery_service
 from services.whiskey_service import whiskey_service
+from services.entity_service import entity_service
 
 @app.route("/")
 def index():
@@ -174,7 +175,8 @@ def create_distillery():
     
     body = request.json
     try:
-        distillery = distillery_service.create_distillery(body)
+        entity = entity_service.create_entity()
+        distillery = distillery_service.create_distillery(entity["id"], body)
         return {
                 "status": "success",
                 "message": "distillery created",

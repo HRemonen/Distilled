@@ -1,8 +1,8 @@
+from uuid import uuid4
 from sqlalchemy.engine.result import Row
-from werkzeug.exceptions import Unauthorized
 
 from repositories.entity_repository import entity_repository
-from services.user_service import user_service
+
 
 class EntityService:
     def __init__(self, entity_repository=entity_repository):
@@ -19,13 +19,19 @@ class EntityService:
             json: JSON result from the SQLAlchemy Row
         """
         json_object = {
-            "id": query_result.id,
-            "user_id": query_result.user_id,
-            "entity_id": query_result.entity_id,
-            "comment": query_result.comment,
+            "id": query_result.id
         }
             
         return json_object
+    
+    def create_entity(self):
+        id = uuid4()
+        
+        query_result = self._entity_repository.create_entity(id)
+        
+        new_entity = self._to_json(query_result)
+        
+        return new_entity
         
     def comment_entity(self, id: str, user_id: str, comment: dict) -> dict:
         query_result = self._entity_repository.comment_entity(id, user_id, comment)
