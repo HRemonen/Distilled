@@ -10,8 +10,8 @@ class UserRepository:
     def __init__(self, db=db):
         self._db = db
         
-    def get_user_role(self, username):
-        role_input = {
+    def get_user_role(self, username: str) -> Row:
+        user_input = {
             "username": username
         }
         
@@ -19,7 +19,17 @@ class UserRepository:
             SELECT role FROM users WHERE username = :username
         """
         
-        return self._db.session.execute(text(sql), role_input).fetchone() 
+        return self._db.session.execute(text(sql), user_input).fetchone()
+    
+    def get_user_id(self, username: str) -> Row:
+        user_input = {
+            "username": username
+        }
+        sql = """
+            SELECT id FROM users WHERE username = :username
+        """
+        
+        return self._db.session.execute(text(sql), user_input).fetchone()
 
     def register(self, user: object) -> None:
         password_hash = generate_password_hash(user["password"])

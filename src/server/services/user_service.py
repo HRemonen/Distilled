@@ -16,7 +16,14 @@ class UserService:
         
         user_role = self._user_repository.get_user_role(username)
         
-        return user_role[0] == "admin"
+        return user_role.role == "admin"
+    
+    def get_user_id(self):
+        username = get_jwt_identity()
+        
+        user_id = self._user_repository.get_user_id(username)
+        
+        return user_id.id
     
     def register(self, user):
         new_user = NewUserSchema().load(user)
