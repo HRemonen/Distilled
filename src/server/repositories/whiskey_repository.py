@@ -48,10 +48,8 @@ class WhiskeyRepository:
             WHERE w.distillery_id = :distillery_id
             ORDER BY name ASC
         """
-        
-        result = self._db.session.execute(text(sql), whiskey_input)
 
-        return result.fetchall()
+        return self._db.session.execute(text(sql), whiskey_input).fetchall()
     
     def get_whiskeys(self):
         sql = """
