@@ -1,17 +1,16 @@
-from sqlalchemy.engine.result import Row
+from typing import List, Dict
 
-from werkzeug.exceptions import Unauthorized
+from sqlalchemy.engine.result import Row
 
 from validators.whiskey_validators import NewWhiskeySchema
 from validators.whiskey_validators import UpdatedWhiskeySchema
 from repositories.whiskey_repository import whiskey_repository
-from services.user_service import user_service
 
 class WhiskeyService:
     def __init__(self, whiskey_repository=whiskey_repository) -> None:
         self._whiskey_repository = whiskey_repository
         
-    def _to_json(self, query_result: Row) -> dict:
+    def _to_json(self, query_result: Row) -> Dict:
         """Generate JSON format entity for the query result
         that is type of Row from the database
 
@@ -38,7 +37,7 @@ class WhiskeyService:
             
         return json_object
     
-    def get_whiskey(self, id: str) -> dict:
+    def get_whiskey(self, id: str) -> Dict:
         query_result = self._whiskey_repository.get_whiskey(id)
         
         if not query_result:
@@ -48,7 +47,7 @@ class WhiskeyService:
         
         return found_whiskey
     
-    def get_whiskeys_by_distillery(self, distillery_id: str) -> list(dict):        
+    def get_whiskeys_by_distillery(self, distillery_id: str) -> List[Dict]:        
         query_result = self._whiskey_repository.get_whiskeys_by_distillery(distillery_id)
         
         if not query_result:
@@ -58,7 +57,7 @@ class WhiskeyService:
         
         return list(found_whiskeys)
     
-    def get_whiskeys(self) -> list(dict):
+    def get_whiskeys(self) -> List[Dict]:
         query_result = self._whiskey_repository.get_whiskeys()
         
         if not query_result:
@@ -68,7 +67,7 @@ class WhiskeyService:
         
         return list(found_whiskeys)
     
-    def create_whiskey(self, entity_id: str, whiskey: dict) -> dict:
+    def create_whiskey(self, entity_id: str, whiskey: dict) -> Dict:
         NewWhiskeySchema().load(whiskey)
         
         query_result = self._whiskey_repository.create_whiskey(entity_id, whiskey)
@@ -77,7 +76,7 @@ class WhiskeyService:
         
         return new_whiskey
     
-    def update_whiskey_description(self, id: str, updates: dict) -> dict:
+    def update_whiskey_description(self, id: str, updates: dict) -> Dict:
         UpdatedWhiskeySchema().load(updates)
         
         query_result = self._whiskey_repository.update_whiskey_description(id, updates)
@@ -86,7 +85,7 @@ class WhiskeyService:
         
         return updated_whiskey
     
-    def delete_whiskey(self, id: str) -> dict:
+    def delete_whiskey(self, id: str) -> Dict:
         query_result = self._whiskey_repository.delete_whiskey(id)
         
         deleted_whiskey = self._to_json(query_result)
