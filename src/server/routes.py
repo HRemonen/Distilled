@@ -8,6 +8,7 @@ from flask_jwt_extended import jwt_required
 from app import app
 from services.user_service import user_service
 from services.distillery_service import distillery_service
+from services.whiskey_service import whiskey_service
 
 @app.route("/")
 def index():
@@ -289,3 +290,228 @@ def delete_distillery(id: str):
         }, 404
         
 # ============= WHISKEY RELATED ENDPOINTS ============= #
+@app.route("/api/whiskey/<string:id>", methods=["GET"])
+def get_whiskey(id: str):
+    """Get whiskey by id
+
+    ---
+    tags:
+        - whiskeys
+    responses:
+        200:
+            description: Whiskey found
+        404:
+            description: Whiskey not found
+    """
+    try:
+        whiskey_data = whiskey_service.get_whiskey(id)
+        return {
+                "status": "success",
+                "message": "whiskey found",
+                "data": whiskey_data
+            }, 200
+    
+    except Exception:
+        return {
+            "status": "error",
+            "message": "whiskey not found",
+            "data": None
+        }, 404
+
+@app.route("/api/whiskey/country/<string:country>", methods=["GET"])   
+def get_whiskeys_by_country_iso(country: str):
+    """Get whiskey by country
+
+    ---
+    tags:
+        - whiskeys
+    responses:
+        200:
+            description: Whiskey found
+        404:
+            description: Whiskey not found
+    """
+    
+    
+    try:
+        whiskey_data = whiskey_service.get_whiskeys_by_country_iso(country)
+        return {
+                "status": "success",
+                "message": "whiskey found",
+                "data": whiskey_data
+            }, 200
+    
+    except Exception:
+        return {
+            "status": "error",
+            "message": "whiskey not found",
+            "data": None
+        }, 404
+
+
+@app.route("/api/whiskey", methods=["GET"])
+def get_whiskeys():
+    """Get all whiskeys ordered by name
+
+    ---
+    tags:
+        - whiskeys
+    responses:
+        200:
+            description: Whiskeys found
+        404:
+            description: Whiskeys not found
+    """
+    try:
+        whiskey_data = whiskey_service.get_whiskeys()
+        return {
+                "status": "success",
+                "message": "whiskeys found",
+                "data": whiskey_data
+            }, 200
+    
+    except Exception:
+        return {
+            "status": "error",
+            "message": "whiskeys not found",
+            "data": None
+        }, 404
+
+@app.route("/api/whiskey", methods=["POST"])
+@jwt_required()
+def create_whiskey():
+    """Create a new whiskey
+
+    ---
+    tags:
+        - whiskeys
+    responses:
+        201:
+            description: A whiskey is created successfully
+        401:
+            description: Unauthorized action, only admins can create new whiskey
+        404:
+            description: Something went wrong creating new whiskey
+        422:
+            description: Input validation failed
+    """
+    
+    body = request.json
+    try:
+        whiskey_data = whiskey_service.create_whiskey(body)
+        return {
+                "status": "success",
+                "message": "whiskey created",
+                "data": whiskey_data
+            }, 201
+    
+    except Unauthorized:
+        return {
+            "status": "error",
+            "message": "unauthorized action",
+            "data": None
+        }, 401
+        
+    except ValidationError as err:
+        return {
+            "status": "error",
+            "message": "whiskey validation failed",
+            "data": err.messages
+        }, 422
+        
+    except Exception as err:
+        return {
+            "status": "error",
+            "message": "whiskey creation failed",
+            "data": None
+        }, 404
+        
+@app.route("/api/whiskey/<string:id>", methods=["PUT"])
+@jwt_required()
+def update_whiskey_description(id: str):
+    """Update a whiskey description
+
+    ---
+    tags:
+        - whiskeys
+    responses:
+        200:
+            description: A whiskey is updated successfully
+        401:
+            description: Unauthorized action, only admins can update whiskeys
+        404:
+            description: Something went wrong updating whiskey
+        422:
+            description: Input validation failed
+    """
+    
+    body = request.json
+    
+    try:
+        whiskey_data = whiskey_service.update_whiskey_description(id, body)
+        return {
+                "status": "success",
+                "message": "whiskey updated",
+                "data": whiskey_data
+            }, 200
+    
+    except Unauthorized:
+        return {
+            "status": "error",
+            "message": "unauthorized action",
+            "data": None
+        }, 401
+        
+    except ValidationError as err:
+        return {
+            "status": "error",
+            "message": "validation failed",
+            "data": err.messages
+        }, 422
+        
+    except Exception as err:
+        return {
+            "status": "error",
+            "message": "whiskey update failed",
+            "data": None
+        }, 404
+        
+@app.route("/api/distillery/<string:id>", methods=["DELETE"])
+@jwt_required()
+def delete_whiskey(id: str):
+    """Delete a whiskey, works as a soft delete
+
+    ---
+    tags:
+        - whiskeys
+    responses:
+        200:
+            description: A whiskey is deleted successfully
+        401:
+            description: Unauthorized action, only admins can delete whiskeys
+        404:
+            description: Something went wrong deleting whiskey
+    """
+    
+    try:
+        whiskey_data = whiskey_service.delete_whiskey(id)
+        return {
+                "status": "success",
+                "message": "whiskey deleted",
+                "data": whiskey_data
+            }, 201
+    
+    except Unauthorized:
+        return {
+            "status": "error",
+            "message": "unauthorized action",
+            "data": None
+        }, 401
+        
+    except Exception as err:
+        return {
+            "status": "error",
+            "message": "whiskey delete failed",
+            "data": None
+        }, 404
+        
