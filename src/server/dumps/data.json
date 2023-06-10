@@ -1,0 +1,192 @@
+{
+    "distilleries": [
+        {
+            "name": "Jameson Distillery",
+            "location": [
+                53.3417,
+                -6.2861
+            ],
+            "country": "IRL",
+            "year_established": 1780,
+            "website": "https://www.jamesonwhiskey.com/"
+        },
+        {
+            "name": "Jack Daniel's Distillery",
+            "location": [
+                35.7247,
+                -86.8689
+            ],
+            "country": "USA",
+            "year_established": 1866,
+            "website": "https://www.jackdaniels.com/"
+        },
+        {
+            "name": "Macallan Distillery",
+            "location": [
+                57.4692,
+                -3.2097
+            ],
+            "country": "GBR",
+            "year_established": 1824,
+            "website": "https://www.themacallan.com/"
+        },
+        {
+            "name": "Ardbeg Distillery",
+            "location": [
+                55.6481,
+                -6.1499
+            ],
+            "country": "GB-SCT",
+            "year_established": 1815,
+            "website": "https://www.ardbeg.com/"
+        },
+        {
+            "name": "Glenfiddich Distillery",
+            "location": [
+                57.4556,
+                -3.1297
+            ],
+            "country": "GB-SCT",
+            "year_established": 1886,
+            "website": "https://www.glenfiddich.com/"
+        },
+        {
+            "name": "Laphroaig Distillery",
+            "location": [
+                55.6292,
+                -6.1539
+            ],
+            "country": "GB-SCT",
+            "year_established": 1815,
+            "website": "https://www.laphroaig.com/"
+        }
+    ],
+    "whiskeys": [
+        {
+            "name": "Macallan 18",
+            "distillery_id": "39f8a170-2ebe-47e8-900d-bfdd2d578b40",
+            "type": "Single Malt",
+            "age": 18,
+            "description": "Macallan 18 is a classic single malt Scotch whisky known for its rich flavors and smooth finish."
+        },
+        {
+            "name": "Jack Daniel's Old No. 7",
+            "distillery_id": "b2d362b9-ef87-4ca6-82a0-388234c4fd08",
+            "type": "Tennessee Whiskey",
+            "age": 0,
+            "description": "Jack Daniel's Old No. 7 is a world-famous Tennessee whiskey known for its unique charcoal mellowing process."
+        },
+        {
+            "name": "Jameson Irish Whiskey",
+            "distillery_id": "2b9dc4a3-eea9-40c8-b94a-ed24b5c16ef7",
+            "type": "Irish Whiskey",
+            "age": 0,
+            "description": "Jameson Irish Whiskey is a smooth and versatile Irish whiskey loved for its triple distillation process."
+        },
+        {
+            "name": "Macallan 12",
+            "distillery_id": "39f8a170-2ebe-47e8-900d-bfdd2d578b40",
+            "type": "Single Malt",
+            "age": 12,
+            "description": "Macallan 12 is a well-balanced single malt Scotch whisky with notes of dried fruits, spices, and oak."
+        },
+        {
+            "name": "Jack Daniel's Gentleman Jack",
+            "distillery_id": "b2d362b9-ef87-4ca6-82a0-388234c4fd08",
+            "type": "Tennessee Whiskey",
+            "age": 0,
+            "description": "Gentleman Jack is a smooth and mellow Tennessee whiskey with a balanced flavor profile and a hint of oak."
+        },
+        {
+            "name": "Jameson Caskmates",
+            "distillery_id": "2b9dc4a3-eea9-40c8-b94a-ed24b5c16ef7",
+            "type": "Irish Whiskey",
+            "age": 0,
+            "description": "Jameson Caskmates is a unique Irish whiskey that has been finished in craft beer barrels, resulting in a rich and flavorful taste."
+        },
+        {
+            "name": "Macallan Rare Cask",
+            "distillery_id": "39f8a170-2ebe-47e8-900d-bfdd2d578b40",
+            "type": "Single Malt",
+            "age": 0,
+            "description": "Macallan Rare Cask is an exclusive and limited edition single malt Scotch whisky crafted from a handpicked selection of exceptional casks."
+        },
+        {
+            "name": "Jack Daniel's Single Barrel",
+            "distillery_id": "b2d362b9-ef87-4ca6-82a0-388234c4fd08",
+            "type": "Tennessee Whiskey",
+            "age": 0,
+            "description": "Jack Daniel's Single Barrel is a premium Tennessee whiskey crafted from a single barrel, resulting in a unique and distinct flavor profile."
+        },
+        {
+            "name": "Jameson Black Barrel",
+            "distillery_id": "2b9dc4a3-eea9-40c8-b94a-ed24b5c16ef7",
+            "type": "Irish Whiskey",
+            "age": 0,
+            "description": "Jameson Black Barrel is a rich and robust Irish whiskey that has been matured in charred oak barrels, resulting in enhanced flavors of spice, nut, and vanilla."
+        },
+        {
+            "name": "Laphroaig 10",
+            "distillery_id": "2c7792bf-9ede-46ee-8c00-c4149ac42537",
+            "type": "Single Malt",
+            "age": 10,
+            "description": "Laphroaig 10 is a peaty and smoky single malt Scotch whisky with a distinctive Islay character."
+        },
+        {
+            "name": "Ardbeg Uigeadail",
+            "distillery_id": "2d926ca2-8137-44eb-8562-0353dbf3a4de",
+            "type": "Single Malt",
+            "age": 0,
+            "description": "Ardbeg Uigeadail is a heavily peated single malt Scotch whisky known for its rich flavors, including notes of smoky bacon, dark chocolate, and dried fruits."
+        },
+        {
+            "name": "Glenfiddich 12",
+            "distillery_id": "eb43d795-4e67-4b6b-b3a9-15f66a5d9b0d",
+            "type": "Single Malt",
+            "age": 12,
+            "description": "Glenfiddich 12 is a classic single malt Scotch whisky with a smooth and fruity profile, featuring notes of pear, apple, and oak."
+        },
+        {
+            "name": "Laphroaig Quarter Cask",
+            "distillery_id": "2c7792bf-9ede-46ee-8c00-c4149ac42537",
+            "type": "Single Malt",
+            "age": 0,
+            "description": "Laphroaig Quarter Cask is a rich and smoky single malt Scotch whisky that has been aged in smaller casks, resulting in enhanced flavors of peat smoke, vanilla, and spice."
+        },
+        {
+            "name": "Ardbeg Corryvreckan",
+            "distillery_id": "2d926ca2-8137-44eb-8562-0353dbf3a4de",
+            "type": "Single Malt",
+            "age": 0,
+            "description": "Ardbeg Corryvreckan is a powerful and peaty single malt Scotch whisky with a complex flavor profile, featuring notes of dark chocolate, pepper, and seaweed."
+        },
+        {
+            "name": "Glenfiddich 18",
+            "distillery_id": "eb43d795-4e67-4b6b-b3a9-15f66a5d9b0d",
+            "type": "Single Malt",
+            "age": 18,
+            "description": "Glenfiddich 18 is a well-aged single malt Scotch whisky known for its rich and velvety texture, with flavors of oak, dried fruits, and spices."
+        },
+        {
+            "name": "Laphroaig Lore",
+            "distillery_id": "2c7792bf-9ede-46ee-8c00-c4149ac42537",
+            "type": "Single Malt",
+            "age": 0,
+            "description": "Laphroaig Lore is a complex and peaty single malt Scotch whisky that pays tribute to the traditional craftsmanship and knowledge passed down through generations."
+        },
+        {
+            "name": "Ardbeg An Oa",
+            "distillery_id": "2d926ca2-8137-44eb-8562-0353dbf3a4de",
+            "type": "Single Malt",
+            "age": 0,
+            "description": "Ardbeg An Oa is a well-balanced single malt Scotch whisky that has been matured in a combination of different cask types, resulting in a harmonious and smooth expression."
+        },
+        {
+            "name": "Glenfiddich 21 Reserva Rum Cask Finish",
+            "distillery_id": "eb43d795-4e67-4b6b-b3a9-15f66a5d9b0d",
+            "type": "Single Malt",
+            "age": 21,
+            "description": "Glenfiddich 21 Reserva Rum Cask Finish is an exquisite single malt Scotch whisky that has been matured in Caribbean rum casks, adding layers of sweetness and complexity to the flavor profile."
+        }
+    ]
+}
