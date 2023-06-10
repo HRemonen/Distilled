@@ -1,6 +1,22 @@
 version: '3.8'
 
 services:
+  app:
+    image: distillery-app
+    container_name: kanban-board-app
+    build:
+      context: ./src/client/
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src/client/:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - REACT_APP_BACKEND_URL=/api/
+    depends_on:
+      - web
+
   web:
     image: distillery-api
     container_name: distillery-api
@@ -28,3 +44,4 @@ services:
 
 volumes:
   postgres_data:
+  node_modules:
