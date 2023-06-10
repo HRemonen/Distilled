@@ -1,6 +1,66 @@
 {
     "distilleries": [
         {
+            "name": "The Helsinki Distilling Company",
+            "location": [
+                60.1699,
+                24.9384
+            ],
+            "country": "FIN",
+            "year_established": 2014,
+            "website": "https://www.helsinkidistillingcompany.com/"
+        },
+        {
+            "name": "Teerenpeli Distillery",
+            "location": [
+                60.9825,
+                25.6615
+            ],
+            "country": "FIN",
+            "year_established": 2002,
+            "website": "https://teerenpeli.com/"
+        },
+        {
+            "name": "Kyrö Distillery Company",
+            "location": [
+                63.1369,
+                22.3217
+            ],
+            "country": "FIN",
+            "year_established": 2014,
+            "website": "https://kyrodistillery.com/"
+        },
+        {
+            "name": "Yamazaki Distillery",
+            "location": [
+                34.9655,
+                135.6986
+            ],
+            "country": "JPN",
+            "year_established": 1923,
+            "website": "https://www.suntory.com/yamazaki/"
+        },
+        {
+            "name": "Hakushu Distillery",
+            "location": [
+                35.8700,
+                138.3239
+            ],
+            "country": "JPN",
+            "year_established": 1973,
+            "website": "https://www.suntory.com/hakushu/"
+        },
+        {
+            "name": "Miyagikyo Distillery",
+            "location": [
+                38.4269,
+                140.9274
+            ],
+            "country": "JPN",
+            "year_established": 1969,
+            "website": "https://www.nikka.com/eng/distilleries/miyagikyo/"
+        },
+        {
             "name": "Jameson Distillery",
             "location": [
                 53.3417,
@@ -63,127 +123,170 @@
     ],
     "whiskeys": [
         {
+            "name": "Yamazaki 12",
+            "type": "Single Malt",
+            "age": 12,
+            "description": "Yamazaki 12 is a well-rounded single malt whisky with a harmonious blend of fruit, oak, and floral notes."
+        },
+        {
+            "name": "Yamazaki 18",
+            "type": "Single Malt",
+            "age": 18,
+            "description": "Yamazaki 18 is an exceptional single malt whisky with a complex and elegant profile, offering layers of fruity, spicy, and smoky flavors."
+        },
+        {
+            "name": "Hakushu 12",
+            "type": "Single Malt",
+            "age": 12,
+            "description": "Hakushu 12 is a refreshing and vibrant single malt whisky with a delicate balance of green and citrus flavors."
+        },
+        {
+            "name": "Hakushu 18",
+            "type": "Single Malt",
+            "age": 18,
+            "description": "Hakushu 18 is an exquisite single malt whisky with a sophisticated and nuanced character, showcasing notes of forest floor, tropical fruits, and gentle smoke."
+        },
+        {
+            "name": "Miyagikyo Single Malt",
+            "distillery_id": "b5baf13a-1d79-4a36-9ea7-57e80000d3db",
+            "type": "Single Malt",
+            "age": 12,
+            "description": "Miyagikyo Single Malt is a smooth and fruity whisky with a gentle sweetness, showcasing the elegant style of Miyagikyo Distillery."
+        },
+        {
+            "name": "Kyrö Rye Whisky",
+            "type": "Rye Whisky",
+            "age": 3,
+            "description": "Kyrö Rye Whisky is a flavorful and spicy rye whisky with notes of honey, toasted oak, and dark chocolate."
+        },
+        {
+            "name": "Kyrö Dark Gin",
+            "type": "Gin",
+            "age": 0,
+            "description": "Kyrö Dark Gin is a unique gin infused with lingonberries, birch leaves, and meadowsweet, resulting in a rich and herbal flavor."
+        },
+        {
+            "name": "Teerenpeli 8",
+            "type": "Single Malt",
+            "age": 8,
+            "description": "Teerenpeli 8 is a smooth and flavorful single malt whisky with hints of honey, vanilla, and oak."
+        },
+        {
+            "name": "Teerenpeli Karhi",
+            "type": "Blended",
+            "age": 0,
+            "description": "Teerenpeli Karhi is a blended whisky with a rich and malty character, offering a balanced combination of flavors."
+        },
+        {
+            "name": "Helsinki Dry Gin",
+            "type": "Gin",
+            "age": 0,
+            "description": "Helsinki Dry Gin is a classic dry gin with a balanced blend of botanicals, offering a refreshing and crisp flavor profile."
+        },
+        {
             "name": "Macallan 18",
-            "distillery_id": "39f8a170-2ebe-47e8-900d-bfdd2d578b40",
             "type": "Single Malt",
             "age": 18,
             "description": "Macallan 18 is a classic single malt Scotch whisky known for its rich flavors and smooth finish."
         },
         {
             "name": "Jack Daniel's Old No. 7",
-            "distillery_id": "b2d362b9-ef87-4ca6-82a0-388234c4fd08",
             "type": "Tennessee Whiskey",
             "age": 0,
             "description": "Jack Daniel's Old No. 7 is a world-famous Tennessee whiskey known for its unique charcoal mellowing process."
         },
         {
             "name": "Jameson Irish Whiskey",
-            "distillery_id": "2b9dc4a3-eea9-40c8-b94a-ed24b5c16ef7",
             "type": "Irish Whiskey",
             "age": 0,
             "description": "Jameson Irish Whiskey is a smooth and versatile Irish whiskey loved for its triple distillation process."
         },
         {
             "name": "Macallan 12",
-            "distillery_id": "39f8a170-2ebe-47e8-900d-bfdd2d578b40",
             "type": "Single Malt",
             "age": 12,
             "description": "Macallan 12 is a well-balanced single malt Scotch whisky with notes of dried fruits, spices, and oak."
         },
         {
             "name": "Jack Daniel's Gentleman Jack",
-            "distillery_id": "b2d362b9-ef87-4ca6-82a0-388234c4fd08",
             "type": "Tennessee Whiskey",
             "age": 0,
             "description": "Gentleman Jack is a smooth and mellow Tennessee whiskey with a balanced flavor profile and a hint of oak."
         },
         {
             "name": "Jameson Caskmates",
-            "distillery_id": "2b9dc4a3-eea9-40c8-b94a-ed24b5c16ef7",
             "type": "Irish Whiskey",
             "age": 0,
             "description": "Jameson Caskmates is a unique Irish whiskey that has been finished in craft beer barrels, resulting in a rich and flavorful taste."
         },
         {
             "name": "Macallan Rare Cask",
-            "distillery_id": "39f8a170-2ebe-47e8-900d-bfdd2d578b40",
             "type": "Single Malt",
             "age": 0,
             "description": "Macallan Rare Cask is an exclusive and limited edition single malt Scotch whisky crafted from a handpicked selection of exceptional casks."
         },
         {
             "name": "Jack Daniel's Single Barrel",
-            "distillery_id": "b2d362b9-ef87-4ca6-82a0-388234c4fd08",
             "type": "Tennessee Whiskey",
             "age": 0,
             "description": "Jack Daniel's Single Barrel is a premium Tennessee whiskey crafted from a single barrel, resulting in a unique and distinct flavor profile."
         },
         {
             "name": "Jameson Black Barrel",
-            "distillery_id": "2b9dc4a3-eea9-40c8-b94a-ed24b5c16ef7",
             "type": "Irish Whiskey",
             "age": 0,
             "description": "Jameson Black Barrel is a rich and robust Irish whiskey that has been matured in charred oak barrels, resulting in enhanced flavors of spice, nut, and vanilla."
         },
         {
             "name": "Laphroaig 10",
-            "distillery_id": "2c7792bf-9ede-46ee-8c00-c4149ac42537",
             "type": "Single Malt",
             "age": 10,
             "description": "Laphroaig 10 is a peaty and smoky single malt Scotch whisky with a distinctive Islay character."
         },
         {
             "name": "Ardbeg Uigeadail",
-            "distillery_id": "2d926ca2-8137-44eb-8562-0353dbf3a4de",
             "type": "Single Malt",
             "age": 0,
             "description": "Ardbeg Uigeadail is a heavily peated single malt Scotch whisky known for its rich flavors, including notes of smoky bacon, dark chocolate, and dried fruits."
         },
         {
             "name": "Glenfiddich 12",
-            "distillery_id": "eb43d795-4e67-4b6b-b3a9-15f66a5d9b0d",
             "type": "Single Malt",
             "age": 12,
             "description": "Glenfiddich 12 is a classic single malt Scotch whisky with a smooth and fruity profile, featuring notes of pear, apple, and oak."
         },
         {
             "name": "Laphroaig Quarter Cask",
-            "distillery_id": "2c7792bf-9ede-46ee-8c00-c4149ac42537",
             "type": "Single Malt",
             "age": 0,
             "description": "Laphroaig Quarter Cask is a rich and smoky single malt Scotch whisky that has been aged in smaller casks, resulting in enhanced flavors of peat smoke, vanilla, and spice."
         },
         {
             "name": "Ardbeg Corryvreckan",
-            "distillery_id": "2d926ca2-8137-44eb-8562-0353dbf3a4de",
             "type": "Single Malt",
             "age": 0,
             "description": "Ardbeg Corryvreckan is a powerful and peaty single malt Scotch whisky with a complex flavor profile, featuring notes of dark chocolate, pepper, and seaweed."
         },
         {
             "name": "Glenfiddich 18",
-            "distillery_id": "eb43d795-4e67-4b6b-b3a9-15f66a5d9b0d",
             "type": "Single Malt",
             "age": 18,
             "description": "Glenfiddich 18 is a well-aged single malt Scotch whisky known for its rich and velvety texture, with flavors of oak, dried fruits, and spices."
         },
         {
             "name": "Laphroaig Lore",
-            "distillery_id": "2c7792bf-9ede-46ee-8c00-c4149ac42537",
             "type": "Single Malt",
             "age": 0,
             "description": "Laphroaig Lore is a complex and peaty single malt Scotch whisky that pays tribute to the traditional craftsmanship and knowledge passed down through generations."
         },
         {
             "name": "Ardbeg An Oa",
-            "distillery_id": "2d926ca2-8137-44eb-8562-0353dbf3a4de",
             "type": "Single Malt",
             "age": 0,
             "description": "Ardbeg An Oa is a well-balanced single malt Scotch whisky that has been matured in a combination of different cask types, resulting in a harmonious and smooth expression."
         },
         {
             "name": "Glenfiddich 21 Reserva Rum Cask Finish",
-            "distillery_id": "eb43d795-4e67-4b6b-b3a9-15f66a5d9b0d",
             "type": "Single Malt",
             "age": 21,
             "description": "Glenfiddich 21 Reserva Rum Cask Finish is an exquisite single malt Scotch whisky that has been matured in Caribbean rum casks, adding layers of sweetness and complexity to the flavor profile."
