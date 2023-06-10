@@ -1,10 +1,11 @@
 from typing import List, Dict
-
 from sqlalchemy.engine.result import Row
 
 from validators.whiskey_validators import NewWhiskeySchema
 from validators.whiskey_validators import UpdatedWhiskeySchema
 from repositories.whiskey_repository import whiskey_repository
+
+from app import app
 
 class WhiskeyService:
     def __init__(self, whiskey_repository=whiskey_repository) -> None:
@@ -39,6 +40,8 @@ class WhiskeyService:
     
     def get_whiskey(self, id: str) -> Dict:
         query_result = self._whiskey_repository.get_whiskey(id)
+        
+        app.logger.info(query_result)
         
         if not query_result:
             raise Exception("whiskey not found")

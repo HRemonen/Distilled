@@ -27,9 +27,8 @@ class WhiskeyRepository:
             WHERE w.id = :id AND w.deleted_at IS NULL
             GROUP BY w.id, d.name, d.country
         """
-        result = self._db.session.execute(text(sql), whiskey_input).fetchone()
         
-        return result
+        return self._db.session.execute(text(sql), whiskey_input).fetchone()
     
     def get_whiskeys_by_distillery(self, distillery_id: str):      
         whiskey_input = {
@@ -44,7 +43,7 @@ class WhiskeyRepository:
                 w.age,
                 w.description
             FROM whiskeys AS w
-            WHERE w.distillery_id = :distillery_id
+            WHERE w.distillery_id = :distillery_id AND w.deleted_at IS NULL
             ORDER BY name ASC
         """
 
