@@ -169,6 +169,8 @@ def create_distillery():
         422:
             description: Input validation failed
     """
+    if not user_service.is_admin(): 
+        raise Unauthorized("You don't have permission to create new distilleries")
     
     body = request.json
     try:
@@ -218,6 +220,8 @@ def update_distillery_website(id: str):
         422:
             description: Input validation failed
     """
+    if not user_service.is_admin():
+        raise Unauthorized("You don't have permission to update distilleries")
     
     body = request.json
     
@@ -266,6 +270,8 @@ def delete_distillery(id: str):
         404:
             description: Something went wrong deleting distillery
     """
+    if not user_service.is_admin():
+        raise Unauthorized("You don't have permission to delete distilleries")
     
     try:
         distillery_service.delete_distillery(id)
