@@ -30,8 +30,11 @@ class EntityRepository:
             "comment": comment["comment"]
         }
         sql = """
-         INSERT INTO 
-            entities
+         INSERT INTO comments(
+             user_id,
+             entity_id,
+             comment
+         )
         VALUES (
             :user_id,
             :entity_id,
