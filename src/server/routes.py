@@ -170,11 +170,12 @@ def create_distillery():
         422:
             description: Input validation failed
     """
-    if not user_service.is_admin(): 
-        raise Unauthorized("You don't have permission to create new distilleries")
     
     body = request.json
     try:
+        if not user_service.is_admin(): 
+            raise Unauthorized("You don't have permission to create new distilleries")
+        
         entity = entity_service.create_entity()
         distillery = distillery_service.create_distillery(entity["id"], body)
         return {
@@ -222,12 +223,13 @@ def update_distillery_website(id: str):
         422:
             description: Input validation failed
     """
-    if not user_service.is_admin():
-        raise Unauthorized("You don't have permission to update distilleries")
     
     body = request.json
     
     try:
+        if not user_service.is_admin():
+            raise Unauthorized("You don't have permission to update distilleries")
+        
         distillery = distillery_service.update_distillery_website(id, body)
         return {
                 "status": "success",
@@ -272,10 +274,11 @@ def delete_distillery(id: str):
         404:
             description: Something went wrong deleting distillery
     """
-    if not user_service.is_admin():
-        raise Unauthorized("You don't have permission to delete distilleries")
     
     try:
+        if not user_service.is_admin():
+            raise Unauthorized("You don't have permission to delete distilleries")
+        
         distillery_service.delete_distillery(id)
         return {
                 "status": "success",
@@ -405,7 +408,11 @@ def create_whiskey():
     
     body = request.json
     try:
-        whiskey_data = whiskey_service.create_whiskey(body)
+        if not user_service.is_admin(): 
+            raise Unauthorized("You don't have permission to create new whiskeys")
+        
+        entity = entity_service.create_entity()
+        whiskey_data = whiskey_service.create_whiskey(entity["id"], body)
         return {
                 "status": "success",
                 "message": "whiskey created",
@@ -455,6 +462,9 @@ def update_whiskey_description(id: str):
     body = request.json
     
     try:
+        if not user_service.is_admin():
+            raise Unauthorized("You don't have permission to update whiskeys")
+        
         whiskey_data = whiskey_service.update_whiskey_description(id, body)
         return {
                 "status": "success",
@@ -501,6 +511,9 @@ def delete_whiskey(id: str):
     """
     
     try:
+        if not user_service.is_admin():
+            raise Unauthorized("You don't have permission to delete whiskeys")
+        
         whiskey_service.delete_whiskey(id)
         return {
                 "status": "success",

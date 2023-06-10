@@ -68,22 +68,16 @@ class WhiskeyService:
         
         return list(found_whiskeys)
     
-    def create_whiskey(self, whiskey: dict) -> dict:
-        if not user_service.is_admin(): 
-            raise Unauthorized("You don't have permission to create new whiskeys")
-        
+    def create_whiskey(self, entity_id: str, whiskey: dict) -> dict:
         NewWhiskeySchema().load(whiskey)
         
-        query_result = self._whiskey_repository.create_whiskey(whiskey)
+        query_result = self._whiskey_repository.create_whiskey(entity_id, whiskey)
         
         new_whiskey = self._to_json(query_result)
         
         return new_whiskey
     
     def update_whiskey_description(self, id: str, updates: dict) -> dict:
-        if not user_service.is_admin():
-            raise Unauthorized("You don't have permission to update whiskeys")
-        
         UpdatedWhiskeySchema().load(updates)
         
         query_result = self._whiskey_repository.update_whiskey_description(id, updates)
@@ -93,9 +87,6 @@ class WhiskeyService:
         return updated_whiskey
     
     def delete_whiskey(self, id: str) -> dict:
-        if not user_service.is_admin():
-            raise Unauthorized("You don't have permission to delete whiskeys")
-        
         query_result = self._whiskey_repository.delete_whiskey(id)
         
         deleted_whiskey = self._to_json(query_result)

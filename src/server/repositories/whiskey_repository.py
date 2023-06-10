@@ -2,12 +2,10 @@ from sqlalchemy.engine.result import Row
 from sqlalchemy.sql import text
 
 from db import db
-from repositories.entity_repository import entity_repository
 
 class WhiskeyRepository:
     def __init__(self, db=db):
         self._db = db
-        self._entity_repository = entity_repository
         
     def get_whiskey(self, id: str) -> Row:
         whiskey_input = {
@@ -68,11 +66,9 @@ class WhiskeyRepository:
         
         return self._db.session.execute(text(sql)).fetchall()
     
-    def create_whiskey(self, whiskey: dict) -> Row:
-        entity = self._entity_repository.create_entity()
-        
+    def create_whiskey(self, entity_id: str, whiskey: dict) -> Row: 
         whiskey_input = {
-            "id": entity.id,
+            "id": entity_id,
             "name": whiskey["name"],
             "distillery_id": whiskey["distillery_id"],
             "type": whiskey["type"],
