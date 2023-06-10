@@ -1,0 +1,40 @@
+{
+  "name": "distilled",
+  "version": "1.0.0",
+  "description": "Dive into the world of Distilled and embark on an extraordinary whiskey crusade like no other. Unleash your inner whiskey adventurer, savor the flavors of the finest spirits, and connect with fellow enthusiasts who share your passion. Let Distilled be your compass, guiding you on a thrilling quest through the realms of golden nectar and everlasting memories.",
+  "scripts": {
+    "start": "docker compose -f docker-compose.dev.yml up",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "lint": "eslint 'src/client/**/*.{ts,tsx}'",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "cypress": "^12.8.1",
+    "eslint": "^8.36.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.0",
+    "prettier": "2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "typescript": "^4.9.5"
+  },
+  "lint-staged": {
+    "src/client/**/*.{ts,tsx}": "eslint",
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "author": "HRemonen",
+  "license": "MIT"
+}
