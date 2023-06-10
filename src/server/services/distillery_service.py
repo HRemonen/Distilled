@@ -1,7 +1,6 @@
+from typing import List, Dict
 from sqlalchemy.engine.result import Row
 from ast import literal_eval
-
-from werkzeug.exceptions import Unauthorized
 
 from validators.distillery_validators import NewDistillerySchema
 from validators.distillery_validators import UpdatedDistillerySchema
@@ -11,7 +10,7 @@ class DistilleryService:
     def __init__(self, distillery_repository=distillery_repository) -> None:
         self._distillery_repository = distillery_repository
         
-    def _to_json(self, query_result: Row) -> dict:
+    def _to_json(self, query_result: Row) -> Dict:
         """Generate JSON format entity for the query result
         that is type of Row from the database
 
@@ -38,7 +37,7 @@ class DistilleryService:
 
         return json_object
     
-    def get_distillery(self, id: str):
+    def get_distillery(self, id: str) -> Dict:
         query_result = self._distillery_repository.get_distillery(id)
         
         if not query_result:
@@ -48,7 +47,7 @@ class DistilleryService:
                 
         return found_distillery
     
-    def get_distilleries(self):
+    def get_distilleries(self) -> List[Dict]:
         query_result = self._distillery_repository.get_distilleries()
         
         if not query_result:
@@ -58,7 +57,7 @@ class DistilleryService:
                 
         return list(found_distilleries)
     
-    def create_distillery(self, entity_id: str, distillery: dict):
+    def create_distillery(self, entity_id: str, distillery: dict) -> Dict:
         NewDistillerySchema().load(distillery)
         
         query_result = self._distillery_repository.create_distillery(entity_id, distillery)
@@ -67,7 +66,7 @@ class DistilleryService:
         
         return new_distillery
     
-    def update_distillery_website(self, id: str, updates: dict):
+    def update_distillery_website(self, id: str, updates: dict) -> Dict:
         UpdatedDistillerySchema().load(updates)
         
         query_result = self._distillery_repository.update_distillery_website(id, updates)
@@ -76,7 +75,7 @@ class DistilleryService:
         
         return updated_distillery
     
-    def delete_distillery(self, id: str):
+    def delete_distillery(self, id: str) -> Dict:
         query_result = self._distillery_repository.delete_distillery(id)
         
         deleted_distillery = self._to_json(query_result)
