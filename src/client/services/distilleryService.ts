@@ -1,7 +1,6 @@
-import { useMutation, useQuery } from 'react-query'
+import { useQuery } from 'react-query'
 
 import apiClient from '../util/apiClient'
-import queryClient from '../util/queryClient'
 
 import { Distillery } from '../validators/distillery_validator'
 import { APIResponse, DistilleryInfo } from '../types'
