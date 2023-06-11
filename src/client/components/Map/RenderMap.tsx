@@ -16,6 +16,11 @@ import { Distillery } from '../../validators/distillery_validator'
 const RenderMap = () => {
   const { distilleryData, isLoading } = useDistilleries()
   const [distillery, setDistillery] = useState<Distillery | null>(null)
+  const [viewState, setViewState] = React.useState({
+    longitude: -100,
+    latitude: 40,
+    zoom: 3.5,
+  })
 
   const distilleryMarkers = useMemo(
     () =>
@@ -28,6 +33,11 @@ const RenderMap = () => {
           onClick={(e) => {
             e.originalEvent.stopPropagation()
             setDistillery(distillery)
+            setViewState({
+              longitude: distillery.location[1],
+              latitude: distillery.location[0],
+              zoom: 15,
+            })
           }}
         >
           <MapPin size={20} />
@@ -40,13 +50,8 @@ const RenderMap = () => {
 
   return (
     <Map
-      initialViewState={{
-        latitude: 40,
-        longitude: -100,
-        zoom: 3.5,
-        bearing: 0,
-        pitch: 0,
-      }}
+      {...viewState}
+      onMove={(evt) => setViewState(evt.viewState)}
       style={{ width: '100vw', height: '100vh' }}
       mapStyle='mapbox://styles/mapbox/dark-v9'
       mapboxAccessToken={import.meta.env.VITE_MAPBOX_KEY}
