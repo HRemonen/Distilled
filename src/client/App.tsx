@@ -7,7 +7,7 @@ import Map, {
   ScaleControl,
   GeolocateControl,
 } from 'react-map-gl'
-import useDistilleries from './services/distilleryService'
+import { useDistilleries } from './services/distilleryService'
 
 const App = () => {
   const { distilleryData, isLoading } = useDistilleries()
