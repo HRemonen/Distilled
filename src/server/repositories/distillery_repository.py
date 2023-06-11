@@ -19,24 +19,29 @@ class DistilleryRepository:
                 d.country,
                 d.year_established,
                 d.website,
-                r.avg_rating,
-                ARRAY_AGG(c.comment) AS comments
+                ARRAY_AGG(c.comment) AS comments,
+                (
+                    SELECT 
+                        jsonb_object_agg(rating, count) 
+                    FROM (
+                        SELECT 
+                            rating,
+                            COUNT(*) as count
+                        FROM 
+                            ratings 
+                        WHERE 
+                            entity_id = d.id
+                        GROUP BY 
+                            rating
+                    ) AS subquery
+                ) AS rating_counts
             FROM 
                 distilleries AS d
-            LEFT JOIN (
-                SELECT
-                    entity_id,
-                    AVG(rating) AS avg_rating
-                FROM
-                    ratings
-                GROUP BY
-                    entity_id
-            ) AS r ON d.id = r.entity_id
             LEFT JOIN 
                 comments AS c ON d.id = c.entity_id
             WHERE d.id = :id AND d.deleted_at IS NULL
             GROUP BY
-                d.id, r.avg_rating
+                d.id
         """
         
         return self._db.session.execute(text(sql), distillery_input).fetchone()

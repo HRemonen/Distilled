@@ -29,8 +29,8 @@ class DistilleryService:
             "website": query_result.website
         }
 
-        if hasattr(query_result, 'avg_rating'):
-            json_object["rating"] = query_result.avg_rating
+        if hasattr(query_result, 'rating_counts'):
+            json_object["rating"] = query_result.rating_counts
         
         if hasattr(query_result, 'comments'):
             json_object["comments"] = query_result.comments
