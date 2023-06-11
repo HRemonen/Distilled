@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import Map, {
   Marker,
   Popup,
@@ -9,13 +9,34 @@ import Map, {
 } from 'react-map-gl'
 import { useDistilleries } from '../../services/distilleryService'
 
+import MapPin from './MapPin'
+
+import { Distillery } from '../../validators/distillery_validator'
+
 const RenderMap = () => {
   const { distilleryData, isLoading } = useDistilleries()
-  const [popUp, setPopUp] = useState(null)
+  const [popUp, setPopUp] = useState<Distillery>()
 
-  if (isLoading) return null
+  const distilleryMarkers = useMemo(
+    () =>
+      distilleryData?.data.map((distillery: Distillery) => (
+        <Marker
+          key={`distillery-${distillery.id}`}
+          longitude={distillery.location[1]}
+          latitude={distillery.location[0]}
+          anchor='bottom'
+          onClick={(e) => {
+            e.originalEvent.stopPropagation()
+            setPopUp(distillery)
+          }}
+        >
+          <MapPin />
+        </Marker>
+      )),
+    [distilleryData]
+  )
 
-  console.log(distilleryData)
+  if (isLoading || !distilleryData) return null
 
   return (
     <Map
@@ -34,6 +55,8 @@ const RenderMap = () => {
       <FullscreenControl position='top-left' />
       <NavigationControl position='top-left' />
       <ScaleControl />
+
+      {distilleryMarkers}
     </Map>
   )
 }
