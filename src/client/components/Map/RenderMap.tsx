@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import Map, {
   Marker,
-  Popup,
   NavigationControl,
   FullscreenControl,
   ScaleControl,
@@ -12,10 +11,11 @@ import { useDistilleries } from '../../services/distilleryService'
 import MapPin from './MapPin'
 
 import { Distillery } from '../../validators/distillery_validator'
+import DistilleryPopUp from './DistilleryPopUp'
 
 const RenderMap = () => {
   const { distilleryData, isLoading } = useDistilleries()
-  const [popUp, setPopUp] = useState<Distillery>()
+  const [distillery, setDistillery] = useState<Distillery | null>(null)
 
   const distilleryMarkers = useMemo(
     () =>
@@ -27,7 +27,7 @@ const RenderMap = () => {
           anchor='bottom'
           onClick={(e) => {
             e.originalEvent.stopPropagation()
-            setPopUp(distillery)
+            setDistillery(distillery)
           }}
         >
           <MapPin size={20} />
@@ -57,6 +57,8 @@ const RenderMap = () => {
       <ScaleControl />
 
       {distilleryMarkers}
+
+      <DistilleryPopUp distillery={distillery} setDistillery={setDistillery} />
     </Map>
   )
 }

@@ -29,7 +29,9 @@ export const useDistillery = (distilleryID: string | undefined) => {
     return data
   }
 
-  const { data: distilleryInfo, ...rest } = useQuery(queryKey, query)
+  const { data: distilleryInfo, ...rest } = useQuery(queryKey, query, {
+    enabled: !!distilleryID,
+  })
 
   return { distilleryInfo, ...rest }
 }
