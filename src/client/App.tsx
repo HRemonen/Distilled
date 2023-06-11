@@ -1,5 +1,5 @@
 import React from 'react'
-import RenderMap from './components/Map/RenderMap'
+import RenderMap from './components/map/RenderMap'
 
 const App = () => (
   <section>

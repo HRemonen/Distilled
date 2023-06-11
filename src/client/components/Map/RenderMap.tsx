@@ -9,9 +9,9 @@ import Map, {
 import { useDistilleries } from '../../services/distilleryService'
 
 import MapPin from './MapPin'
+import DistilleryDrawer from './DistilleryDrawer'
 
 import { Distillery } from '../../validators/distillery_validator'
-import DistilleryPopUp from './DistilleryPopUp'
 
 const RenderMap = () => {
   const { distilleryData, isLoading } = useDistilleries()
@@ -58,7 +58,7 @@ const RenderMap = () => {
 
       {distilleryMarkers}
 
-      <DistilleryPopUp distillery={distillery} setDistillery={setDistillery} />
+      <DistilleryDrawer distillery={distillery} setDistillery={setDistillery} />
     </Map>
   )
 }
