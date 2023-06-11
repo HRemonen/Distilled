@@ -9,7 +9,7 @@ import Map, {
 import { useDistilleries } from '../../services/distilleryService'
 
 import MapPin from './MapPin'
-import DistilleryDrawer from './DistilleryDrawer'
+import DistilleryDrawer from '../distillery/DistilleryDrawer'
 
 import { Distillery } from '../../validators/distillery_validator'
 import Typography from '../typography/Typography'
