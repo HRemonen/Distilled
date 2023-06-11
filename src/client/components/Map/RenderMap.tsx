@@ -12,6 +12,7 @@ import MapPin from './MapPin'
 import DistilleryDrawer from './DistilleryDrawer'
 
 import { Distillery } from '../../validators/distillery_validator'
+import Typography from '../typography/Typography'
 
 const RenderMap = () => {
   const { distilleryData, isLoading } = useDistilleries()
@@ -40,7 +41,10 @@ const RenderMap = () => {
             })
           }}
         >
-          <MapPin size={20} />
+          <div className='flex flex-col items-center'>
+            <Typography variant='body2'>{distillery.name}</Typography>
+            <MapPin size={20} />
+          </div>
         </Marker>
       )),
     [distilleryData]
