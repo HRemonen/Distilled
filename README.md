@@ -19,9 +19,12 @@ The Distillery Application is built using the following technologies:
 - **Environment**: Docker, docker compose
 
 ## Development
+
 Replace [the template env file](server/env.template) with a .env file with your setup.
 
 Launch the app in development mode by running `docker-compose up --build` in the root folder.
+
+This will start the frontend, backend and db in their own containers.
 
 ### View database in development
 
