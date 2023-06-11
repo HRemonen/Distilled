@@ -30,7 +30,7 @@ const RenderMap = () => {
             setPopUp(distillery)
           }}
         >
-          <MapPin />
+          <MapPin size={20} />
         </Marker>
       )),
     [distilleryData]
