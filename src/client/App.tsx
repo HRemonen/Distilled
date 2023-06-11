@@ -7,9 +7,15 @@ import Map, {
   ScaleControl,
   GeolocateControl,
 } from 'react-map-gl'
+import useDistilleries from './services/distilleryService'
 
 const App = () => {
+  const { distilleryData, isLoading } = useDistilleries()
   const [popUp, setPopUp] = useState(null)
+
+  if (isLoading) return null
+
+  console.log(distilleryData)
 
   return (
     <div>
