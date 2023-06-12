@@ -22,7 +22,7 @@ const DistilleryDrawer = () => {
   return (
     <div
       ref={drawerRef}
-      className='pin fixed left-0 top-0 z-40 h-screen w-[60%] border-r-2 border-gray-900 bg-gray-800 p-4'
+      className='pin fixed left-0 top-0 z-40 h-screen w-[100%] border-r-2 border-gray-900 bg-gray-800 p-4 md:w-[60%] xl:w-[40%]'
     >
       <CloseMenu onClick={() => navigate(-1)} />
       <div className='mt-4'>

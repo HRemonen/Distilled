@@ -5,8 +5,8 @@ import RenderMap from './components/map/RenderMap'
 
 const App = () => (
   <section>
-    <RenderMap />
     <Outlet />
+    <RenderMap />
   </section>
 )
 

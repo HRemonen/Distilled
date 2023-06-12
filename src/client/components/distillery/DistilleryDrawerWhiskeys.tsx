@@ -5,10 +5,10 @@ import { ColumnDef } from '@tanstack/react-table'
 
 import { useDistilleryWhiskeys } from '../../services/whiskeyService'
 
+import TableInstance from './TableInstance'
 import Typography from '../typography/Typography'
 
 import { Whiskey } from '../../validators/whiskey_validator'
-import TableInstance from './TableInstance'
 
 type WhiskeyTable = Omit<Whiskey, 'id' | 'distillery_id'>
 

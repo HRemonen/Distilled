@@ -11,9 +11,9 @@ import { Link } from 'react-router-dom'
 import { useDistilleries } from '../../services/distilleryService'
 
 import MapPin from './MapPin'
+import Typography from '../typography/Typography'
 
 import { Distillery } from '../../validators/distillery_validator'
-import Typography from '../typography/Typography'
 
 const RenderMap = () => {
   const { distilleryData, isLoading } = useDistilleries()

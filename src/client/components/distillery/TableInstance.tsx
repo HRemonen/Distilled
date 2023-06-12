@@ -25,8 +25,8 @@ const TableInstance = <T extends object>({
   if (!data) return null
 
   return (
-    <div className='relative mt-2 flex max-w-full flex-col flex-wrap overflow-auto shadow-md sm:rounded-lg'>
-      <table className='w-full text-sm text-gray-400'>
+    <div className='relative mt-2 flex max-w-full flex-col flex-wrap rounded-lg'>
+      <table className='table-auto text-sm text-gray-400'>
         <thead className='bg-gray-700 text-center text-xs uppercase text-gray-400'>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -48,7 +48,7 @@ const TableInstance = <T extends object>({
             <tr key={row.id} className='border-b border-gray-700 bg-gray-800'>
               {row.getVisibleCells().map((cell) => (
                 <td
-                  className='whitespace-nowrap px-2 py-4 text-left text-sm font-light'
+                  className='whitespace-normal break-words px-2 py-4 text-left text-sm font-light'
                   key={cell.id}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
