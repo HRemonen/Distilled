@@ -3,7 +3,7 @@ version: '3.8'
 services:
   app:
     image: distillery-app
-    container_name: kanban-board-app
+    container_name: distillery-app
     build:
       context: ./src/client/
       dockerfile: Dockerfile
@@ -11,7 +11,7 @@ services:
       - 3000:3000
     volumes:
       - ./src/client:/usr/src/app
-      - node_modules:/usr/src/app/node_modules
+      - /usr/src/app/node_modules
     depends_on:
       - web
 
@@ -41,4 +41,3 @@ services:
 volumes:
   postgres_data:
   node_modules:
-  client:

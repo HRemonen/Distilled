@@ -42,6 +42,24 @@ docker exec -it <container-name> psql <DB_NAME> -U <DB_USER> -W
 
 You will be prompted the DB_PASSWORD when using this command
 
+### Installing new packages
+
+Now the docker compose volumes are configured so that the client node_modules are not shared with local and container space.
+
+This is because of development in ARM chips causes some packages to be transpiled as non compatible for Linux systems or whatever so the container can not run the application.
+
+If you are developing using Linux you could change the [docker-compose.yml]() app services volumes to
+
+```yml
+volumes:
+  - ./src/client:/usr/src/app
+  - ./src/client/node_modules:/usr/src/app/node_modules
+```
+
+This way the node_modules are shared across the container and local.
+
+Otherwise you must rebuild the image after new package installations
+
 ### Closing the application
 
 Close the application with

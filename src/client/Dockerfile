@@ -2,8 +2,8 @@ FROM node:19.7.0-bullseye-slim
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY package* ./
 
-RUN npm install
+RUN npm ci
 
 CMD ["npm", "run", "dev"]
