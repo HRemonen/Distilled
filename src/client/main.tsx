@@ -1,14 +1,16 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { QueryClientProvider } from 'react-query'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import queryClient from './util/queryClient'
 
 import App from './App'
+import DistilleryDrawer from './components/distillery/DistilleryDrawer'
+import DistilleryDrawerInfo from './components/distillery/DistilleryDrawerInfo'
 
 import './index.css'
-import DistilleryDrawer from './components/distillery/DistilleryDrawer'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,20 @@ const router = createBrowserRouter([
       {
         path: 'distillery/:distilleryId',
         element: <DistilleryDrawer />,
+        children: [
+          {
+            index: true,
+            element: <DistilleryDrawerInfo />,
+          },
+          {
+            path: 'whiskeys',
+            element: <></>,
+          },
+          {
+            path: 'comments',
+            element: <></>,
+          },
+        ],
       },
     ],
   },
