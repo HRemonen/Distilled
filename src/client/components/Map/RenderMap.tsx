@@ -43,7 +43,7 @@ const RenderMap = () => {
               })
             }}
           >
-            <div className='flex flex-col items-center'>
+            <div className='flex cursor-pointer flex-col items-center'>
               <Typography variant='body2'>{distillery.name}</Typography>
               <MapPin size={20} />
             </div>

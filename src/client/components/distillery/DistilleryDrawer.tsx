@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Outlet } from 'react-router-dom'
 
 import { useDistillery } from '../../services/distilleryService'
 
@@ -9,6 +9,7 @@ import Typography from '../typography/Typography'
 
 import useClickOutside from '../../hooks/useClickOutside'
 import DistilleryDrawerInfo from './DistilleryDrawerInfo'
+import DistilleryDrawerTabs from './DistilleryDrawerTabs'
 
 const DistilleryDrawer = () => {
   const drawerRef = useRef(null)
@@ -31,7 +32,8 @@ const DistilleryDrawer = () => {
       <div>
         <Rating rating={distilleryInfo.data.rating} />
       </div>
-      <DistilleryDrawerInfo distillery={distilleryInfo.data} />
+      <DistilleryDrawerTabs />
+      <Outlet />
     </div>
   )
 }
