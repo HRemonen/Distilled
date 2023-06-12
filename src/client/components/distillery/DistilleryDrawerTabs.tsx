@@ -6,6 +6,7 @@ const DistilleryDrawerTabs = () => (
     <ul className='-mb-px flex flex-wrap'>
       <li className='mr-4'>
         <NavLink
+          end
           to='.'
           className={({ isActive }) =>
             isActive ? 'border-b border-blue-500' : ''

@@ -8,12 +8,11 @@ import CloseMenu from '../common/CloseMenu'
 import Typography from '../typography/Typography'
 
 import useClickOutside from '../../hooks/useClickOutside'
-import DistilleryDrawerInfo from './DistilleryDrawerInfo'
 import DistilleryDrawerTabs from './DistilleryDrawerTabs'
 
 const DistilleryDrawer = () => {
-  const drawerRef = useRef(null)
   const navigate = useNavigate()
+  const drawerRef = useRef(null)
   const { distilleryId } = useParams()
   const { distilleryInfo, isLoading } = useDistillery(distilleryId)
   useClickOutside(drawerRef, () => navigate(-1))

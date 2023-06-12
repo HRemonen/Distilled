@@ -6,7 +6,7 @@ export const WhiskeyZod = z.object({
   distillery_id: z.string().uuid(),
   type: z.string().nonempty(),
   age: z.number().int().min(0),
-  description: z.string().optional(),
+  description: z.string(),
 })
 
 export type Whiskey = z.infer<typeof WhiskeyZod>
