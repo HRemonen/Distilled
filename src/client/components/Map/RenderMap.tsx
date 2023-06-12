@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import Map, {
   Marker,
   NavigationControl,
@@ -6,17 +6,17 @@ import Map, {
   ScaleControl,
   GeolocateControl,
 } from 'react-map-gl'
+import { Link } from 'react-router-dom'
+
 import { useDistilleries } from '../../services/distilleryService'
 
 import MapPin from './MapPin'
-import DistilleryDrawer from '../distillery/DistilleryDrawer'
 
 import { Distillery } from '../../validators/distillery_validator'
 import Typography from '../typography/Typography'
 
 const RenderMap = () => {
   const { distilleryData, isLoading } = useDistilleries()
-  const [distillery, setDistillery] = useState<Distillery | null>(null)
   const [viewState, setViewState] = React.useState({
     longitude: -100,
     latitude: 40,
@@ -26,26 +26,29 @@ const RenderMap = () => {
   const distilleryMarkers = useMemo(
     () =>
       distilleryData?.data.map((distillery: Distillery) => (
-        <Marker
+        <Link
+          to={`./distillery/${distillery.id}`}
           key={`distillery-${distillery.id}`}
-          longitude={distillery.location[1]}
-          latitude={distillery.location[0]}
-          anchor='bottom'
-          onClick={(e) => {
-            e.originalEvent.stopPropagation()
-            setDistillery(distillery)
-            setViewState({
-              longitude: distillery.location[1],
-              latitude: distillery.location[0],
-              zoom: 15,
-            })
-          }}
         >
-          <div className='flex flex-col items-center'>
-            <Typography variant='body2'>{distillery.name}</Typography>
-            <MapPin size={20} />
-          </div>
-        </Marker>
+          <Marker
+            longitude={distillery.location[1]}
+            latitude={distillery.location[0]}
+            anchor='bottom'
+            onClick={(e) => {
+              e.originalEvent.stopPropagation()
+              setViewState({
+                longitude: distillery.location[1],
+                latitude: distillery.location[0],
+                zoom: 15,
+              })
+            }}
+          >
+            <div className='flex flex-col items-center'>
+              <Typography variant='body2'>{distillery.name}</Typography>
+              <MapPin size={20} />
+            </div>
+          </Marker>
+        </Link>
       )),
     [distilleryData]
   )
@@ -66,8 +69,6 @@ const RenderMap = () => {
       <ScaleControl />
 
       {distilleryMarkers}
-
-      <DistilleryDrawer distillery={distillery} setDistillery={setDistillery} />
     </Map>
   )
 }
