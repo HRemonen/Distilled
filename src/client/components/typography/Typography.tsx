@@ -1,12 +1,18 @@
 import React from 'react'
 
 type TypographyProps = {
-  variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2'
+  variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'link'
   className?: string
+  href?: string
   children: React.ReactNode
 }
 
-const Typography = ({ variant, className = '', children }: TypographyProps) => {
+const Typography = ({
+  variant,
+  className = '',
+  href = '#',
+  children,
+}: TypographyProps) => {
   let typographyClasses = ''
 
   switch (variant) {
@@ -35,6 +41,15 @@ const Typography = ({ variant, className = '', children }: TypographyProps) => {
     case 'body2':
       typographyClasses = 'text-gray-500 dark:text-gray-400'
       return <p className={`${typographyClasses} ${className}`}>{children}</p>
+    case 'link':
+      typographyClasses =
+        'font-medium text-blue-600 dark:text-blue-500 hover:underline'
+      return (
+        <a href={href} className={`${typographyClasses} ${className}`}>
+          {children}
+        </a>
+      )
+
     default:
       return null
   }
