@@ -11,7 +11,8 @@ import DistilleryDrawer from './components/distillery/DistilleryDrawer'
 import DistilleryDrawerInfo from './components/distillery/DistilleryDrawerInfo'
 
 import './index.css'
-import DistilleryDrawerWhiskeys from './components/distillery/DistilleryDrawerWhiskeys'
+import DistilleryDrawerWhiskeys from './components/whiskey/DistilleryDrawerWhiskeys'
+import DistilleryDrawerComments from './components/distillery/DistilleryDrawerComments'
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'comments',
-            element: <></>,
+            element: <DistilleryDrawerComments />,
           },
         ],
       },
