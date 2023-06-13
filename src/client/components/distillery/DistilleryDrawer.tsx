@@ -15,7 +15,7 @@ const DistilleryDrawer = () => {
   const drawerRef = useRef(null)
   const { distilleryId } = useParams()
   const { distilleryInfo, isLoading } = useDistillery(distilleryId)
-  useClickOutside(drawerRef, () => navigate(-1))
+  useClickOutside(drawerRef, () => navigate('/maps'))
 
   if (isLoading || !distilleryInfo) return null
 
@@ -24,7 +24,7 @@ const DistilleryDrawer = () => {
       ref={drawerRef}
       className='pin fixed left-0 top-0 z-40 h-screen w-[100%] border-r-2 border-gray-900 bg-gray-800 p-4 md:w-[60%] xl:w-[40%]'
     >
-      <CloseMenu onClick={() => navigate(-1)} />
+      <CloseMenu onClick={() => navigate('/maps')} />
       <div className='mt-4'>
         <Typography variant='h4'>{distilleryInfo.data.name}</Typography>
       </div>
