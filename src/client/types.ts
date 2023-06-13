@@ -21,7 +21,14 @@ export type RatingType = {
   5: number
 }
 
+export interface EntityComment {
+  comment: string
+  rating: number
+  username: string
+  created_at: string
+}
+
 export interface DistilleryInfo extends Distillery {
-  comments: string[]
+  comments: EntityComment[]
   rating: RatingType
 }

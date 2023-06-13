@@ -12,7 +12,7 @@ import DistilleryDrawerInfo from './components/distillery/DistilleryDrawerInfo'
 
 import './index.css'
 import DistilleryDrawerWhiskeys from './components/whiskey/DistilleryDrawerWhiskeys'
-import DistilleryDrawerComments from './components/distillery/DistilleryDrawerComments'
+import DistilleryDrawerComments from './components/comments/DistilleryDrawerComments'
 
 const router = createBrowserRouter([
   {
