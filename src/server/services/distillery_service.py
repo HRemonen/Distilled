@@ -32,8 +32,8 @@ class DistilleryService:
         if hasattr(query_result, 'rating_counts'):
             json_object["rating"] = query_result.rating_counts
         
-        if hasattr(query_result, 'comments'):
-            json_object["comments"] = query_result.comments
+        if hasattr(query_result, 'reviews'):
+            json_object["reviews"] = query_result.reviews
 
         return json_object
     

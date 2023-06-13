@@ -4,26 +4,28 @@ import { useParams } from 'react-router-dom'
 import { useDistillery } from '../../services/distilleryService'
 
 import Typography from '../typography/Typography'
-import Comment from './Comment'
+import Comment from './Review'
 
-const DistilleryDrawerComments = () => {
+const DistilleryDrawerReviews = () => {
   const { distilleryId } = useParams()
   const { distilleryInfo, isLoading } = useDistillery(distilleryId)
 
   if (isLoading || !distilleryInfo) return null
 
-  const { comments } = distilleryInfo.data
+  const { reviews } = distilleryInfo.data
+
+  if (!reviews) return null
 
   return (
     <div>
       <Typography variant='h6' className='mt-4'>
         Comments
       </Typography>
-      {comments.map((comment) => (
-        <Comment key={comment.username} comment={comment} />
+      {reviews.map((review) => (
+        <Comment key={review.username} review={review} />
       ))}
     </div>
   )
 }
 
-export default DistilleryDrawerComments
+export default DistilleryDrawerReviews

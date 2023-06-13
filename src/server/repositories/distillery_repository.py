@@ -29,7 +29,7 @@ class DistilleryRepository:
                             'rating', r.rating
                         )
                     ) 
-                END AS comments,
+                END AS reviews,
                 (
                     SELECT 
                         JSONB_OBJECT_AGG (rating, count) 
