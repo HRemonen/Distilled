@@ -2,10 +2,13 @@
 import React from 'react'
 import {
   getCoreRowModel,
+  getPaginationRowModel,
   flexRender,
   useReactTable,
   ColumnDef,
 } from '@tanstack/react-table'
+
+import Pagination from './Pagination'
 
 interface ReactTableProps<T extends object> {
   data: T[]
@@ -20,12 +23,13 @@ const TableInstance = <T extends object>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   })
 
   if (!data) return null
 
   return (
-    <div className='relative mt-2 flex max-w-full flex-col flex-wrap rounded-lg'>
+    <div className='relative mt-2 flex max-w-full flex-col flex-wrap overflow-auto rounded-lg shadow-md'>
       <table className='table-auto text-sm text-gray-400'>
         <thead className='bg-gray-700 text-center text-xs uppercase text-gray-400'>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -58,6 +62,7 @@ const TableInstance = <T extends object>({
           ))}
         </tbody>
       </table>
+      <Pagination table={table} />
     </div>
   )
 }
