@@ -37,7 +37,7 @@ const RenderMap = () => {
             onClick={(e) => {
               e.originalEvent.stopPropagation()
               setViewState({
-                longitude: distillery.location[1],
+                longitude: distillery.location[1] - 0.007,
                 latitude: distillery.location[0],
                 zoom: 15,
               })
