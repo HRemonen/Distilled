@@ -5,8 +5,8 @@ import { ColumnDef } from '@tanstack/react-table'
 
 import { useDistilleryWhiskeys } from '../../services/whiskeyService'
 
-import TableInstance from './TableInstance'
 import Typography from '../typography/Typography'
+import TableInstance from '../table/TableInstance'
 
 import { Whiskey } from '../../validators/whiskey_validator'
 
