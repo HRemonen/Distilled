@@ -19,10 +19,17 @@ class DistilleryRepository:
                 d.country,
                 d.year_established,
                 d.website,
-                ARRAY_AGG(c.comment) AS comments,
+                JSONB_AGG (
+                    JSONB_BUILD_OBJECT (
+                        'username', u.username,
+                        'comment', c.comment,
+                        'created_at', c.created_at,
+                        'rating', r.rating
+                    )
+                ) AS comments,
                 (
                     SELECT 
-                        jsonb_object_agg(rating, count) 
+                        JSONB_OBJECT_AGG (rating, count) 
                     FROM (
                         SELECT 
                             rating,
@@ -39,6 +46,10 @@ class DistilleryRepository:
                 distilleries AS d
             LEFT JOIN 
                 comments AS c ON d.id = c.entity_id
+            LEFT JOIN
+                users AS u ON c.user_id = u.id
+            LEFT JOIN
+                ratings AS r ON d.id = r.entity_id AND u.id = r.user_id
             WHERE d.id = :id AND d.deleted_at IS NULL
             GROUP BY
                 d.id
