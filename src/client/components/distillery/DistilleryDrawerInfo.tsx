@@ -16,8 +16,9 @@ const DistilleryDrawerInfo = () => {
       <Typography variant='h6' className='mt-4'>
         Information
       </Typography>
-      <div className='mt-2 grid grid-cols-10 gap-x-2'>
+      <div className='mt-4 grid grid-cols-10 gap-x-2 pl-2'>
         <svg
+          className='col-span-1'
           viewBox='0 0 16 16'
           version='1.1'
           width='16'
@@ -26,12 +27,12 @@ const DistilleryDrawerInfo = () => {
         >
           <path d='m12.596 11.596-3.535 3.536a1.5 1.5 0 0 1-2.122 0l-3.535-3.536a6.5 6.5 0 1 1 9.192-9.193 6.5 6.5 0 0 1 0 9.193Zm-1.06-8.132v-.001a5 5 0 1 0-7.072 7.072L8 14.07l3.536-3.534a5 5 0 0 0 0-7.072ZM8 9a2 2 0 1 1-.001-3.999A2 2 0 0 1 8 9Z' />
         </svg>
-        <Typography variant='body2' className='col-span-8'>
+        <Typography variant='body2' className='col-span-9'>
           {distilleryInfo.data.location}, {distilleryInfo.data.country}
         </Typography>
-      </div>
-      <div className='mt-2 grid grid-cols-10 gap-x-2'>
+
         <svg
+          className='col-span-1'
           aria-hidden='true'
           height='16'
           viewBox='0 0 16 16'
@@ -44,7 +45,7 @@ const DistilleryDrawerInfo = () => {
         <Typography
           variant='link'
           href={distilleryInfo.data.website}
-          className='col-span-8'
+          className='col-span-9'
         >
           {distilleryInfo.data.website}
         </Typography>

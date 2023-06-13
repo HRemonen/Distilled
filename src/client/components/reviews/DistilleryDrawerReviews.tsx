@@ -19,7 +19,7 @@ const DistilleryDrawerReviews = () => {
   return (
     <div>
       <Typography variant='h6' className='mt-4'>
-        Comments
+        Reviews
       </Typography>
       {reviews.map((review) => (
         <Comment key={review.username} review={review} />

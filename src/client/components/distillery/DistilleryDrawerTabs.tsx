@@ -32,7 +32,7 @@ const DistilleryDrawerTabs = () => (
             isActive ? 'border-b border-blue-500' : ''
           }
         >
-          Comments
+          Reviews
         </NavLink>
       </li>
     </ul>

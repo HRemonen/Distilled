@@ -29,7 +29,7 @@ const TableInstance = <T extends object>({
   if (!data) return null
 
   return (
-    <div className='relative mt-2 flex max-w-full flex-col flex-wrap overflow-auto rounded-lg shadow-md'>
+    <div className='relative ml-2 mt-4 flex max-w-full flex-col flex-wrap overflow-auto rounded-lg shadow-md'>
       <table className='table-auto text-sm text-gray-400'>
         <thead className='bg-gray-700 text-center text-xs uppercase text-gray-400'>
           {table.getHeaderGroups().map((headerGroup) => (
