@@ -1,14 +1,25 @@
 import React, { useState } from 'react'
+import { useDistilleries } from '../../services/distilleryService'
 
 const SearchBar = () => {
+  const { distilleryData, isLoading } = useDistilleries()
+
   const [category, setCategory] = useState('')
+  const [search, setSearch] = useState('')
 
-  const categories = ['Distilleries', 'Whiskeys']
+  const categories = ['Distilleries']
 
-  console.log(category)
+  if (isLoading || !distilleryData) return null
+
+  const filteredData = distilleryData.data.filter(
+    (distillery) =>
+      search.length > 2 && distillery.name.toLowerCase().includes(search)
+  )
+
+  console.log(filteredData)
 
   return (
-    <form className='pin fixed left-[10vw] top-4 z-20 w-[80%] lg:left-[25vw] lg:w-[50%]'>
+    <div className='pin fixed left-[10vw] top-4 z-20 w-[80%] lg:left-[25vw] lg:w-[50%]'>
       <div className='flex'>
         <select
           id='countries'
@@ -26,35 +37,17 @@ const SearchBar = () => {
           <input
             disabled={!category}
             type='search'
-            id='search-dropdown'
             className='z-20 block w-full rounded-r-lg border border-l-2 border-gray-600 border-l-gray-700 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500'
-            placeholder={`Search ${categories.join(', ')}...`}
+            placeholder={
+              category ? `Search ${category}...` : 'Select a category to search'
+            }
+            value={search}
+            onChange={(e) => setSearch(e.target.value.toLowerCase())}
             required
           />
-          <button
-            type='submit'
-            className='absolute right-0 top-0 rounded-r-lg border border-blue-700 bg-blue-600 p-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-800'
-          >
-            <svg
-              aria-hidden='true'
-              className='h-5 w-5'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-              />
-            </svg>
-            <span className='sr-only'>Search</span>
-          </button>
         </div>
       </div>
-    </form>
+    </div>
   )
 }
 
