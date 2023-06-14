@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom'
 import { useDistilleries } from '../../services/distilleryService'
 
 import MapPin from './MapPin'
-import SearchBar from './SearchBar'
 import Typography from '../typography/Typography'
 
 import { Distillery } from '../../validators/distillery_validator'
@@ -64,7 +63,6 @@ const RenderMap = () => {
       mapStyle='mapbox://styles/mapbox/dark-v9'
       mapboxAccessToken={import.meta.env.VITE_MAPBOX_KEY}
     >
-      <SearchBar />
       <GeolocateControl position='top-left' />
       <FullscreenControl position='top-left' />
       <NavigationControl position='top-left' />
