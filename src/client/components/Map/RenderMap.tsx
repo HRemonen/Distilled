@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import { useDistilleries } from '../../services/distilleryService'
 
 import MapPin from './MapPin'
+import SearchBar from './SearchBar'
 import Typography from '../typography/Typography'
 
 import { Distillery } from '../../validators/distillery_validator'
@@ -18,8 +19,8 @@ import { Distillery } from '../../validators/distillery_validator'
 const RenderMap = () => {
   const { distilleryData, isLoading } = useDistilleries()
   const [viewState, setViewState] = React.useState({
-    longitude: -100,
-    latitude: 40,
+    longitude: 19,
+    latitude: 56,
     zoom: 3.5,
   })
 
@@ -63,6 +64,7 @@ const RenderMap = () => {
       mapStyle='mapbox://styles/mapbox/dark-v9'
       mapboxAccessToken={import.meta.env.VITE_MAPBOX_KEY}
     >
+      <SearchBar />
       <GeolocateControl position='top-left' />
       <FullscreenControl position='top-left' />
       <NavigationControl position='top-left' />
