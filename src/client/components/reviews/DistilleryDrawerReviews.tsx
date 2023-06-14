@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import useEntityReviews from '../../services/entityService'
 
 import Typography from '../typography/Typography'
-import Comment from './Review'
+import Review from './Review'
 
 const DistilleryDrawerReviews = () => {
   const { distilleryId } = useParams()
@@ -22,7 +22,7 @@ const DistilleryDrawerReviews = () => {
         Reviews
       </Typography>
       {reviews.map((review) => (
-        <Comment key={review.rating_id} review={review} />
+        <Review key={review.rating_id} review={review} />
       ))}
     </div>
   )

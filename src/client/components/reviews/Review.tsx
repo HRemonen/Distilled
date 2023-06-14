@@ -4,7 +4,7 @@ import RenderStars from '../ratings/RenderStars'
 
 import { EntityReview } from '../../types'
 
-const Comment = ({ review }: { review: EntityReview }) => {
+const Review = ({ review }: { review: EntityReview }) => {
   const createdDate = new Date(review.created_at).toLocaleDateString()
 
   return (
@@ -25,4 +25,4 @@ const Comment = ({ review }: { review: EntityReview }) => {
   )
 }
 
-export default Comment
+export default Review
