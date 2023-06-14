@@ -8,6 +8,14 @@ class DistilleryRepository:
         self._db = db
         
     def get_distillery(self, id: str) -> Row:
+        """Fetches a certain distillery from the database by given entity ID.
+
+        Args:
+            id (str): Entity id.
+
+        Returns:
+            Row: Returning the found distillery object.
+        """        
         distillery_input = {
             "id": id,
         }
@@ -45,6 +53,11 @@ class DistilleryRepository:
         return self._db.session.execute(text(sql), distillery_input).fetchone()
     
     def get_distilleries(self):
+        """Fetches all distilleries from the database.
+
+        Returns:
+            _type_: Returning the found distillery objects.
+        """        
         sql = """
             SELECT *
             FROM distilleries
@@ -55,6 +68,15 @@ class DistilleryRepository:
         return self._db.session.execute(text(sql)).fetchall()
         
     def create_distillery(self, entity_id: str, distillery: dict) -> Row:
+        """Inserts into the database a new distillery for a given entity ID.
+
+        Args:
+            entity_id (str): Entity ID.
+            distillery (dict): Distillery input values.
+
+        Returns:
+            Row: Returning the newly created distillery object.
+        """        
         coordinates = distillery["location"]
         
         distillery_input = {
@@ -91,6 +113,15 @@ class DistilleryRepository:
         return result.fetchone()
     
     def update_distillery_website(self, id: str, updates: dict) -> Row:
+        """Updates a certain distillery website by entity id.
+
+        Args:
+            id (str): Entity id.
+            updates (dict): Website to update.
+
+        Returns:
+            Row: Returning the updated distillery object.
+        """        
         update_input = {
             "id": id,
             "website": updates["website"]
@@ -109,7 +140,18 @@ class DistilleryRepository:
         
         return result.fetchone()
     
-    def delete_distillery(self, id: str) -> Row:  
+    def delete_distillery(self, id: str) -> Row:
+        """Deletes a certain distillery by entity id.
+
+        Works as a soft delete, so only the deleted_at field is updated to contain the date of the deletion.
+        The information still remains in the database for further access.
+        
+        Args:
+            id (str): Entity id.
+
+        Returns:
+            Row: Updated information of the distillery.
+        """        
         delete_input = {
             "id": id,
         }

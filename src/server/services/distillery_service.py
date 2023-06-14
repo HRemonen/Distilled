@@ -38,6 +38,17 @@ class DistilleryService:
         return json_object
     
     def get_distillery(self, id: str) -> Dict:
+        """Service for fetching a distillery by id.
+
+        Args:
+            id (str): Entity id.
+
+        Raises:
+            Exception: Distillery was not found.
+
+        Returns:
+            Dict: JSON object of the found distillery.
+        """        
         query_result = self._distillery_repository.get_distillery(id)
         
         if not query_result:
@@ -48,6 +59,14 @@ class DistilleryService:
         return found_distillery
     
     def get_distilleries(self) -> List[Dict]:
+        """Service for fetching all distilleries.
+
+        Raises:
+            Exception: Distilleries was not found.
+
+        Returns:
+            List[Dict]: JSON object of the found distilleries.
+        """        
         query_result = self._distillery_repository.get_distilleries()
         
         if not query_result:
@@ -58,6 +77,19 @@ class DistilleryService:
         return list(found_distilleries)
     
     def create_distillery(self, entity_id: str, distillery: dict) -> Dict:
+        """Service for creating a new distillery.
+        
+        Distillery will have the PK as fk of an entity id.
+        
+        Validates the entity input.
+
+        Args:
+            entity_id (str): Entity id.
+            distillery (dict): Request body with the needed fields.
+
+        Returns:
+            Dict: JSON object of the newly created distillery.
+        """        
         NewDistillerySchema().load(distillery)
         
         query_result = self._distillery_repository.create_distillery(entity_id, distillery)
@@ -67,6 +99,15 @@ class DistilleryService:
         return new_distillery
     
     def update_distillery_website(self, id: str, updates: dict) -> Dict:
+        """Service for updating a distillery website.
+
+        Args:
+            id (str): Entity id.
+            updates (dict): Request body that contains the website field.
+
+        Returns:
+            Dict: JSON object of the updated distillery.
+        """        
         UpdatedDistillerySchema().load(updates)
         
         query_result = self._distillery_repository.update_distillery_website(id, updates)
@@ -76,6 +117,14 @@ class DistilleryService:
         return updated_distillery
     
     def delete_distillery(self, id: str) -> Dict:
+        """Service for deleting a distillery.
+
+        Args:
+            id (str): Entity id.
+
+        Returns:
+            Dict: JSON object of the deleted distillery.
+        """        
         query_result = self._distillery_repository.delete_distillery(id)
         
         deleted_distillery = self._to_json(query_result)
