@@ -65,7 +65,7 @@ class DistilleryService:
             Exception: Distilleries was not found.
 
         Returns:
-            List[Dict]: JSON object of the found distilleries.
+            List[Dict]: Array of JSON objects of the found distilleries.
         """        
         query_result = self._distillery_repository.get_distilleries()
         
@@ -81,7 +81,7 @@ class DistilleryService:
         
         Distillery will have the PK as fk of an entity id.
         
-        Validates the entity input.
+        Validates the distillery input.
 
         Args:
             entity_id (str): Entity id.
@@ -100,6 +100,8 @@ class DistilleryService:
     
     def update_distillery_website(self, id: str, updates: dict) -> Dict:
         """Service for updating a distillery website.
+        
+        Validates the update input.
 
         Args:
             id (str): Entity id.

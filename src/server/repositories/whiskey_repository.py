@@ -8,6 +8,14 @@ class WhiskeyRepository:
         self._db = db
         
     def get_whiskey(self, id: str) -> Row:
+        """Fetches a certain whiskey from the database by given entity ID.
+
+        Args:
+            id (str): Entity id.
+
+        Returns:
+            Row: Returning the found whiskey object.
+        """        
         whiskey_input = {
             "id": id
         }
@@ -30,7 +38,15 @@ class WhiskeyRepository:
         
         return self._db.session.execute(text(sql), whiskey_input).fetchone()
     
-    def get_whiskeys_by_distillery(self, distillery_id: str):      
+    def get_whiskeys_by_distillery(self, distillery_id: str) -> Row:
+        """Fetches whiskeys by a distillery id from the database.
+
+        Args:
+            distillery_id (str): Entity id.
+
+        Returns:
+            Row: Returning the found whiskey objects.
+        """         
         whiskey_input = {
             "distillery_id": distillery_id
         }
@@ -49,7 +65,12 @@ class WhiskeyRepository:
 
         return self._db.session.execute(text(sql), whiskey_input).fetchall()
     
-    def get_whiskeys(self):
+    def get_whiskeys(self) -> Row:
+        """Fetches whiskeys from the database.
+
+        Returns:
+            Row: Returning the found whiskey objects.
+        """        
         sql = """
             SELECT 
                 w.id,
@@ -65,7 +86,16 @@ class WhiskeyRepository:
         
         return self._db.session.execute(text(sql)).fetchall()
     
-    def create_whiskey(self, entity_id: str, whiskey: dict) -> Row: 
+    def create_whiskey(self, entity_id: str, whiskey: dict) -> Row:
+        """Inserts into the database a new whiskeys for a given entity ID.
+
+        Args:
+            entity_id (str): Entity id.
+            whiskey (dict): Whiskey input values.
+
+        Returns:
+            Row: Returning the newly created whiskey object.
+        """        
         whiskey_input = {
             "id": entity_id,
             "name": whiskey["name"],
@@ -100,6 +130,15 @@ class WhiskeyRepository:
         return result.fetchone()
     
     def update_whiskey_description(self, id: str, updates: dict) -> Row:
+        """Updates a certain whiskey description by entity id.
+
+        Args:
+            id (str): Entity id.
+            updates (dict): Description to update.
+
+        Returns:
+            Row: Returning the updated whiskey object.
+        """        
         update_input = {
             "id": id,
             "description": updates["description"]    
@@ -119,6 +158,17 @@ class WhiskeyRepository:
         return result.fetchone()
     
     def delete_whiskey(self, id: str) -> Row:
+        """Deletes a certain whiskey by entity id.
+
+        Works as a soft delete, so only the deleted_at field is updated to contain the date of the deletion.
+        The information still remains in the database for further access.
+
+        Args:
+            id (str): Entity id.
+
+        Returns:
+            Row: Returning the deleted whiskey object.
+        """        
         delete_input = {
             "id": id,
         }

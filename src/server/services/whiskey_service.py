@@ -39,6 +39,17 @@ class WhiskeyService:
         return json_object
     
     def get_whiskey(self, id: str) -> Dict:
+        """Service for fetching a whiskey by entity id.
+
+        Args:
+            id (str): Entity id.
+
+        Raises:
+            Exception: Whiskey was not found.
+
+        Returns:
+            Dict: JSON object of the found whiskey.
+        """        
         query_result = self._whiskey_repository.get_whiskey(id)
         
         app.logger.info(query_result)
@@ -50,7 +61,18 @@ class WhiskeyService:
         
         return found_whiskey
     
-    def get_whiskeys_by_distillery(self, distillery_id: str) -> List[Dict]:        
+    def get_whiskeys_by_distillery(self, distillery_id: str) -> List[Dict]:
+        """Service for fetching all whiskeys by a certain distillery.
+
+        Args:
+            distillery_id (str): Entity id.
+
+        Raises:
+            Exception: Whiskeys was not found.
+
+        Returns:
+            List[Dict]: Array of JSON objects of the found whiskeys.
+        """             
         query_result = self._whiskey_repository.get_whiskeys_by_distillery(distillery_id)
         
         if not query_result:
@@ -61,6 +83,14 @@ class WhiskeyService:
         return list(found_whiskeys)
     
     def get_whiskeys(self) -> List[Dict]:
+        """Service for fetching all whiskeys.
+
+        Raises:
+            Exception: Whiskeys was not found.
+
+        Returns:
+            List[Dict]: Array of JSON objects of the found whiskeys.
+        """        
         query_result = self._whiskey_repository.get_whiskeys()
         
         if not query_result:
@@ -71,6 +101,19 @@ class WhiskeyService:
         return list(found_whiskeys)
     
     def create_whiskey(self, entity_id: str, whiskey: dict) -> Dict:
+        """Service for creating a new whiskey.
+        
+        Whiskey will have the PK as fk of an entity id.
+        
+        Validates the whiskey input.
+
+        Args:
+            entity_id (str): Entity id.
+            whiskey (dict): Request body with the needed fields.
+
+        Returns:
+            Dict: JSON object of the newly created whiskey.
+        """        
         NewWhiskeySchema().load(whiskey)
         
         query_result = self._whiskey_repository.create_whiskey(entity_id, whiskey)
@@ -80,6 +123,17 @@ class WhiskeyService:
         return new_whiskey
     
     def update_whiskey_description(self, id: str, updates: dict) -> Dict:
+        """Service for updating the description of a whiskey.
+        
+        Validates the update input.
+
+        Args:
+            id (str): Entity id.
+            updates (dict): Request body that contains the description field.
+
+        Returns:
+            Dict: JSON object of the updated whiskey.
+        """        
         UpdatedWhiskeySchema().load(updates)
         
         query_result = self._whiskey_repository.update_whiskey_description(id, updates)
@@ -89,6 +143,14 @@ class WhiskeyService:
         return updated_whiskey
     
     def delete_whiskey(self, id: str) -> Dict:
+        """Service for deleting a whiskey
+
+        Args:
+            id (str): Entity id.
+
+        Returns:
+            Dict: JSON object of the deleted whiskey.
+        """        
         query_result = self._whiskey_repository.delete_whiskey(id)
         
         deleted_whiskey = self._to_json(query_result)

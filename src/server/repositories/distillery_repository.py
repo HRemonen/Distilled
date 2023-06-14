@@ -52,11 +52,11 @@ class DistilleryRepository:
         
         return self._db.session.execute(text(sql), distillery_input).fetchone()
     
-    def get_distilleries(self):
+    def get_distilleries(self) -> Row:
         """Fetches all distilleries from the database.
 
         Returns:
-            _type_: Returning the found distillery objects.
+            Row: Returning the found distillery objects.
         """        
         sql = """
             SELECT *
