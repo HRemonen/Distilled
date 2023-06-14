@@ -11,6 +11,14 @@ class UserRepository:
         self._db = db
         
     def get_user_role(self, username: str) -> Row:
+        """Fetch the user's role from database using the username as query key.
+
+        Args:
+            username (str): user's username.
+
+        Returns:
+            Row: Returning the found user role.
+        """        
         user_input = {
             "username": username
         }
@@ -22,6 +30,14 @@ class UserRepository:
         return self._db.session.execute(text(sql), user_input).fetchone()
     
     def get_user_id(self, username: str) -> Row:
+        """Fethes an user id from database using the username as query key.
+
+        Args:
+            username (str): user's username.
+
+        Returns:
+            Row: Returning the found user id.
+        """        
         user_input = {
             "username": username
         }
@@ -32,6 +48,11 @@ class UserRepository:
         return self._db.session.execute(text(sql), user_input).fetchone()
 
     def register(self, user: object) -> None:
+        """Inserts new user information into the database.
+
+        Args:
+            user (object): User fields.
+        """        
         password_hash = generate_password_hash(user["password"])
         
         register_input = {
@@ -59,6 +80,14 @@ class UserRepository:
         self._db.session.commit()
         
     def login(self, user: object) -> Row:
+        """Fetches user information from the database on login.
+
+        Args:
+            user (object): User login inputs.
+
+        Returns:
+            Row: Returning the found user.
+        """        
         login_input = {
             "username": user["username"],
         }
