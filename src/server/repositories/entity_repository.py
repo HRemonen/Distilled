@@ -8,6 +8,14 @@ class EntityRepository:
         self._db = db
     
     def create_entity(self, id) -> Row:
+        """Create a new entity to the database.
+
+        Args:
+            id (UUID): Id (PK) of the entity.
+
+        Returns:
+            Row: Returning the newly created entity.
+        """        
         entity_input = {
             "id": id
         }
@@ -24,6 +32,16 @@ class EntityRepository:
         return result.fetchone()
     
     def comment_entity(self, id: str, user_id: str, comment: dict) -> Row:
+        """Give a comment to certain entity
+
+        Args:
+            id (str): Entity id or for example the id distillery.
+            user_id (str): User id.
+            comment (dict): Given comment.
+
+        Returns:
+            Row: Returning the newly created comment object.
+        """        
         comment_input = {
             "user_id": user_id,
             "entity_id": id,
@@ -49,6 +67,16 @@ class EntityRepository:
         return result.fetchone()
     
     def rate_entity(self, id: str, user_id: str, rating: dict) -> Row:
+        """Give a rating to certain entity
+
+        Args:
+            id (str): Entity id or for example the id distillery.
+            user_id (str): User id.
+            rating (dict): Given rating, must be in range on 0 - 5.
+
+        Returns:
+            Row: Returning the newly created rating object.
+        """        
         rating_input = {
             "user_id": user_id,
             "entity_id": id,
@@ -90,7 +118,7 @@ class EntityRepository:
             id (str): Entity id or for example the id distillery.
 
         Returns:
-            Row: All found Rows mathing the query
+            Row: All found Rows mathing the query.
         """
         review_input = {
             "id": id
