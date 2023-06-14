@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import Map, {
   Marker,
   NavigationControl,
@@ -6,7 +6,7 @@ import Map, {
   ScaleControl,
   GeolocateControl,
 } from 'react-map-gl'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { useDistilleries } from '../../services/distilleryService'
 
@@ -16,12 +16,26 @@ import Typography from '../typography/Typography'
 import { Distillery } from '../../validators/distillery_validator'
 
 const RenderMap = () => {
+  const { distilleryId } = useParams()
   const { distilleryData, isLoading } = useDistilleries()
   const [viewState, setViewState] = React.useState({
     longitude: 19,
     latitude: 56,
     zoom: 3.5,
   })
+
+  useEffect(() => {
+    const distillery = distilleryData?.data.find(
+      (distillery) => distillery.id === distilleryId
+    )
+    if (distillery) {
+      setViewState({
+        longitude: distillery.location[1] - 0.007,
+        latitude: distillery.location[0],
+        zoom: 15,
+      })
+    }
+  }, [distilleryId, distilleryData])
 
   const distilleryMarkers = useMemo(
     () =>
@@ -36,11 +50,6 @@ const RenderMap = () => {
             anchor='bottom'
             onClick={(e) => {
               e.originalEvent.stopPropagation()
-              setViewState({
-                longitude: distillery.location[1] - 0.007,
-                latitude: distillery.location[0],
-                zoom: 15,
-              })
             }}
           >
             <div className='flex cursor-pointer flex-col items-center'>

@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import { useDistilleries } from '../../services/distilleryService'
 
 const SearchBar = () => {
@@ -13,10 +15,9 @@ const SearchBar = () => {
 
   const filteredData = distilleryData.data.filter(
     (distillery) =>
-      search.length > 2 && distillery.name.toLowerCase().includes(search)
+      search.length > 2 &&
+      distillery.name.toLowerCase().includes(search.toLowerCase())
   )
-
-  console.log(filteredData)
 
   return (
     <div className='pin fixed left-[10vw] top-4 z-20 w-[80%] lg:left-[25vw] lg:w-[50%]'>
@@ -42,11 +43,29 @@ const SearchBar = () => {
               category ? `Search ${category}...` : 'Select a category to search'
             }
             value={search}
-            onChange={(e) => setSearch(e.target.value.toLowerCase())}
+            onChange={(e) => setSearch(e.target.value)}
             required
           />
         </div>
       </div>
+      {filteredData.length > 0 ? (
+        <div className='z-20 mt-2 flex w-full flex-col rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white'>
+          {filteredData.map((distillery) => (
+            <Link
+              to={`./distillery/${distillery.id}`}
+              key={`distillery-${distillery.id}`}
+              onClick={() => setSearch('')}
+            >
+              <div
+                className='my-2 block w-full pl-2 hover:text-gray-400'
+                key={distillery.id}
+              >
+                {distillery.name}
+              </div>
+            </Link>
+          ))}
+        </div>
+      ) : null}
     </div>
   )
 }
