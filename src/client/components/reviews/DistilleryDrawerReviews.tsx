@@ -1,18 +1,18 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import { useDistillery } from '../../services/distilleryService'
+import useEntityReviews from '../../services/entityService'
 
 import Typography from '../typography/Typography'
 import Comment from './Review'
 
 const DistilleryDrawerReviews = () => {
   const { distilleryId } = useParams()
-  const { distilleryInfo, isLoading } = useDistillery(distilleryId)
+  const { reviewsInfo, isLoading } = useEntityReviews(distilleryId)
 
-  if (isLoading || !distilleryInfo) return null
+  if (isLoading || !reviewsInfo) return null
 
-  const { reviews } = distilleryInfo.data
+  const reviews = reviewsInfo.data
 
   if (!reviews) return null
 
@@ -22,7 +22,7 @@ const DistilleryDrawerReviews = () => {
         Reviews
       </Typography>
       {reviews.map((review) => (
-        <Comment key={review.username} review={review} />
+        <Comment key={review.rating_id} review={review} />
       ))}
     </div>
   )

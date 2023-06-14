@@ -77,6 +77,7 @@ class EntityService:
             json: JSON result from the SQLAlchemy Row
         """
         json_object = {
+            "rating_id": query_result.rating_id,
             "username": query_result.username,
             "rating": query_result.rating,
             "comment": query_result.comment,

@@ -32,7 +32,7 @@ const router = createBrowserRouter([
             element: <DistilleryDrawerWhiskeys />,
           },
           {
-            path: 'comments',
+            path: 'reviews',
             element: <DistilleryDrawerComments />,
           },
         ],

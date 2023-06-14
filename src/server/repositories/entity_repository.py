@@ -125,6 +125,7 @@ class EntityRepository:
         }
         sql = """
             SELECT
+                r.id AS rating_id,
                 u.username AS username,
                 r.rating AS rating,
                 r.created_at AS created_at,

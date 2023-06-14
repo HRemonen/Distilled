@@ -27,7 +27,7 @@ const DistilleryDrawerTabs = () => (
       </li>
       <li className='mr-4'>
         <NavLink
-          to='./comments'
+          to='./reviews'
           className={({ isActive }) =>
             isActive ? 'border-b border-blue-500' : ''
           }
