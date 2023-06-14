@@ -19,17 +19,6 @@ class DistilleryRepository:
                 d.country,
                 d.year_established,
                 d.website,
-                CASE
-                    WHEN COUNT(c.comment) = 0 THEN NULL
-                    ELSE JSONB_AGG (
-                        JSONB_BUILD_OBJECT (
-                            'username', u.username,
-                            'comment', c.comment,
-                            'created_at', c.created_at,
-                            'rating', r.rating
-                        )
-                    ) 
-                END AS reviews,
                 (
                     SELECT 
                         JSONB_OBJECT_AGG (rating, count) 
@@ -47,12 +36,6 @@ class DistilleryRepository:
                 ) AS rating_counts
             FROM 
                 distilleries AS d
-            LEFT JOIN 
-                comments AS c ON d.id = c.entity_id
-            LEFT JOIN
-                users AS u ON c.user_id = u.id
-            LEFT JOIN
-                ratings AS r ON d.id = r.entity_id AND u.id = r.user_id
             WHERE 
                 d.id = :id AND d.deleted_at IS NULL
             GROUP BY

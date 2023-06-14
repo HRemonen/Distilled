@@ -643,4 +643,32 @@ def rate_entity(id: str):
             "message": "giving a rating failed",
             "data": None
         }, 404
-      
+
+@app.route("/api/entity/reviews/<string:id>", methods=["GET"])
+def get_entity_reviews(id: str):
+    """Get reviews (rating and comment by username) of a certain entity
+
+    ---
+    tags:
+        - entities
+    responses:
+        200:
+            description: Reviews found
+        404:
+            description: Reviews not found
+    """
+    
+    try:
+        reviews = entity_service.get_entity_reviews(id)
+        return {
+                "status": "success",
+                "message": "reviews found",
+                "data": reviews
+            }, 200
+        
+    except Exception:
+        return {
+            "status": "error",
+            "message": "reviews not found",
+            "data": None
+        }, 404
