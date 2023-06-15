@@ -1,4 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { InputHTMLAttributes } from 'react'
+import { FieldError, UseFormRegister, FieldValues } from 'react-hook-form'
+
 import { Distillery } from './validators/distillery_validator'
+
+// GENERAL API RELATED TYPES
 
 export interface APIFailure {
   data: null
@@ -12,6 +18,7 @@ export interface APIResponse<T> {
   status: 'success'
 }
 
+// RATING RELATED TYPES
 export type RatingType = {
   0: number
   1: number
@@ -21,6 +28,7 @@ export type RatingType = {
   5: number
 }
 
+// ENTITY RELATED TYPES
 export interface EntityReview {
   rating_id: string
   comment: string
@@ -29,6 +37,29 @@ export interface EntityReview {
   created_at: string
 }
 
+// DISTILLERY RELATED TYPES
+
 export interface DistilleryInfo extends Distillery {
   rating: RatingType
+}
+
+// USER RELATED TYPES
+
+export interface PrivateUser {
+  id: string
+  username: string
+}
+
+export interface LoginUserSuccess {
+  token: string
+  user: PrivateUser
+}
+
+// FORM RELATED TYPES
+
+export interface InputType extends InputHTMLAttributes<HTMLInputElement> {
+  register: UseFormRegister<FieldValues> | UseFormRegister<any>
+  error?: FieldError | undefined
+  label?: string
+  id: string
 }
