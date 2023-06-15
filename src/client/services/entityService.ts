@@ -15,6 +15,7 @@ const useEntityReviews = (entityID: string | undefined) => {
 
   const { data: reviewsInfo, ...rest } = useQuery(queryKey, query, {
     enabled: !!entityID,
+    retry: false,
   })
 
   return { reviewsInfo, ...rest }

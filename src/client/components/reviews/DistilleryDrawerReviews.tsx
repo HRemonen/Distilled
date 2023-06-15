@@ -8,13 +8,20 @@ import Review from './Review'
 
 const DistilleryDrawerReviews = () => {
   const { distilleryId } = useParams()
-  const { reviewsInfo, isLoading } = useEntityReviews(distilleryId)
+  const { reviewsInfo, isLoading, isError } = useEntityReviews(distilleryId)
 
-  if (isLoading || !reviewsInfo) return null
+  if (isLoading) return null
+
+  if (isError || !reviewsInfo?.data)
+    return (
+      <div>
+        <Typography variant='h6'>
+          Be the first one to review this distillery!
+        </Typography>
+      </div>
+    )
 
   const reviews = reviewsInfo.data
-
-  if (!reviews) return null
 
   return (
     <div>
