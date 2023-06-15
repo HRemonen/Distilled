@@ -14,9 +14,13 @@ const DistilleryDrawerReviews = () => {
 
   if (isError || !reviewsInfo?.data)
     return (
-      <div>
+      <div className='m-4'>
         <Typography variant='h6'>
           Be the first one to review this distillery!
+        </Typography>
+        <Typography variant='body2' className='mt-4'>
+          Look&lsquo;s like there is no reviews for this distillery yet. <br />
+          You can be the first one to drop a review if you wish!
         </Typography>
       </div>
     )

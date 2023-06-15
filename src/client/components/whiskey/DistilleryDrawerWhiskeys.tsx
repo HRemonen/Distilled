@@ -14,7 +14,8 @@ type WhiskeyTable = Omit<Whiskey, 'id' | 'distillery_id'>
 
 const DistilleryDrawerWhiskeys = () => {
   const { distilleryId } = useParams()
-  const { whiskeyInfo, isLoading } = useDistilleryWhiskeys(distilleryId)
+  const { whiskeyInfo, isLoading, isError } =
+    useDistilleryWhiskeys(distilleryId)
 
   const columns = useMemo<ColumnDef<WhiskeyTable>[]>(
     () => [
@@ -42,7 +43,28 @@ const DistilleryDrawerWhiskeys = () => {
     []
   )
 
-  if (isLoading || !whiskeyInfo) return null
+  if (isLoading) return null
+
+  if (isError || !whiskeyInfo?.data)
+    return (
+      <div className='m-4'>
+        <Typography variant='h6'>
+          Ahh bummer, looks like there is no whiskeys related to this
+          distillery.
+        </Typography>
+        <Typography variant='body2' className='mt-4'>
+          You could request your favorite whiskeys to be added to a certain
+          distillery by sending in a{' '}
+          <a
+            className='text-blue-500 underline'
+            href='mailto:requests@distilled.fi'
+          >
+            request
+          </a>
+          .
+        </Typography>
+      </div>
+    )
 
   return (
     <div>
