@@ -1,12 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { useContext, useState } from 'react'
-import { AxiosError } from 'axios'
+import axios, { AxiosError } from 'axios'
 
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { enqueueSnackbar } from 'notistack'
-
 import loginService from '../../services/authService'
 import { AuthContext } from '../../contexts/AuthContext'
 
@@ -43,7 +42,25 @@ const Login = () => {
         })
       })
       .catch((err: Error | AxiosError) => {
-        console.log(err)
+        if (!axios.isAxiosError(err)) {
+          enqueueSnackbar('Could not log in at the moment', {
+            variant: 'error',
+          })
+          return
+        }
+        const { response } = err
+
+        enqueueSnackbar(response?.data.message, {
+          variant: 'error',
+        })
+        setError('username', {
+          type: 'custom',
+          message: 'Check username input',
+        })
+        setError('password', {
+          type: 'custom',
+          message: 'Check password input',
+        })
       })
       .finally(() => setLoading(false))
   }
