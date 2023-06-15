@@ -5,3 +5,10 @@ export const EntityZod = z.object({
 })
 
 export type Entity = z.infer<typeof EntityZod>
+
+export const ReviewZod = z.object({
+  rating: z.number().int().min(0).max(5),
+  comment: z.string().optional(),
+})
+
+export type Review = z.infer<typeof ReviewZod>
