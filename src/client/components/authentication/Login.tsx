@@ -66,7 +66,7 @@ const Login = () => {
   }
 
   return (
-    <section className='bg-[#A8A4FF] text-center md:grid md:grid-cols-2'>
+    <section className='bg-gray-700 text-center md:grid md:grid-cols-2'>
       <div className='flex h-screen flex-col items-center justify-center p-12 text-center'>
         <form
           onSubmit={handleSubmit(onLogin)}
@@ -108,15 +108,11 @@ const Login = () => {
           )}
         </form>
 
-        {errors.root && (
-          <p className='mt-2 text-sm text-red-500'>{errors.root.message}</p>
-        )}
-
-        <p className='mt-4'>
+        <p className='mt-4 text-gray-500'>
           Don&lsquo;t have an account?
           <Link
             to='/register'
-            className='ml-2 inline-flex items-center font-medium text-blue-600 hover:underline'
+            className='ml-2 inline-flex items-center font-medium text-blue-500 hover:underline'
           >
             Register here
           </Link>
