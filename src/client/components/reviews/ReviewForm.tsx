@@ -7,13 +7,14 @@ import { useAuthenticatedUser } from '../../contexts/AuthContext'
 
 import { Review, ReviewZod } from '../../validators/entity_validator'
 import TextArea from '../form/TextArea'
+import StarRating from '../form/StarRating'
 
 const ReviewForm = ({ close }: { close: () => void }) => {
   const { user, config } = useAuthenticatedUser()
   const {
     register,
     handleSubmit,
-    setError,
+    setValue,
     formState: { errors },
   } = useForm<Review>({
     mode: 'onBlur',
@@ -27,13 +28,22 @@ const ReviewForm = ({ close }: { close: () => void }) => {
     close()
   }
 
+  const handleRatingChange = (rating: number) => {
+    setValue('rating', rating)
+  }
+
   return (
     <div className='flex items-center justify-center text-left'>
       <div className='mt-8 w-[80%]'>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <StarRating
+            id='rating'
+            name='rating'
+            label='Rating'
+            onRatingChange={handleRatingChange}
+          />
           <TextArea
             id='comment'
-            type='comment'
             name='comment'
             label='Comment'
             register={register}

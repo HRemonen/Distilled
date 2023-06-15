@@ -15,7 +15,7 @@ const RatingStar = () => (
 const MissingStar = () => (
   <svg
     aria-hidden='true'
-    className='h-5 w-5 text-gray-300 dark:text-gray-500'
+    className='h-5 w-5 text-gray-500'
     fill='currentColor'
     viewBox='0 0 20 20'
     xmlns='http://www.w3.org/2000/svg'
