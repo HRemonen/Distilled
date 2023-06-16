@@ -18,7 +18,7 @@ const ReviewForm = ({
   entityId: string
   close: () => void
 }) => {
-  const { user, config } = useAuthenticatedUser()
+  const { user } = useAuthenticatedUser()
   const mutateReviews = useCreateReview()
   const {
     register,
@@ -31,8 +31,6 @@ const ReviewForm = ({
   })
 
   if (!user) return null
-
-  console.log(config)
 
   const onSubmit = (data: Review) => {
     mutateReviews.mutateAsync({

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useEntityReviews } from '../../services/entityService'
+import { useAuthenticatedUser } from '../../contexts/AuthContext'
 
 import Review from './Review'
 import ReviewForm from './ReviewForm'
@@ -21,13 +22,18 @@ const MissingReviews = () => (
 
 const DistilleryDrawerReviews = () => {
   const { distilleryId } = useParams()
+  const { user } = useAuthenticatedUser()
   const [openReview, setOpenReview] = useState(false)
 
   const { reviewsInfo, isLoading, isError } = useEntityReviews(distilleryId)
 
   if (isLoading || !distilleryId) return null
 
-  if (openReview) {
+  const userReview = reviewsInfo?.data.find(
+    (review) => review.username === user?.username
+  )
+
+  if (openReview && !userReview) {
     return (
       <ReviewForm
         entityId={distilleryId}
@@ -38,15 +44,24 @@ const DistilleryDrawerReviews = () => {
 
   return (
     <div>
-      <div className='flex justify-center'>
-        <button
-          type='button'
-          className='mb-2 mr-2 inline-flex items-center self-center rounded-full border border-gray-700 bg-gray-800 px-4 py-2 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-600'
-          onClick={() => setOpenReview(!openReview)}
-        >
-          Write a review
-        </button>
-      </div>
+      {userReview ? (
+        <div>
+          <Typography variant='body2'>
+            You have already given a review for this distillery
+          </Typography>
+          <Review review={userReview} />
+        </div>
+      ) : (
+        <div className='flex justify-center'>
+          <button
+            type='button'
+            className='mb-2 mr-2 inline-flex items-center self-center rounded-full border border-gray-700 bg-gray-800 px-4 py-2 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-600'
+            onClick={() => setOpenReview(!openReview)}
+          >
+            Write a review
+          </button>
+        </div>
+      )}
       {isError ? (
         <MissingReviews />
       ) : (
