@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const foundUser = JSON.parse(loggedUser)
       setUser(foundUser)
       setConfig({
-        headers: { Authorization: `bearer ${userToken}` },
+        headers: { Authorization: `Bearer ${userToken}` },
       })
     }
   }, [])
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsAuthenticated(true)
     setUser(loggedUser)
     setConfig({
-      headers: { Authorization: `bearer ${userToken}` },
+      headers: { Authorization: `Bearer ${userToken}` },
     })
     sessionStorage.setItem('user', JSON.stringify(loggedUser))
   }

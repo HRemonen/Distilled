@@ -1,16 +1,25 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { useCreateReview } from '../../services/entityService'
 import { useAuthenticatedUser } from '../../contexts/AuthContext'
 
-import { Review, ReviewZod } from '../../validators/entity_validator'
 import TextArea from '../form/TextArea'
 import StarRating from '../form/StarRating'
 
-const ReviewForm = ({ close }: { close: () => void }) => {
+import { Review, ReviewZod } from '../../validators/entity_validator'
+
+const ReviewForm = ({
+  entityId,
+  close,
+}: {
+  entityId: string
+  close: () => void
+}) => {
   const { user, config } = useAuthenticatedUser()
+  const mutateReviews = useCreateReview()
   const {
     register,
     handleSubmit,
@@ -23,8 +32,13 @@ const ReviewForm = ({ close }: { close: () => void }) => {
 
   if (!user) return null
 
+  console.log(config)
+
   const onSubmit = (data: Review) => {
-    console.log(data)
+    mutateReviews.mutateAsync({
+      entityId,
+      review: data,
+    })
     close()
   }
 

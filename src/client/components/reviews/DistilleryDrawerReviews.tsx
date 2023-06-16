@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import useEntityReviews from '../../services/entityService'
+import { useEntityReviews } from '../../services/entityService'
 
 import Review from './Review'
 import ReviewForm from './ReviewForm'
@@ -25,10 +25,15 @@ const DistilleryDrawerReviews = () => {
 
   const { reviewsInfo, isLoading, isError } = useEntityReviews(distilleryId)
 
-  if (isLoading) return null
+  if (isLoading || !distilleryId) return null
 
   if (openReview) {
-    return <ReviewForm close={() => setOpenReview(!openReview)} />
+    return (
+      <ReviewForm
+        entityId={distilleryId}
+        close={() => setOpenReview(!openReview)}
+      />
+    )
   }
 
   return (

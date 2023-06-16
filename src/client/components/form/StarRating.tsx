@@ -39,7 +39,7 @@ const StarRating: React.FC<StarRatingProps> = ({
             />
             <svg
               aria-hidden='true'
-              className={`h-5 w-5 ${
+              className={`h-7 w-7 ${
                 value <= rating ? 'text-yellow-400' : 'text-gray-500'
               }`}
               fill='currentColor'

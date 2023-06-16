@@ -1,10 +1,14 @@
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
+
+import { useAuthenticatedUser } from '../contexts/AuthContext'
 
 import apiClient from '../util/apiClient'
+import queryClient from '../util/queryClient'
 
 import { APIResponse, EntityReview } from '../types'
+import { Review } from '../validators/entity_validator'
 
-const useEntityReviews = (entityID: string | undefined) => {
+export const useEntityReviews = (entityID: string | undefined) => {
   const queryKey = ['reviews', entityID]
 
   const query = async (): Promise<APIResponse<EntityReview[]>> => {
@@ -21,4 +25,33 @@ const useEntityReviews = (entityID: string | undefined) => {
   return { reviewsInfo, ...rest }
 }
 
-export default useEntityReviews
+export const useCreateReview = () => {
+  const { config } = useAuthenticatedUser()
+
+  const mutationFn = async ({
+    entityId,
+    review,
+  }: {
+    entityId: string
+    review: Review
+  }) => {
+    await apiClient.post(
+      `/entity/rate/${entityId}`,
+      { rating: review.rating },
+      config
+    )
+    if (review.comment) {
+      await apiClient.post(
+        `/entity/comment/${entityId}`,
+        { comment: review.comment },
+        config
+      )
+    }
+  }
+
+  const mutation = useMutation(mutationFn, {
+    onSuccess: () => queryClient.invalidateQueries('reviews'),
+  })
+
+  return mutation
+}
