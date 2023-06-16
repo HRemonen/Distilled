@@ -47,6 +47,7 @@ export interface DistilleryInfo extends Distillery {
 
 export interface PrivateUser {
   id: string
+  role: 'user' | 'admin'
   username: string
 }
 

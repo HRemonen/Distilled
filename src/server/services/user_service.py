@@ -73,14 +73,14 @@ class UserService:
         query_result = self._user_repository.login(user)
         
         found_user = {
-            "id": query_result[0],
-            "username": query_result[1],
-            "password": query_result[2]
+            "id": query_result.id,
+            "username": query_result.username,
+            "role": query_result.role
         }
         
         if not found_user: return None
         
-        if not check_password_hash(found_user["password"], user["password"]):
+        if not check_password_hash(query_result.password, user["password"]):
             raise Unauthorized("Invalid credentials")
         
         access_token = create_access_token(identity=found_user["username"])

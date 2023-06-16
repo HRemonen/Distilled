@@ -20,7 +20,7 @@ import './index.css'
 
 const router = createBrowserRouter([
   {
-    path: '/maps',
+    path: '/',
     element: <App />,
     children: [
       {

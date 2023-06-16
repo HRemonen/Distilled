@@ -36,7 +36,7 @@ const Login = () => {
     loginService(loginInput)
       .then((response) => {
         login(response.data.token, response.data.user)
-        navigate('/maps')
+        navigate('/')
         enqueueSnackbar(`Login success ${response.data.user.username}`, {
           variant: 'success',
         })
