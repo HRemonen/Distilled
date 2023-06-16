@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -51,7 +52,7 @@ const DistilleryDrawerReviews = () => {
           </Typography>
           <Review review={userReview} />
         </div>
-      ) : (
+      ) : user ? (
         <div className='flex justify-center'>
           <button
             type='button'
@@ -61,7 +62,7 @@ const DistilleryDrawerReviews = () => {
             Write a review
           </button>
         </div>
-      )}
+      ) : null}
       {isError ? (
         <MissingReviews />
       ) : (
