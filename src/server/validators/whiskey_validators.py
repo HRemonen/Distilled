@@ -7,7 +7,7 @@ class NewWhiskeySchema(Schema):
     distillery_id = fields.UUID(required=True)
     type = fields.String(required=True)
     age = fields.Integer(required=True, validate=validate.Range(min=0, max=datetime.datetime.now().year))
-    description = fields.String(required=False)
+    description = fields.String(required=True)
     
 class UpdatedWhiskeySchema(Schema):
     description = fields.String(required=True)
