@@ -44,7 +44,7 @@ const DistilleryDrawerReviews = () => {
   }
 
   return (
-    <div>
+    <div className='h-[80vh] overflow-y-scroll'>
       {userReview ? (
         <div>
           <Typography variant='body2'>
@@ -66,7 +66,7 @@ const DistilleryDrawerReviews = () => {
       {isError ? (
         <MissingReviews />
       ) : (
-        <div>
+        <div className=''>
           <Typography variant='h6' className='mt-4'>
             Reviews
           </Typography>
