@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.DEBUG)
 CORS(app)
 
 app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
-app.config["JWT EXPIRATION_DELTA"] = timedelta(hours=24)
+app.config["JWT_EXPIRATION_DELTA"] = timedelta(hours=24)
 
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)

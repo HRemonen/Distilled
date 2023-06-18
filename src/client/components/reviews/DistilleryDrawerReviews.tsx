@@ -26,7 +26,7 @@ const DistilleryDrawerReviews = () => {
   const { user } = useAuthenticatedUser()
   const [openReview, setOpenReview] = useState(false)
 
-  const { reviewsInfo, isLoading, isError } = useEntityReviews(distilleryId)
+  const { reviewsInfo, isLoading } = useEntityReviews(distilleryId)
 
   if (isLoading || !distilleryId) return null
 
