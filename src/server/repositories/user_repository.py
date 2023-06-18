@@ -55,16 +55,20 @@ class UserRepository:
         
         register_input = {
             "username": user["username"],
-            "password": password_hash
+            "password": password_hash,
+            "role": user.get("role", "user")
         }
+        
         sql = """
             INSERT INTO users (
                 username,
-                password
+                password,
+                role
             )
             VALUES (
                 :username,
-                :password
+                :password,
+                COALESCE(:role, 'user')
             )
             RETURNING *
         """

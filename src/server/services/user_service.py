@@ -10,8 +10,6 @@ from flask_jwt_extended import get_jwt_identity
 from validators.user_validators import NewUserSchema
 from repositories.user_repository import user_repository
 
-from app import app
-
 class UserService:
     def __init__(self, user_repository=user_repository):
         self._user_repository = user_repository
