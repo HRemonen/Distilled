@@ -1,16 +1,17 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import axios, { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { enqueueSnackbar } from 'notistack'
-import loginService from '../../services/authService'
+import { registerService } from '../../services/authService'
 
 import LoginInput from '../form/LoginInput'
 import LoadingSpinner from '../common/Loading'
 
+import { APIFailure } from '../../types'
 import { RegisterZod, RegisterUser } from '../../validators/user_validator'
 
 import login_illustration_image from '../../assets/alembic.svg'
@@ -31,11 +32,32 @@ const Register = () => {
 
   const onRegister = (registerInput: RegisterUser) => {
     setLoading(true)
-    console.log(registerInput)
-    setLoading(false)
-  }
+    registerService(registerInput)
+      .then((response) => {
+        navigate('/login')
+        enqueueSnackbar(`Registered user ${response.data.username}`, {
+          variant: 'success',
+        })
+      })
+      .catch((err: Error | AxiosError) => {
+        if (!axios.isAxiosError(err)) {
+          enqueueSnackbar('Could not register new user at the moment', {
+            variant: 'error',
+          })
+          return
+        }
+        const { response } = err
+        const responseData: APIFailure = response?.data
 
-  console.log(errors)
+        if (responseData.message === 'username already exists') {
+          setError('username', {
+            type: 'custom',
+            message: 'Username already in use.',
+          })
+        }
+      })
+      .finally(() => setLoading(false))
+  }
 
   return (
     <section className='bg-gray-700 text-center md:grid md:grid-cols-2'>

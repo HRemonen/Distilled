@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { enqueueSnackbar } from 'notistack'
-import loginService from '../../services/authService'
+import { loginService } from '../../services/authService'
 import { AuthContext } from '../../contexts/AuthContext'
 
 import LoginInput from '../form/LoginInput'
