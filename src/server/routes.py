@@ -1,4 +1,5 @@
 from flask import request
+from sqlalchemy.exc import IntegrityError
 from marshmallow import ValidationError
 
 from werkzeug.exceptions import Unauthorized
@@ -40,7 +41,7 @@ def register_user():
                 "message": "user created",
                 "data": user
             }, 201
-        
+    
     except ValidationError as err:
         return {
             "status": "error",
@@ -48,11 +49,18 @@ def register_user():
             "data": err.messages
         }, 422
         
-    except Exception:
+    except IntegrityError:
+        return {
+            "status": "error",
+            "message": "username already exists",
+            "data": None
+        }, 409
+        
+    except Exception as err:
         return {
             "status": "error",
             "message": "user creation failed",
-            "data": None
+            "data": err
         }, 404
         
 @app.route("/api/user/login", methods=["POST"])
