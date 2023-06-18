@@ -1,7 +1,7 @@
 
 CREATE_USERS = """
     CREATE TABLE IF NOT EXISTS Users (
-        id UUID PRIMARY KEY,
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         username TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
         role VARCHAR(8) DEFAULT 'user',

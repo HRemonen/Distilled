@@ -2,8 +2,6 @@ from sqlalchemy.engine.result import Row
 from sqlalchemy.sql import text
 from werkzeug.security import generate_password_hash
 
-from uuid import uuid4
-
 from db import db
 
 class UserRepository:
@@ -47,7 +45,7 @@ class UserRepository:
         
         return self._db.session.execute(text(sql), user_input).fetchone()
 
-    def register(self, user: object) -> None:
+    def register(self, user: object) -> Row:
         """Inserts new user information into the database.
 
         Args:
@@ -56,28 +54,25 @@ class UserRepository:
         password_hash = generate_password_hash(user["password"])
         
         register_input = {
-            "id": uuid4(),
             "username": user["username"],
-            "password": password_hash,
-            "role": user["role"]
+            "password": password_hash
         }
         sql = """
             INSERT INTO users (
-                id,
                 username,
-                password,
-                role
+                password
             )
             VALUES (
-                :id,
                 :username,
-                :password,
-                :role
+                :password
             )
+            RETURNING *
         """
         
-        self._db.session.execute(text(sql), register_input)
+        result = self._db.session.execute(text(sql), register_input)
         self._db.session.commit()
+        
+        return result.fetchone()
         
     def login(self, user: object) -> Row:
         """Fetches user information from the database on login.

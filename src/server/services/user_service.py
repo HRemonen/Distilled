@@ -1,4 +1,6 @@
 from typing import Dict
+from sqlalchemy.engine.result import Row
+
 from werkzeug.security import check_password_hash
 from werkzeug.exceptions import Unauthorized
 
@@ -8,9 +10,29 @@ from flask_jwt_extended import get_jwt_identity
 from validators.user_validators import NewUserSchema
 from repositories.user_repository import user_repository
 
+from app import app
+
 class UserService:
     def __init__(self, user_repository=user_repository):
         self._user_repository = user_repository
+        
+    def _to_json(self, query_result: Row) -> Dict:
+        """Generate JSON format entity for the query result
+        that is type of Row from the database
+
+        Args:
+            query_result (sqlalchemy.engine.result.Row): SQLAlchemy Row datatype
+
+        Returns:
+            json: JSON result from the SQLAlchemy Row
+        """
+        json_object = {
+            "id": query_result.id,
+            "username": query_result.username,
+            "role": query_result.role
+        }
+            
+        return json_object
         
     def is_admin(self) -> bool:
         """Service for checking if the authenticated user is admin.
@@ -51,8 +73,10 @@ class UserService:
         Returns:
             Dict: Returning the newly created user object.
         """        
-        new_user = NewUserSchema().load(user)
-        self._user_repository.register(user)
+        NewUserSchema().load(user)
+        query_result = self._user_repository.register(user)
+        
+        new_user = self._to_json(query_result)
         
         return new_user
 
@@ -72,11 +96,7 @@ class UserService:
         """        
         query_result = self._user_repository.login(user)
         
-        found_user = {
-            "id": query_result.id,
-            "username": query_result.username,
-            "role": query_result.role
-        }
+        found_user = self._to_json(query_result)
         
         if not found_user: return None
         
