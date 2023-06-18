@@ -366,7 +366,6 @@ def get_whiskeys_by_distillery(distillery_id: str):
             "data": None
         }, 404
 
-
 @app.route("/api/whiskey", methods=["GET"])
 def get_whiskeys():
     """Get all whiskeys ordered by name

@@ -166,7 +166,7 @@ class EntityService:
         query_result = self._entity_repository.get_entity_reviews(id)
         
         if not query_result:
-            raise Exception("reviews not found")
+            return []
         
         found_reviews = map(self._review_to_json, query_result)
                 

@@ -63,7 +63,7 @@ const DistilleryDrawerReviews = () => {
           </button>
         </div>
       ) : null}
-      {isError ? (
+      {reviewsInfo?.data.length === 0 ? (
         <MissingReviews />
       ) : (
         <div className=''>

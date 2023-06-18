@@ -76,7 +76,7 @@ class WhiskeyService:
         query_result = self._whiskey_repository.get_whiskeys_by_distillery(distillery_id)
         
         if not query_result:
-            raise Exception("whiskeys not found")
+            return []
         
         found_whiskeys = map(self._to_json, query_result)
         

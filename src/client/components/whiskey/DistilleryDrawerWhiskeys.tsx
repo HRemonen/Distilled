@@ -45,7 +45,7 @@ const DistilleryDrawerWhiskeys = () => {
 
   if (isLoading) return null
 
-  if (isError || !whiskeyInfo?.data)
+  if (isError || !whiskeyInfo?.data || whiskeyInfo.data.length === 0)
     return (
       <div className='m-4'>
         <Typography variant='h6'>
