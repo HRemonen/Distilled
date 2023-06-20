@@ -8,7 +8,7 @@ export const DistilleryZod = z.object({
   name: z.string().nonempty(),
   location: coordinatesSchema,
   country: z.string().min(2).max(5),
-  year_established: z.number().int().min(0).max(currentYear).optional(),
+  year_established: z.number().int().min(0).max(currentYear),
   website: z.string().url().optional(),
 })
 
