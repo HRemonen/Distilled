@@ -17,33 +17,31 @@ const Typography = ({
 
   switch (variant) {
     case 'h1':
-      typographyClasses = 'text-5xl font-extrabold dark:text-white'
+      typographyClasses = 'text-5xl font-extrabold text-white'
       return <h1 className={`${typographyClasses} ${className}`}>{children}</h1>
     case 'h2':
-      typographyClasses = 'text-4xl font-bold dark:text-white'
+      typographyClasses = 'text-4xl font-bold text-white'
       return <h2 className={`${typographyClasses} ${className}`}>{children}</h2>
     case 'h3':
-      typographyClasses = 'text-3xl font-bold dark:text-white'
+      typographyClasses = 'text-3xl font-bold text-white'
       return <h3 className={`${typographyClasses} ${className}`}>{children}</h3>
     case 'h4':
-      typographyClasses = 'text-2xl font-bold dark:text-white'
+      typographyClasses = 'text-2xl font-bold text-white'
       return <h4 className={`${typographyClasses} ${className}`}>{children}</h4>
     case 'h5':
-      typographyClasses = 'text-xl font-bold dark:text-white'
+      typographyClasses = 'text-xl font-bold text-white'
       return <h5 className={`${typographyClasses} ${className}`}>{children}</h5>
     case 'h6':
-      typographyClasses = 'text-lg font-bold dark:text-white'
+      typographyClasses = 'text-lg font-bold text-white'
       return <h6 className={`${typographyClasses} ${className}`}>{children}</h6>
     case 'body1':
-      typographyClasses =
-        'mb-3 text-lg text-gray-500 md:text-xl dark:text-gray-400'
+      typographyClasses = 'mb-3 text-lg text-gray-400 md:text-xl'
       return <p className={`${typographyClasses} ${className}`}>{children}</p>
     case 'body2':
-      typographyClasses = 'text-gray-500 dark:text-gray-400'
+      typographyClasses = 'text-gray-400'
       return <p className={`${typographyClasses} ${className}`}>{children}</p>
     case 'link':
-      typographyClasses =
-        'font-medium text-blue-600 dark:text-blue-500 hover:underline'
+      typographyClasses = 'font-medium text-blue-500 hover:underline'
       return (
         <a href={href} className={`${typographyClasses} ${className}`}>
           {children}
