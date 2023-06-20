@@ -1,6 +1,14 @@
 import React from 'react'
 
-const InputField = ({ id, label, error, register, ...inputProps }: any) => (
+import { InputType } from '../../types'
+
+const InputField = ({
+  id,
+  label,
+  error,
+  register,
+  ...inputProps
+}: InputType) => (
   <div>
     <label
       htmlFor={id}

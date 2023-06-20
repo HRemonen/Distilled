@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { SelectType } from '../../types'
+
 const SelectField = ({
   id,
   label,
@@ -7,7 +9,7 @@ const SelectField = ({
   register,
   children,
   ...inputProps
-}: any) => (
+}: SelectType) => (
   <div>
     <label
       htmlFor={id}

@@ -1,6 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { InputHTMLAttributes } from 'react'
-import { FieldError, UseFormRegister, FieldValues } from 'react-hook-form'
+import { InputHTMLAttributes, SelectHTMLAttributes } from 'react'
+import {
+  FieldError,
+  UseFormRegister,
+  FieldValues,
+  UseFormRegisterReturn,
+} from 'react-hook-form'
 
 import { Distillery } from './validators/distillery_validator'
 
@@ -59,7 +64,20 @@ export interface LoginUserSuccess {
 // FORM RELATED TYPES
 
 export interface InputType extends InputHTMLAttributes<HTMLInputElement> {
-  register: UseFormRegister<FieldValues> | UseFormRegister<any>
+  register:
+    | UseFormRegister<FieldValues>
+    | UseFormRegister<any>
+    | UseFormRegisterReturn<any>
+  error?: FieldError | undefined
+  label?: string
+  id: string
+}
+
+export interface SelectType extends SelectHTMLAttributes<HTMLSelectElement> {
+  register:
+    | UseFormRegister<FieldValues>
+    | UseFormRegister<any>
+    | UseFormRegisterReturn<any>
   error?: FieldError | undefined
   label?: string
   id: string
