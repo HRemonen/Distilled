@@ -2,6 +2,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { enqueueSnackbar } from 'notistack'
 
 import { useCreateReview } from '../../services/entityService'
 import { useAuthenticatedUser } from '../../contexts/AuthContext'
@@ -33,11 +34,18 @@ const ReviewForm = ({
   if (!user) return null
 
   const onSubmit = (data: Review) => {
-    mutateReviews.mutateAsync({
-      entityId,
-      review: data,
-    })
-    close()
+    mutateReviews
+      .mutateAsync({
+        entityId,
+        review: data,
+      })
+      .then(() => {
+        close()
+        enqueueSnackbar('Review successful', { variant: 'success' })
+      })
+      .catch((error) => {
+        enqueueSnackbar(`Review failed: ${error.message}`, { variant: 'error' })
+      })
   }
 
   const handleRatingChange = (rating: number) => {
