@@ -10,6 +10,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import queryClient from './util/queryClient'
 
 import App from './App'
+import Admin from './components/admin/Admin'
 import Login from './components/authentication/Login'
 import Register from './components/authentication/Register'
 import DistilleryDrawer from './components/distillery/DistilleryDrawer'
@@ -51,6 +52,24 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/admin',
+    element: <Admin />,
+    children: [
+      {
+        index: true,
+        element: <DistilleryDrawerInfo />,
+      },
+      {
+        path: 'modify-distilleries',
+        element: <DistilleryDrawerWhiskeys />,
+      },
+      {
+        path: 'modify-whiskeys',
+        element: <DistilleryDrawerComments />,
+      },
+    ],
   },
 ])
 
