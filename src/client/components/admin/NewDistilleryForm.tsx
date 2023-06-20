@@ -2,6 +2,8 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import InputField from './InputField'
+
 import {
   NewDistillery,
   NewDistilleryZod,
@@ -29,69 +31,35 @@ const NewDistilleryForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='mt-6'>
-      <label htmlFor='name' className='block text-lg font-medium text-gray-800'>
-        Name:
-      </label>
-      <input
-        {...register('name')}
-        type='text'
+      <InputField
+        register={register('name')}
         id='name'
-        className={`mt-1 block w-full border p-2 ${
-          errors.name ? 'border-red-500' : 'border-gray-300'
-        } 
-        rounded-md focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm`}
+        label='Name'
+        type='text'
+        error={errors.name}
       />
-      {errors.name && (
-        <p className='mt-2 text-sm text-red-500'>{errors.name.message}</p>
-      )}
 
       <div className='flex'>
         <div className='w-1/2'>
-          <label
-            htmlFor='locationLatitude'
-            className='mt-4 block text-lg font-medium text-gray-800'
-          >
-            Location Latitude:
-          </label>
-          <input
-            {...register('location.0', { valueAsNumber: true })}
+          <InputField
+            register={register('location.0', { valueAsNumber: true })}
+            id='location.0'
+            label='Location Latitude'
             type='number'
             step='any'
-            id='locationLatitude'
-            className={`mt-1 block w-full border p-2 ${
-              errors.location ? 'border-red-500' : 'border-gray-300'
-            } 
-        rounded-md focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm`}
+            error={errors.location?.[0]}
           />
-          {errors.location?.[0] && (
-            <p className='mt-2 text-sm text-red-500'>
-              {errors.location[0].message}
-            </p>
-          )}
         </div>
 
         <div className='w-1/2 pl-4'>
-          <label
-            htmlFor='locationLongitude'
-            className='mt-4 block text-lg font-medium text-gray-800'
-          >
-            Location Longitude:
-          </label>
-          <input
-            {...register('location.1', { valueAsNumber: true })}
+          <InputField
+            register={register('location.1', { valueAsNumber: true })}
+            id='location.1'
+            label='Location Longitude'
             type='number'
             step='any'
-            id='locationLongitude'
-            className={`mt-1 block w-full border p-2 ${
-              errors.location ? 'border-red-500' : 'border-gray-300'
-            } 
-        rounded-md focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm`}
+            error={errors.location?.[1]}
           />
-          {errors.location?.[1] && (
-            <p className='mt-2 text-sm text-red-500'>
-              {errors.location[1].message}
-            </p>
-          )}
         </div>
       </div>
 
@@ -150,24 +118,13 @@ const NewDistilleryForm = () => {
         </p>
       )}
 
-      <label
-        htmlFor='website'
-        className='mt-4 block text-lg font-medium text-gray-800'
-      >
-        Website:
-      </label>
-      <input
-        {...register('website')}
-        type='text'
+      <InputField
+        register={register('website')}
         id='website'
-        className={`mt-1 block w-full border p-2 ${
-          errors.website ? 'border-red-500' : 'border-gray-300'
-        } 
-        rounded-md focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm`}
+        label='Website'
+        type='text'
+        error={errors.website}
       />
-      {errors.website && (
-        <p className='mt-2 text-sm text-red-500'>{errors.website.message}</p>
-      )}
 
       <button
         type='submit'
