@@ -26,7 +26,7 @@ export const NewDistilleryZod = z.object({
   location: coordinatesSchema,
   country: z.string().min(2).max(5),
   year_established: z.number().int().min(0).max(currentYear),
-  website: z.string().url().optional(),
+  website: z.string().url().or(z.literal('')),
 })
 
 export type NewDistillery = z.infer<typeof NewDistilleryZod>

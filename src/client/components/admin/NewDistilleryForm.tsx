@@ -16,12 +16,15 @@ const NewDistilleryForm = () => {
     formState: { errors },
   } = useForm<NewDistillery>({
     resolver: zodResolver(NewDistilleryZod),
+    defaultValues: {
+      website: '',
+    },
   })
 
   const onSubmit = (data: NewDistillery) => {
     console.log(data)
   }
-
+  console.log(errors)
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='mt-6'>
       <label htmlFor='name' className='block text-lg font-medium text-gray-800'>
