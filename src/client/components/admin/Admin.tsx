@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 import { useAuthenticatedUser } from '../../contexts/AuthContext'
 
@@ -17,11 +17,10 @@ const Admin = () => {
   if (!user) return null
 
   return (
-    <section className='m-4'>
-      <Typography variant='h3' className='text-black'>
-        Admin panel
-      </Typography>
+    <section className='m-4 text-black'>
+      <h1 className='text-2xl font-light uppercase'>Admin panel</h1>
       <AdminTabs />
+      <Outlet />
     </section>
   )
 }
