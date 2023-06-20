@@ -15,10 +15,7 @@ const validCountryCode = (value: string) => {
     (country) => country['alpha-2'] === value || country['alpha-3'] === value
   )
 
-  if (!country) {
-    return 'Invalid country code'
-  }
-  return true
+  return !!country
 }
 
 const currentYear = new Date().getFullYear()
@@ -37,7 +34,9 @@ export type Distillery = z.infer<typeof DistilleryZod>
 export const NewDistilleryZod = z.object({
   name: z.string().nonempty(),
   location: coordinatesSchema,
-  country: z.string().refine(validCountryCode),
+  country: z.string().refine(validCountryCode, {
+    message: 'Invalid country selection',
+  }),
   year_established: z.number().int().min(0).max(currentYear),
   website: z.string().url().or(z.literal('')),
 })
