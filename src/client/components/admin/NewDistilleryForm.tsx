@@ -10,6 +10,7 @@ import {
 } from '../../validators/distillery_validator'
 
 import countryCodes from '../../assets/countryCodes.json'
+import SelectField from './SelectField'
 
 const NewDistilleryForm = () => {
   const currentYear = new Date().getFullYear()
@@ -63,19 +64,11 @@ const NewDistilleryForm = () => {
         </div>
       </div>
 
-      <label
-        htmlFor='country'
-        className='mt-4 block text-lg font-medium text-gray-800'
-      >
-        Country:
-      </label>
-      <select
+      <SelectField
+        register={register('country')}
         id='country'
-        {...register('country')}
-        className={`mt-1 block w-full border p-2 ${
-          errors.country ? 'border-red-500' : 'border-gray-300'
-        } 
-      rounded-md focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm`}
+        label='Country'
+        error={errors.country}
       >
         <option value=''>-- Select Country --</option>
         {countryCodes.map((country) => (
@@ -83,24 +76,13 @@ const NewDistilleryForm = () => {
             {country.name}
           </option>
         ))}
-      </select>
-      {errors.country && (
-        <p className='mt-2 text-sm text-red-500'>{errors.country.message}</p>
-      )}
+      </SelectField>
 
-      <label
-        htmlFor='yearEstablished'
-        className='mt-4 block text-lg font-medium text-gray-800'
-      >
-        Year Established:
-      </label>
-      <select
-        {...register('year_established', { valueAsNumber: true })}
+      <SelectField
+        register={register('year_established', { valueAsNumber: true })}
         id='yearEstablished'
-        className={`mt-1 block w-full border p-2 ${
-          errors.year_established ? 'border-red-500' : 'border-gray-300'
-        } 
-          rounded-md focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm`}
+        label='Year Established'
+        error={errors.year_established}
       >
         <option value=''>-- Select Year --</option>
         {Array.from(
@@ -111,12 +93,7 @@ const NewDistilleryForm = () => {
             {year}
           </option>
         ))}
-      </select>
-      {errors.year_established && (
-        <p className='mt-2 text-sm text-red-500'>
-          {errors.year_established.message}
-        </p>
-      )}
+      </SelectField>
 
       <InputField
         register={register('website')}
