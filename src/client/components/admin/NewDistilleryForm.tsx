@@ -7,6 +7,8 @@ import {
   NewDistilleryZod,
 } from '../../validators/distillery_validator'
 
+import countryCodes from '../../assets/countryCodes.json'
+
 const NewDistilleryForm = () => {
   const currentYear = new Date().getFullYear()
 
@@ -24,7 +26,7 @@ const NewDistilleryForm = () => {
   const onSubmit = (data: NewDistillery) => {
     console.log(data)
   }
-  console.log(errors)
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='mt-6'>
       <label htmlFor='name' className='block text-lg font-medium text-gray-800'>
@@ -99,15 +101,21 @@ const NewDistilleryForm = () => {
       >
         Country:
       </label>
-      <input
-        {...register('country')}
-        type='text'
+      <select
         id='country'
+        {...register('country')}
         className={`mt-1 block w-full border p-2 ${
           errors.country ? 'border-red-500' : 'border-gray-300'
         } 
-        rounded-md focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm`}
-      />
+      rounded-md focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm`}
+      >
+        <option value=''>-- Select Country --</option>
+        {countryCodes.map((country) => (
+          <option key={country['country-code']} value={country['alpha-3']}>
+            {country.name}
+          </option>
+        ))}
+      </select>
       {errors.country && (
         <p className='mt-2 text-sm text-red-500'>{errors.country.message}</p>
       )}
@@ -128,7 +136,7 @@ const NewDistilleryForm = () => {
       >
         <option value=''>-- Select Year --</option>
         {Array.from(
-          { length: currentYear - 1800 + 1 },
+          { length: currentYear - 0 + 1 },
           (_, index) => currentYear - index
         ).map((year) => (
           <option key={year} value={Number(year)}>
