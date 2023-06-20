@@ -1,8 +1,11 @@
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
+
+import { useAuthenticatedUser } from '../contexts/AuthContext'
 
 import apiClient from '../util/apiClient'
+import queryClient from '../util/queryClient'
 
-import { Distillery } from '../validators/distillery_validator'
+import { Distillery, NewDistillery } from '../validators/distillery_validator'
 import { APIResponse, DistilleryInfo } from '../types'
 
 export const useDistilleries = () => {
@@ -33,4 +36,18 @@ export const useDistillery = (distilleryID: string | undefined) => {
   })
 
   return { distilleryInfo, ...rest }
+}
+
+export const useCreateDistillery = () => {
+  const { config } = useAuthenticatedUser()
+
+  const mutationFn = async (data: NewDistillery) => {
+    await apiClient.post('/distillery', data, config)
+  }
+
+  const mutation = useMutation(mutationFn, {
+    onSuccess: () => queryClient.invalidateQueries('distilleries'),
+  })
+
+  return mutation
 }

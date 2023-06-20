@@ -1,6 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { enqueueSnackbar } from 'notistack'
+
+import { useCreateDistillery } from '../../services/distilleryService'
 
 import InputField from './InputField'
 
@@ -14,6 +19,8 @@ import SelectField from './SelectField'
 
 const NewDistilleryForm = () => {
   const currentYear = new Date().getFullYear()
+  const mutateDistilleries = useCreateDistillery()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -27,7 +34,19 @@ const NewDistilleryForm = () => {
   })
 
   const onSubmit = (data: NewDistillery) => {
-    console.log(data)
+    mutateDistilleries
+      .mutateAsync(data)
+      .then(() => {
+        navigate('/admin')
+        enqueueSnackbar('Distillery creation successful', {
+          variant: 'success',
+        })
+      })
+      .catch((error) => {
+        enqueueSnackbar(`Distillery creation failed: ${error.message}`, {
+          variant: 'error',
+        })
+      })
   }
 
   return (
