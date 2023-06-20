@@ -12,7 +12,9 @@ import queryClient from './util/queryClient'
 import App from './App'
 import Admin from './components/admin/Admin'
 import AdminInfo from './components/admin/AdminInfo'
-import DistillerySelector from './components/admin/DistillerySelect'
+import EditDistillery from './components/admin/EditDistillery'
+import NewDistilleryForm from './components/admin/NewDistilleryForm'
+
 import Login from './components/authentication/Login'
 import Register from './components/authentication/Register'
 import DistilleryDrawer from './components/distillery/DistilleryDrawer'
@@ -65,11 +67,15 @@ const router = createBrowserRouter([
       },
       {
         path: 'modify-distilleries',
-        element: <DistillerySelector />,
+        element: <EditDistillery />,
       },
       {
         path: 'modify-whiskeys',
         element: <DistilleryDrawerComments />,
+      },
+      {
+        path: 'new-distillery',
+        element: <NewDistilleryForm />,
       },
     ],
   },

@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState, ChangeEvent } from 'react'
+import { Link } from 'react-router-dom'
 
 import { useDistilleries } from '../../services/distilleryService'
 
@@ -43,7 +44,7 @@ const DistilleryCard = ({
   </div>
 )
 
-const DistillerySelector = () => {
+const EditDistillery = () => {
   const { distilleryData, isLoading } = useDistilleries()
   const [selectedDistillery, setSelectedDistillery] = useState<Distillery>()
 
@@ -57,10 +58,6 @@ const DistillerySelector = () => {
       (distillery) => distillery.id === distilleryId
     )
     setSelectedDistillery(selected)
-  }
-
-  const handleCreateDistillery = () => {
-    // Handle create distillery logic
   }
 
   const handleEditDistillery = () => {
@@ -95,13 +92,12 @@ const DistillerySelector = () => {
             ))}
           </select>
         </div>
-        <button
-          type='button'
+        <Link
+          to='../new-distillery'
           className='absolute right-4 rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700'
-          onClick={handleCreateDistillery}
         >
           Create New Distillery
-        </button>
+        </Link>
       </div>
 
       {selectedDistillery && (
@@ -115,4 +111,4 @@ const DistillerySelector = () => {
   )
 }
 
-export default DistillerySelector
+export default EditDistillery

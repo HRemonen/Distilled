@@ -4,7 +4,6 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { useAuthenticatedUser } from '../../contexts/AuthContext'
 
 import AdminTabs from './AdminTabs'
-import Typography from '../typography/Typography'
 
 const Admin = () => {
   const navigate = useNavigate()
