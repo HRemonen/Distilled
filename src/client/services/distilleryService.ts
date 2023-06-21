@@ -56,7 +56,7 @@ export const useCreateDistillery = () => {
   return mutation
 }
 
-export const useEditDistillery = (distilleryId: string) => {
+export const useEditDistillery = (distilleryId: string | undefined) => {
   const { config } = useAuthenticatedUser()
 
   const mutationFn = async (data: EditDistillery) => {

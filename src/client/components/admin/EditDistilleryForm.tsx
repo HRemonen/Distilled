@@ -8,6 +8,7 @@ import { enqueueSnackbar } from 'notistack'
 import {
   useCreateDistillery,
   useDistillery,
+  useEditDistillery,
 } from '../../services/distilleryService'
 
 import InputField from './InputField'
@@ -24,7 +25,7 @@ const EditDistilleryForm = () => {
   const navigate = useNavigate()
   const { distilleryId } = useParams()
   const { distilleryInfo, isLoading } = useDistillery(distilleryId)
-  const mutateDistilleries = useCreateDistillery()
+  const mutateDistilleries = useEditDistillery(distilleryId)
 
   const currentYear = new Date().getFullYear()
 
@@ -45,13 +46,13 @@ const EditDistilleryForm = () => {
     mutateDistilleries
       .mutateAsync(data)
       .then(() => {
-        navigate('/admin')
-        enqueueSnackbar('Distillery creation successful', {
+        navigate('/admin/modify-distilleries')
+        enqueueSnackbar('Distillery update successful', {
           variant: 'success',
         })
       })
       .catch((error) => {
-        enqueueSnackbar(`Distillery creation failed: ${error.message}`, {
+        enqueueSnackbar(`Distillery update failed: ${error.message}`, {
           variant: 'error',
         })
       })
