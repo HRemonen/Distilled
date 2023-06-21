@@ -51,3 +51,17 @@ export const useCreateDistillery = () => {
 
   return mutation
 }
+
+export const useDeleteDistillery = () => {
+  const { config } = useAuthenticatedUser()
+
+  const mutationFn = async (distilleryID: string | undefined) => {
+    await apiClient.delete(`/distillery/${distilleryID}`, config)
+  }
+
+  const mutation = useMutation(mutationFn, {
+    onSuccess: () => queryClient.invalidateQueries('distilleries'),
+  })
+
+  return mutation
+}
