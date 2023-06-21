@@ -54,7 +54,7 @@ const NewDistilleryForm = () => {
       <InputField
         register={register('name')}
         id='name'
-        label='Name'
+        label='Name *'
         type='text'
         error={errors.name}
       />
@@ -64,7 +64,7 @@ const NewDistilleryForm = () => {
           <InputField
             register={register('location.0', { valueAsNumber: true })}
             id='location.0'
-            label='Location Latitude'
+            label='Location Latitude *'
             type='number'
             step='any'
             error={errors.location?.[0]}
@@ -75,7 +75,7 @@ const NewDistilleryForm = () => {
           <InputField
             register={register('location.1', { valueAsNumber: true })}
             id='location.1'
-            label='Location Longitude'
+            label='Location Longitude *'
             type='number'
             step='any'
             error={errors.location?.[1]}
@@ -86,7 +86,7 @@ const NewDistilleryForm = () => {
       <SelectField
         register={register('country')}
         id='country'
-        label='Country'
+        label='Country *'
         error={errors.country}
       >
         <option value=''>-- Select Country --</option>
@@ -100,7 +100,7 @@ const NewDistilleryForm = () => {
       <SelectField
         register={register('year_established', { valueAsNumber: true })}
         id='yearEstablished'
-        label='Year Established'
+        label='Year Established *'
         error={errors.year_established}
       >
         <option value=''>-- Select Year --</option>
