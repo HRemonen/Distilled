@@ -3,10 +3,11 @@ from sqlalchemy.sql import text
 
 from db import db
 
+
 class DistilleryRepository:
     def __init__(self, db=db):
         self._db = db
-        
+
     def get_distillery(self, id: str) -> Row:
         """Fetches a certain distillery from the database by given entity ID.
 
@@ -15,7 +16,7 @@ class DistilleryRepository:
 
         Returns:
             Row: Returning the found distillery object.
-        """        
+        """
         distillery_input = {
             "id": id,
         }
@@ -49,24 +50,24 @@ class DistilleryRepository:
             GROUP BY
                 d.id
         """
-        
+
         return self._db.session.execute(text(sql), distillery_input).fetchone()
-    
+
     def get_distilleries(self) -> Row:
         """Fetches all distilleries from the database.
 
         Returns:
             Row: Returning the found distillery objects.
-        """        
+        """
         sql = """
             SELECT *
             FROM distilleries
             WHERE deleted_at IS NULL
             ORDER BY name ASC
         """
-        
+
         return self._db.session.execute(text(sql)).fetchall()
-        
+
     def create_distillery(self, entity_id: str, distillery: dict) -> Row:
         """Inserts into the database a new distillery for a given entity ID.
 
@@ -76,15 +77,17 @@ class DistilleryRepository:
 
         Returns:
             Row: Returning the newly created distillery object.
-        """        
+        """
         coordinates = distillery["location"]
-        
+
         distillery_input = {
             "id": entity_id,
             "name": distillery["name"],
             "location": f"({coordinates[0]}, {coordinates[1]})",
             "country": distillery["country"],
-            "year_established": None if not distillery["year_established"] else distillery["year_established"],
+            "year_established": None
+            if not distillery["year_established"]
+            else distillery["year_established"],
             "website": None if not distillery["website"] else distillery["website"],
         }
         sql = """
@@ -109,49 +112,59 @@ class DistilleryRepository:
 
         result = self._db.session.execute(text(sql), distillery_input)
         self._db.session.commit()
-        
+
         return result.fetchone()
-    
-    def update_distillery_website(self, id: str, updates: dict) -> Row:
-        """Updates a certain distillery website by entity id.
+
+    def update_distillery(self, id: str, updates: dict) -> Row:
+        """Updates a certain distillery information by entity id.
 
         Args:
             id (str): Entity id.
-            updates (dict): Website to update.
+            updates (dict): Distillery fields to update.
 
         Returns:
             Row: Returning the updated distillery object.
-        """        
+        """
+        coordinates = updates["location"]
+
         update_input = {
             "id": id,
-            "website": updates["website"]
+            "name": updates["name"],
+            "location": f"({coordinates[0]}, {coordinates[1]})",
+            "country": updates["country"],
+            "year_established": updates["year_established"],
+            "website": updates["website"],
         }
         sql = """
             UPDATE distilleries
             SET 
+                name = :name,
+                location = :location,
+                country = :country,
+                year_established = :year_established,
                 website = :website,
                 updated_at = CURRENT_TIMESTAMP(0)
             WHERE id = :id AND deleted_at IS NULL
             RETURNING *
         """
-        
+
         result = self._db.session.execute(text(sql), update_input)
         self._db.session.commit()
-        
+
         return result.fetchone()
-    
+
     def delete_distillery(self, id: str) -> Row:
         """Deletes a certain distillery by entity id.
 
         Works as a soft delete, so only the deleted_at field is updated to contain the date of the deletion.
         The information still remains in the database for further access.
-        
+
         Args:
             id (str): Entity id.
 
         Returns:
             Row: Updated information of the distillery.
-        """        
+        """
         delete_input = {
             "id": id,
         }
@@ -161,11 +174,11 @@ class DistilleryRepository:
             WHERE id = :id AND deleted_at IS NULL
             RETURNING *
         """
-        
+
         result = self._db.session.execute(text(sql), delete_input)
         self._db.session.commit()
-        
+
         return result.fetchone()
-        
-        
+
+
 distillery_repository = DistilleryRepository()

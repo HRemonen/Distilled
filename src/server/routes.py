@@ -12,9 +12,11 @@ from services.distillery_service import distillery_service
 from services.whiskey_service import whiskey_service
 from services.entity_service import entity_service
 
+
 @app.route("/")
 def index():
     return "Hello world"
+
 
 # ============= USER RELATED ENDPOINTS ============= #
 @app.route("/api/user/register", methods=["POST"])
@@ -32,37 +34,30 @@ def register_user():
         422:
             description: Input validation failed
     """
-    
+
     body = request.json
     try:
         user = user_service.register(body)
-        return {
-                "status": "success",
-                "message": "user created",
-                "data": user
-            }, 201
-    
+        return {"status": "success", "message": "user created", "data": user}, 201
+
     except ValidationError as err:
         return {
             "status": "error",
             "message": "user validation failed",
-            "data": err.messages
+            "data": err.messages,
         }, 422
-        
+
     except IntegrityError:
         return {
             "status": "error",
             "message": "username already exists",
-            "data": None
+            "data": None,
         }, 409
-        
+
     except Exception as err:
-        return {
-            "status": "error",
-            "message": "user creation failed",
-            "data": err
-        }, 404
-        
+        return {"status": "error", "message": "user creation failed", "data": err}, 404
+
+
 @app.route("/api/user/login", methods=["POST"])
 def login_user():
     """Login a user
@@ -78,31 +73,29 @@ def login_user():
         404:
             description: Something went wrong logging in
     """
-    
+
     body = request.json
     try:
         login_data = user_service.login(body)
         return {
-                "status": "success",
-                "message": "login successful",
-                "data": login_data
-            }, 200
-    
+            "status": "success",
+            "message": "login successful",
+            "data": login_data,
+        }, 200
+
     except Unauthorized:
-        return {
-            "status": "error",
-            "message": "invalid credentials",
-            "data": None
-        }, 401
-    
+        return {"status": "error", "message": "invalid credentials", "data": None}, 401
+
     except Exception:
         return {
             "status": "error",
             "message": "something went wrong logging in, check inputs",
-            "data": None
+            "data": None,
         }, 404
 
+
 # ============= DISTILLERY RELATED ENDPOINTS ============= #
+
 
 @app.route("/api/distillery/<string:id>", methods=["GET"])
 def get_distillery(id: str):
@@ -120,17 +113,14 @@ def get_distillery(id: str):
     try:
         distillery_data = distillery_service.get_distillery(id)
         return {
-                "status": "success",
-                "message": "distillery found",
-                "data": distillery_data
-            }, 200
-    
+            "status": "success",
+            "message": "distillery found",
+            "data": distillery_data,
+        }, 200
+
     except Exception:
-        return {
-            "status": "error",
-            "message": "distillery not found",
-            "data": None
-        }, 404
+        return {"status": "error", "message": "distillery not found", "data": None}, 404
+
 
 @app.route("/api/distillery", methods=["GET"])
 def get_distilleries():
@@ -148,17 +138,18 @@ def get_distilleries():
     try:
         distillery_data = distillery_service.get_distilleries()
         return {
-                "status": "success",
-                "message": "distilleries found",
-                "data": distillery_data
-            }, 200
-    
+            "status": "success",
+            "message": "distilleries found",
+            "data": distillery_data,
+        }, 200
+
     except Exception:
         return {
             "status": "error",
             "message": "distilleries not found",
-            "data": None
+            "data": None,
         }, 404
+
 
 @app.route("/api/distillery", methods=["POST"])
 @jwt_required()
@@ -178,45 +169,42 @@ def create_distillery():
         422:
             description: Input validation failed
     """
-    
+
     body = request.json
     try:
-        if not user_service.is_admin(): 
+        if not user_service.is_admin():
             raise Unauthorized("You don't have permission to create new distilleries")
-        
+
         entity = entity_service.create_entity()
         distillery = distillery_service.create_distillery(entity["id"], body)
         return {
-                "status": "success",
-                "message": "distillery created",
-                "data": distillery
-            }, 201
-    
+            "status": "success",
+            "message": "distillery created",
+            "data": distillery,
+        }, 201
+
     except Unauthorized:
-        return {
-            "status": "error",
-            "message": "unauthorized action",
-            "data": None
-        }, 401
-        
+        return {"status": "error", "message": "unauthorized action", "data": None}, 401
+
     except ValidationError as err:
         return {
             "status": "error",
             "message": "distillery validation failed",
-            "data": err.messages
+            "data": err.messages,
         }, 422
-        
+
     except Exception as err:
         return {
             "status": "error",
             "message": "distillery creation failed",
-            "data": None
+            "data": None,
         }, 404
-        
+
+
 @app.route("/api/distillery/<string:id>", methods=["PUT"])
 @jwt_required()
-def update_distillery_website(id: str):
-    """Update a distillery website
+def update_distillery(id: str):
+    """Update a distillery information
 
     ---
     tags:
@@ -231,41 +219,38 @@ def update_distillery_website(id: str):
         422:
             description: Input validation failed
     """
-    
+
     body = request.json
-    
+
     try:
         if not user_service.is_admin():
             raise Unauthorized("You don't have permission to update distilleries")
-        
-        distillery = distillery_service.update_distillery_website(id, body)
+
+        distillery = distillery_service.update_distillery(id, body)
         return {
-                "status": "success",
-                "message": "distillery updated",
-                "data": distillery
-            }, 200
-    
+            "status": "success",
+            "message": "distillery updated",
+            "data": distillery,
+        }, 200
+
     except Unauthorized:
-        return {
-            "status": "error",
-            "message": "unauthorized action",
-            "data": None
-        }, 401
-        
+        return {"status": "error", "message": "unauthorized action", "data": None}, 401
+
     except ValidationError as err:
         return {
             "status": "error",
             "message": "validation failed",
-            "data": err.messages
+            "data": err.messages,
         }, 422
-        
+
     except Exception as err:
         return {
             "status": "error",
             "message": "distillery update failed",
-            "data": None
+            "data": None,
         }, 404
-        
+
+
 @app.route("/api/distillery/<string:id>", methods=["DELETE"])
 @jwt_required()
 def delete_distillery(id: str):
@@ -282,32 +267,25 @@ def delete_distillery(id: str):
         404:
             description: Something went wrong deleting distillery
     """
-    
+
     try:
         if not user_service.is_admin():
             raise Unauthorized("You don't have permission to delete distilleries")
-        
+
         distillery_service.delete_distillery(id)
-        return {
-                "status": "success",
-                "message": "distillery deleted",
-                "data": None
-            }, 201
-    
+        return {"status": "success", "message": "distillery deleted", "data": None}, 201
+
     except Unauthorized:
-        return {
-            "status": "error",
-            "message": "unauthorized action",
-            "data": None
-        }, 401
-        
+        return {"status": "error", "message": "unauthorized action", "data": None}, 401
+
     except Exception as err:
         return {
             "status": "error",
             "message": "distillery delete failed",
-            "data": None
+            "data": None,
         }, 404
-        
+
+
 # ============= WHISKEY RELATED ENDPOINTS ============= #
 @app.route("/api/whiskey/<string:id>", methods=["GET"])
 def get_whiskey(id: str):
@@ -325,19 +303,16 @@ def get_whiskey(id: str):
     try:
         whiskey_data = whiskey_service.get_whiskey(id)
         return {
-                "status": "success",
-                "message": "whiskey found",
-                "data": whiskey_data
-            }, 200
-    
-    except Exception:
-        return {
-            "status": "error",
-            "message": "whiskey not found",
-            "data": None
-        }, 404
+            "status": "success",
+            "message": "whiskey found",
+            "data": whiskey_data,
+        }, 200
 
-@app.route("/api/whiskey/distillery/<string:distillery_id>", methods=["GET"])   
+    except Exception:
+        return {"status": "error", "message": "whiskey not found", "data": None}, 404
+
+
+@app.route("/api/whiskey/distillery/<string:distillery_id>", methods=["GET"])
 def get_whiskeys_by_distillery(distillery_id: str):
     """Get whiskey by distillery id
 
@@ -350,21 +325,18 @@ def get_whiskeys_by_distillery(distillery_id: str):
         404:
             description: Whiskeys not found
     """
-    
+
     try:
         whiskey_data = whiskey_service.get_whiskeys_by_distillery(distillery_id)
         return {
-                "status": "success",
-                "message": "whiskeys found",
-                "data": whiskey_data
-            }, 200
-    
+            "status": "success",
+            "message": "whiskeys found",
+            "data": whiskey_data,
+        }, 200
+
     except Exception:
-        return {
-            "status": "error",
-            "message": "whiskeys not found",
-            "data": None
-        }, 404
+        return {"status": "error", "message": "whiskeys not found", "data": None}, 404
+
 
 @app.route("/api/whiskey", methods=["GET"])
 def get_whiskeys():
@@ -382,17 +354,14 @@ def get_whiskeys():
     try:
         whiskey_data = whiskey_service.get_whiskeys()
         return {
-                "status": "success",
-                "message": "whiskeys found",
-                "data": whiskey_data
-            }, 200
-    
+            "status": "success",
+            "message": "whiskeys found",
+            "data": whiskey_data,
+        }, 200
+
     except Exception:
-        return {
-            "status": "error",
-            "message": "whiskeys not found",
-            "data": None
-        }, 404
+        return {"status": "error", "message": "whiskeys not found", "data": None}, 404
+
 
 @app.route("/api/whiskey", methods=["POST"])
 @jwt_required()
@@ -412,41 +381,38 @@ def create_whiskey():
         422:
             description: Input validation failed
     """
-    
+
     body = request.json
     try:
-        if not user_service.is_admin(): 
+        if not user_service.is_admin():
             raise Unauthorized("You don't have permission to create new whiskeys")
-        
+
         entity = entity_service.create_entity()
         whiskey_data = whiskey_service.create_whiskey(entity["id"], body)
         return {
-                "status": "success",
-                "message": "whiskey created",
-                "data": whiskey_data
-            }, 201
-    
+            "status": "success",
+            "message": "whiskey created",
+            "data": whiskey_data,
+        }, 201
+
     except Unauthorized:
-        return {
-            "status": "error",
-            "message": "unauthorized action",
-            "data": None
-        }, 401
-        
+        return {"status": "error", "message": "unauthorized action", "data": None}, 401
+
     except ValidationError as err:
         return {
             "status": "error",
             "message": "whiskey validation failed",
-            "data": err.messages
+            "data": err.messages,
         }, 422
-        
+
     except Exception as err:
         return {
             "status": "error",
             "message": "whiskey creation failed",
-            "data": None
+            "data": None,
         }, 404
-        
+
+
 @app.route("/api/whiskey/<string:id>", methods=["PUT"])
 @jwt_required()
 def update_whiskey_description(id: str):
@@ -465,41 +431,38 @@ def update_whiskey_description(id: str):
         422:
             description: Input validation failed
     """
-    
+
     body = request.json
-    
+
     try:
         if not user_service.is_admin():
             raise Unauthorized("You don't have permission to update whiskeys")
-        
+
         whiskey_data = whiskey_service.update_whiskey_description(id, body)
         return {
-                "status": "success",
-                "message": "whiskey updated",
-                "data": whiskey_data
-            }, 200
-    
+            "status": "success",
+            "message": "whiskey updated",
+            "data": whiskey_data,
+        }, 200
+
     except Unauthorized:
-        return {
-            "status": "error",
-            "message": "unauthorized action",
-            "data": None
-        }, 401
-        
+        return {"status": "error", "message": "unauthorized action", "data": None}, 401
+
     except ValidationError as err:
         return {
             "status": "error",
             "message": "validation failed",
-            "data": err.messages
+            "data": err.messages,
         }, 422
-        
+
     except Exception as err:
         return {
             "status": "error",
             "message": "whiskey update failed",
-            "data": None
+            "data": None,
         }, 404
-        
+
+
 @app.route("/api/whiskey/<string:id>", methods=["DELETE"])
 @jwt_required()
 def delete_whiskey(id: str):
@@ -516,31 +479,24 @@ def delete_whiskey(id: str):
         404:
             description: Something went wrong deleting whiskey
     """
-    
+
     try:
         if not user_service.is_admin():
             raise Unauthorized("You don't have permission to delete whiskeys")
-        
+
         whiskey_service.delete_whiskey(id)
-        return {
-                "status": "success",
-                "message": "whiskey deleted",
-                "data": None
-            }, 201
-    
+        return {"status": "success", "message": "whiskey deleted", "data": None}, 201
+
     except Unauthorized:
-        return {
-            "status": "error",
-            "message": "unauthorized action",
-            "data": None
-        }, 401
-        
+        return {"status": "error", "message": "unauthorized action", "data": None}, 401
+
     except Exception as err:
         return {
             "status": "error",
             "message": "whiskey deletion failed",
-            "data": None
+            "data": None,
         }, 404
+
 
 # ============= ENTITY RELATED ENDPOINTS ============= #
 @app.route("/api/entity/comment/<string:id>", methods=["POST"])
@@ -561,42 +517,37 @@ def comment_entity(id: str):
         422:
             description: Input validation failed
     """
-    
+
     body = request.json
-    
+
     try:
         user_id = user_service.get_user_id()
         if not user_id:
-            raise Unauthorized("Unauthorized action, only authenticated users can comment")
-        
+            raise Unauthorized(
+                "Unauthorized action, only authenticated users can comment"
+            )
+
         new_comment = entity_service.comment_entity(id, user_id, body)
         return {
-                "status": "success",
-                "message": "commented entity",
-                "data": new_comment
-            }, 200
-    
+            "status": "success",
+            "message": "commented entity",
+            "data": new_comment,
+        }, 200
+
     except Unauthorized:
-        return {
-            "status": "error",
-            "message": "unauthorized action",
-            "data": None
-        }, 401
-        
+        return {"status": "error", "message": "unauthorized action", "data": None}, 401
+
     except ValidationError as err:
         return {
             "status": "error",
             "message": "validation failed",
-            "data": err.messages
+            "data": err.messages,
         }, 422
-        
+
     except Exception as err:
-        return {
-            "status": "error",
-            "message": "commenting failed",
-            "data": None
-        }, 404
-    
+        return {"status": "error", "message": "commenting failed", "data": None}, 404
+
+
 @app.route("/api/entity/rate/<string:id>", methods=["POST"])
 @jwt_required()
 def rate_entity(id: str):
@@ -615,41 +566,36 @@ def rate_entity(id: str):
         422:
             description: Input validation failed
     """
-    
+
     body = request.json
-    
+
     try:
         user_id = user_service.get_user_id()
         if not user_id:
-            raise Unauthorized("Unauthorized action, only authenticated users can give a rating")
-        
+            raise Unauthorized(
+                "Unauthorized action, only authenticated users can give a rating"
+            )
+
         new_rating = entity_service.rate_entity(id, user_id, body)
-        return {
-                "status": "success",
-                "message": "rated entity",
-                "data": new_rating
-            }, 200
-    
+        return {"status": "success", "message": "rated entity", "data": new_rating}, 200
+
     except Unauthorized:
-        return {
-            "status": "error",
-            "message": "unauthorized action",
-            "data": None
-        }, 401
-        
+        return {"status": "error", "message": "unauthorized action", "data": None}, 401
+
     except ValidationError as err:
         return {
             "status": "error",
             "message": "validation failed",
-            "data": err.messages
+            "data": err.messages,
         }, 422
-        
+
     except Exception as err:
         return {
             "status": "error",
             "message": "giving a rating failed",
-            "data": None
+            "data": None,
         }, 404
+
 
 @app.route("/api/entity/reviews/<string:id>", methods=["GET"])
 def get_entity_reviews(id: str):
@@ -664,18 +610,10 @@ def get_entity_reviews(id: str):
         404:
             description: Reviews not found
     """
-    
+
     try:
         reviews = entity_service.get_entity_reviews(id)
-        return {
-                "status": "success",
-                "message": "reviews found",
-                "data": reviews
-            }, 200
-        
+        return {"status": "success", "message": "reviews found", "data": reviews}, 200
+
     except Exception:
-        return {
-            "status": "error",
-            "message": "reviews not found",
-            "data": None
-        }, 404
+        return {"status": "error", "message": "reviews not found", "data": None}, 404
