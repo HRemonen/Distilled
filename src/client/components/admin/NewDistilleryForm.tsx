@@ -8,6 +8,7 @@ import { enqueueSnackbar } from 'notistack'
 import { useCreateDistillery } from '../../services/distilleryService'
 
 import InputField from './InputField'
+import SelectField from './SelectField'
 
 import {
   NewDistillery,
@@ -15,7 +16,6 @@ import {
 } from '../../validators/distillery_validator'
 
 import countryCodes from '../../assets/countryCodes.json'
-import SelectField from './SelectField'
 
 const NewDistilleryForm = () => {
   const currentYear = new Date().getFullYear()
@@ -37,7 +37,7 @@ const NewDistilleryForm = () => {
     mutateDistilleries
       .mutateAsync(data)
       .then(() => {
-        navigate('/admin')
+        navigate('/admin/modify-distilleries')
         enqueueSnackbar('Distillery creation successful', {
           variant: 'success',
         })
