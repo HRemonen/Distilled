@@ -1,6 +1,6 @@
 import datetime
 
-from marshmallow import Schema, fields, validate, validates
+from marshmallow import Schema, fields, validate
 
 
 class NewDistillerySchema(Schema):
