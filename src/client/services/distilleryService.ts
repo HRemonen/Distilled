@@ -26,17 +26,17 @@ export const useDistilleries = () => {
   return { distilleryData, ...rest }
 }
 
-export const useDistillery = (distilleryID: string | undefined) => {
-  const queryKey = ['distillery', distilleryID]
+export const useDistillery = (distilleryId: string | undefined) => {
+  const queryKey = ['distillery', distilleryId]
 
   const query = async (): Promise<APIResponse<DistilleryInfo>> => {
-    const { data } = await apiClient.get(`/distillery/${distilleryID}`)
+    const { data } = await apiClient.get(`/distillery/${distilleryId}`)
 
     return data
   }
 
   const { data: distilleryInfo, ...rest } = useQuery(queryKey, query, {
-    enabled: !!distilleryID,
+    enabled: !!distilleryId,
   })
 
   return { distilleryInfo, ...rest }
@@ -76,8 +76,8 @@ export const useEditDistillery = (distilleryId: string) => {
 export const useDeleteDistillery = () => {
   const { config } = useAuthenticatedUser()
 
-  const mutationFn = async (distilleryID: string | undefined) => {
-    await apiClient.delete(`/distillery/${distilleryID}`, config)
+  const mutationFn = async (distilleryId: string | undefined) => {
+    await apiClient.delete(`/distillery/${distilleryId}`, config)
   }
 
   const mutation = useMutation(mutationFn, {
