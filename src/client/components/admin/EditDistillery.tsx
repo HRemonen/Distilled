@@ -12,15 +12,10 @@ import { Distillery } from '../../validators/distillery_validator'
 
 type DistilleryCardProps = {
   distillery: Distillery
-  onEdit: () => void
   onDelete: () => void
 }
 
-const DistilleryCard = ({
-  distillery,
-  onEdit,
-  onDelete,
-}: DistilleryCardProps) => (
+const DistilleryCard = ({ distillery, onDelete }: DistilleryCardProps) => (
   <div className='mt-6 rounded-lg border border-gray-300 bg-white p-4'>
     <h2 className='text-2xl font-bold text-gray-800'>{distillery.name}</h2>
     <p className='text-gray-600'>Location: {distillery.location}</p>
@@ -30,13 +25,12 @@ const DistilleryCard = ({
     </p>
     <p className='text-gray-600'>Website: {distillery.website}</p>
     <div className='mt-4 flex justify-end'>
-      <button
-        type='button'
+      <Link
+        to={`../edit-distillery/${distillery.id}`}
         className='mr-2 rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-300'
-        onClick={onEdit}
       >
         Edit
-      </button>
+      </Link>
       <button
         type='button'
         className='rounded bg-red-200 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-300'
@@ -65,8 +59,6 @@ const EditDistillery = () => {
     )
     setSelectedDistillery(selected)
   }
-
-  const handleDistilleryEdit = () => console.log(selectedDistillery?.id)
 
   const handleDistilleryDelete = () =>
     deleteDistillery
@@ -118,7 +110,6 @@ const EditDistillery = () => {
       {selectedDistillery && (
         <DistilleryCard
           distillery={selectedDistillery}
-          onEdit={handleDistilleryEdit}
           onDelete={handleDistilleryDelete}
         />
       )}
