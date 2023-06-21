@@ -5,7 +5,11 @@ import { useAuthenticatedUser } from '../contexts/AuthContext'
 import apiClient from '../util/apiClient'
 import queryClient from '../util/queryClient'
 
-import { Distillery, NewDistillery } from '../validators/distillery_validator'
+import {
+  Distillery,
+  EditDistillery,
+  NewDistillery,
+} from '../validators/distillery_validator'
 import { APIResponse, DistilleryInfo } from '../types'
 
 export const useDistilleries = () => {
@@ -47,6 +51,23 @@ export const useCreateDistillery = () => {
 
   const mutation = useMutation(mutationFn, {
     onSuccess: () => queryClient.invalidateQueries('distilleries'),
+  })
+
+  return mutation
+}
+
+export const useEditDistillery = (distilleryId: string) => {
+  const { config } = useAuthenticatedUser()
+
+  const mutationFn = async (data: EditDistillery) => {
+    await apiClient.put(`/distillery/${distilleryId}`, data, config)
+  }
+
+  const mutation = useMutation(mutationFn, {
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ['distillery', distilleryId],
+      }),
   })
 
   return mutation
