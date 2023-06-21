@@ -66,7 +66,7 @@ const EditDistillery = () => {
     setSelectedDistillery(selected)
   }
 
-  const handleDistilleryEdit = () => console.log('Edit')
+  const handleDistilleryEdit = () => console.log(selectedDistillery?.id)
 
   const handleDistilleryDelete = () =>
     deleteDistillery

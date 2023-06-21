@@ -42,3 +42,15 @@ export const NewDistilleryZod = z.object({
 })
 
 export type NewDistillery = z.infer<typeof NewDistilleryZod>
+
+export const EditDistilleryZod = z.object({
+  name: z.string().nonempty(),
+  location: coordinatesSchema,
+  country: z.string().refine(validCountryCode, {
+    message: 'Invalid country selection',
+  }),
+  year_established: z.number().int().min(0).max(currentYear),
+  website: z.string().url().or(z.literal('')),
+})
+
+export type EditDistillery = z.infer<typeof EditDistilleryZod>
