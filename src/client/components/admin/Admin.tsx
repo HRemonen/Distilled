@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
+import jwt_decode from 'jwt-decode'
 
 import { useAuthenticatedUser } from '../../contexts/AuthContext'
 
@@ -12,6 +13,26 @@ const Admin = () => {
   useEffect(() => {
     if (user && user?.role !== 'admin') navigate('/')
   }, [navigate, user])
+
+  useEffect(() => {
+    const checkTokenExpiration = () => {
+      const userToken = sessionStorage.getItem('token')
+      if (userToken) {
+        const { exp }: { exp: number } = jwt_decode(userToken)
+        if (exp * 1000 < Date.now()) {
+          console.log('TOKEN EXPIRED')
+          navigate('/login')
+        }
+      }
+    }
+
+    const interval = setInterval(checkTokenExpiration, 5000)
+
+    // Clean up the interval when the component is unmounted
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
 
   if (!user) return null
 
