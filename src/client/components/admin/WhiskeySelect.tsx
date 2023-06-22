@@ -29,7 +29,7 @@ const WhiskeySelect = ({
   }
 
   return (
-    <div>
+    <div className='mx-4'>
       <label
         htmlFor='whiskey-select'
         className='mb-2 block text-sm font-medium text-gray-900'
@@ -38,7 +38,7 @@ const WhiskeySelect = ({
       </label>
       <select
         id='whiskey-select'
-        className='block w-[50vw] rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+        className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
         onChange={handleWhiskeyChange}
         value={value ? value.id : ''}
       >

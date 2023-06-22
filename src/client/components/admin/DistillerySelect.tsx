@@ -35,7 +35,7 @@ const DistillerySelect = ({ value, setValue }: DistillerySelectProps) => {
       </label>
       <select
         id='distillery-select'
-        className='block w-[50vw] rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
+        className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
         onChange={handleDistilleryChange}
         value={value ? value.id : ''}
       >
