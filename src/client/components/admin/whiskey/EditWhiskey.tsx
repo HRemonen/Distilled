@@ -60,12 +60,14 @@ const EditWhiskey = () => {
           value={selectedWhiskey}
           setValue={setSelectedWhiskey}
         />
-        <Link
-          to='../new-whiskey'
-          className='absolute right-4 rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700'
-        >
-          Create New Whiskey
-        </Link>
+        {selectedDistillery && (
+          <Link
+            to={`../new-whiskey/${selectedDistillery.id}`}
+            className='absolute right-4 rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700'
+          >
+            Create Whiskey For This Distillery
+          </Link>
+        )}
       </div>
 
       {selectedWhiskey && (

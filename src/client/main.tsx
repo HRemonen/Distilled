@@ -16,6 +16,7 @@ import EditDistillery from './components/admin/distillery/EditDistillery'
 import NewDistilleryForm from './components/admin/distillery/NewDistilleryForm'
 import EditDistilleryForm from './components/admin/distillery/EditDistilleryForm'
 import EditWhiskey from './components/admin/whiskey/EditWhiskey'
+import NewWhiskeyForm from './components/admin/whiskey/NewWhiskeyForm'
 
 import Login from './components/authentication/Login'
 import Register from './components/authentication/Register'
@@ -80,8 +81,8 @@ const router = createBrowserRouter([
         element: <NewDistilleryForm />,
       },
       {
-        path: 'new-whiskey',
-        element: <></>,
+        path: 'new-whiskey/:distilleryId',
+        element: <NewWhiskeyForm />,
       },
       {
         path: 'edit-distillery/:distilleryId',

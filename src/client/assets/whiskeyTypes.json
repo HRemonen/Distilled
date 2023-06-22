@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "Scotch Whisky",
+    "region": "Scotland",
+    "description": "Traditional whisky made in Scotland using malted barley."
+  },
+  {
+    "id": 2,
+    "name": "Bourbon Whiskey",
+    "origin": "United States",
+    "description": "American whiskey primarily made from corn and aged in charred oak barrels."
+  },
+  {
+    "id": 3,
+    "name": "Irish Whiskey",
+    "origin": "Ireland",
+    "description": "Whiskey produced in Ireland with a smooth and light flavor profile."
+  },
+  {
+    "id": 4,
+    "name": "Rye Whiskey",
+    "origin": "Various",
+    "description": "Whiskey made primarily from rye grain, known for its spiciness."
+  },
+  {
+    "id": 5,
+    "name": "Canadian Whisky",
+    "origin": "Canada",
+    "description": "Whisky made in Canada, typically lighter and smoother in style."
+  },
+  {
+    "id": 6,
+    "name": "Japanese Whisky",
+    "origin": "Japan",
+    "description": "Whisky produced in Japan, often influenced by Scotch whisky production methods."
+  },
+  {
+    "id": 7,
+    "name": "Single Malt Whisky",
+    "origin": "Various",
+    "description": "Whisky made from malted barley at a single distillery."
+  },
+  {
+    "id": 8,
+    "name": "Blended Whisky",
+    "origin": "Various",
+    "description": "Whisky made by blending malt whisky and grain whisky."
+  },
+  {
+    "id": 9,
+    "name": "Tennessee Whiskey",
+    "origin": "United States",
+    "description": "Whiskey produced in Tennessee, similar to Bourbon with additional charcoal filtering."
+  },
+  {
+    "id": 10,
+    "name": "Corn Whiskey",
+    "origin": "United States",
+    "description": "Whiskey made primarily from corn, offering a distinct flavor profile."
+  },
+  {
+    "id": 11,
+    "name": "Wheat Whiskey",
+    "origin": "Various",
+    "description": "Whiskey made from a majority of wheat, known for its soft and smooth character."
+  },
+  {
+    "id": 12,
+    "name": "American Single Malt Whiskey",
+    "origin": "United States",
+    "description": "Single malt whiskey produced in the United States, resembling Scotch whisky."
+  },
+  {
+    "id": 13,
+    "name": "Straight Whiskey",
+    "origin": "Various",
+    "description": "Whiskey aged for a specific period, meeting certain legal requirements."
+  },
+  {
+    "id": 14,
+    "name": "Peated Whisky",
+    "origin": "Various",
+    "description": "Whisky with a distinctive smoky flavor resulting from the use of peat during malting."
+  },
+  {
+    "id": 15,
+    "name": "Cask Strength Whisky",
+    "origin": "Various",
+    "description": "Whisky bottled at its original cask strength, without dilution."
+  }
+]
