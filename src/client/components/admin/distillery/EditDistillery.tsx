@@ -6,9 +6,9 @@ import { enqueueSnackbar } from 'notistack'
 import {
   useDeleteDistillery,
   useDistilleries,
-} from '../../services/distilleryService'
+} from '../../../services/distilleryService'
 
-import { Distillery } from '../../validators/distillery_validator'
+import { Distillery } from '../../../validators/distillery_validator'
 
 type DistilleryCardProps = {
   distillery: Distillery
