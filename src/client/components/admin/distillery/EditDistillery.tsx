@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState, ChangeEvent } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { enqueueSnackbar } from 'notistack'
 
-import {
-  useDeleteDistillery,
-  useDistilleries,
-} from '../../../services/distilleryService'
+import { useDeleteDistillery } from '../../../services/distilleryService'
+
+import DistillerySelect from '../DistillerySelect'
 
 import { Distillery } from '../../../validators/distillery_validator'
 
@@ -44,21 +43,8 @@ const DistilleryCard = ({ distillery, onDelete }: DistilleryCardProps) => (
 
 const EditDistillery = () => {
   const deleteDistillery = useDeleteDistillery()
-  const { distilleryData, isLoading } = useDistilleries()
   const [selectedDistillery, setSelectedDistillery] =
     useState<Distillery | null>()
-
-  if (isLoading || !distilleryData?.data) return null
-
-  const distilleries = distilleryData.data
-
-  const handleDistilleryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const distilleryId = event.target.value
-    const selected = distilleries.find(
-      (distillery) => distillery.id === distilleryId
-    )
-    setSelectedDistillery(selected)
-  }
 
   const handleDistilleryDelete = () =>
     deleteDistillery
@@ -78,27 +64,10 @@ const EditDistillery = () => {
   return (
     <div className='my-6'>
       <div className='flex items-center'>
-        <div>
-          <label
-            htmlFor='distillery-select'
-            className='mb-2 block text-sm font-medium text-gray-900'
-          >
-            Select a Distillery:
-          </label>
-          <select
-            id='distillery-select'
-            className='block w-[50vw] rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500'
-            onChange={handleDistilleryChange}
-            value={selectedDistillery ? selectedDistillery.id : ''}
-          >
-            <option value=''>-- Select a Distillery --</option>
-            {distilleries.map((distillery) => (
-              <option key={distillery.id} value={distillery.id}>
-                {distillery.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <DistillerySelect
+          value={selectedDistillery}
+          setValue={setSelectedDistillery}
+        />
         <Link
           to='../new-distillery'
           className='absolute right-4 rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700'
