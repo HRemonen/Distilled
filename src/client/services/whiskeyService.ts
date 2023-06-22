@@ -1,9 +1,12 @@
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
+
+import { useAuthenticatedUser } from '../contexts/AuthContext'
 
 import apiClient from '../util/apiClient'
+import queryClient from '../util/queryClient'
 
 import { APIResponse } from '../types'
-import { Whiskey } from '../validators/whiskey_validator'
+import { NewWhiskey, Whiskey } from '../validators/whiskey_validator'
 
 export const useWhiskeys = () => {
   const queryKey = ['whiskeys']
@@ -19,35 +22,52 @@ export const useWhiskeys = () => {
   return { whiskeyData, ...rest }
 }
 
-export const useWhiskey = (whiskeyID: string | undefined) => {
-  const queryKey = ['whiskey', whiskeyID]
+export const useWhiskey = (whiskeyId: string | undefined) => {
+  const queryKey = ['whiskey', whiskeyId]
 
   const query = async (): Promise<APIResponse<Whiskey>> => {
-    const { data } = await apiClient.get(`/whiskey/${whiskeyID}`)
+    const { data } = await apiClient.get(`/whiskey/${whiskeyId}`)
 
     return data
   }
 
   const { data: whiskeyInfo, ...rest } = useQuery(queryKey, query, {
-    enabled: !!whiskeyID,
+    enabled: !!whiskeyId,
   })
 
   return { whiskeyInfo, ...rest }
 }
 
-export const useDistilleryWhiskeys = (distilleryID: string | undefined) => {
-  const queryKey = ['distillery-whiskeys', distilleryID]
+export const useDistilleryWhiskeys = (distilleryId: string | undefined) => {
+  const queryKey = ['distillery-whiskeys', distilleryId]
 
   const query = async (): Promise<APIResponse<Whiskey[]>> => {
-    const { data } = await apiClient.get(`/whiskey/distillery/${distilleryID}`)
+    const { data } = await apiClient.get(`/whiskey/distillery/${distilleryId}`)
 
     return data
   }
 
   const { data: whiskeyInfo, ...rest } = useQuery(queryKey, query, {
-    enabled: !!distilleryID,
+    enabled: !!distilleryId,
     retry: false,
   })
 
   return { whiskeyInfo, ...rest }
+}
+
+export const useCreateWhiskey = (distilleryId: string | undefined) => {
+  const { config } = useAuthenticatedUser()
+
+  const mutationFn = async (data: NewWhiskey) => {
+    await apiClient.post('/whiskey', data, config)
+  }
+
+  const mutation = useMutation(mutationFn, {
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ['distillery-whiskeys', distilleryId],
+      }),
+  })
+
+  return mutation
 }

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { enqueueSnackbar } from 'notistack'
 
-import { useCreateDistillery } from '../../../services/distilleryService'
+import { useCreateWhiskey } from '../../../services/whiskeyService'
 
 import InputField from '../InputField'
 import SelectField from '../SelectField'
@@ -20,7 +20,7 @@ import whiskeyTypes from '../../../assets/whiskeyTypes.json'
 const NewWhiskeyForm = () => {
   const navigate = useNavigate()
   const { distilleryId } = useParams()
-  const mutateDistilleries = useCreateDistillery()
+  const mutateWhiskeys = useCreateWhiskey(distilleryId)
 
   const {
     register,
@@ -35,20 +35,19 @@ const NewWhiskeyForm = () => {
   })
 
   const onSubmit = (data: NewWhiskey) => {
-    console.log(data)
-    /* mutateDistilleries
+    mutateWhiskeys
       .mutateAsync(data)
       .then(() => {
-        navigate('/admin/modify-distilleries')
-        enqueueSnackbar('Distillery creation successful', {
+        navigate('/admin/modify-whiskeys')
+        enqueueSnackbar('Whiskey creation successful', {
           variant: 'success',
         })
       })
       .catch((error) => {
-        enqueueSnackbar(`Distillery creation failed: ${error.message}`, {
+        enqueueSnackbar(`Whiskey creation failed: ${error.message}`, {
           variant: 'error',
         })
-      }) */
+      })
   }
 
   return (
