@@ -30,3 +30,14 @@ export const NewWhiskeyZod = z.object({
 })
 
 export type NewWhiskey = z.infer<typeof NewWhiskeyZod>
+
+export const EditWhiskeyZod = z.object({
+  name: z.string().nonempty(),
+  type: z.string().refine(validWhiskeyType, {
+    message: 'Invalid whiskey type selection',
+  }),
+  age: z.number().int().min(0),
+  description: z.string().optional(),
+})
+
+export type EditWhiskey = z.infer<typeof EditWhiskeyZod>

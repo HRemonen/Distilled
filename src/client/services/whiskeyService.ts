@@ -6,7 +6,11 @@ import apiClient from '../util/apiClient'
 import queryClient from '../util/queryClient'
 
 import { APIResponse } from '../types'
-import { NewWhiskey, Whiskey } from '../validators/whiskey_validator'
+import {
+  EditWhiskey,
+  NewWhiskey,
+  Whiskey,
+} from '../validators/whiskey_validator'
 
 export const useWhiskeys = () => {
   const queryKey = ['whiskeys']
@@ -66,6 +70,23 @@ export const useCreateWhiskey = (distilleryId: string | undefined) => {
     onSuccess: () =>
       queryClient.invalidateQueries({
         queryKey: ['distillery-whiskeys', distilleryId],
+      }),
+  })
+
+  return mutation
+}
+
+export const useEditWhiskey = (whiskeyId: string | undefined) => {
+  const { config } = useAuthenticatedUser()
+
+  const mutationFn = async (data: EditWhiskey) => {
+    await apiClient.put(`/whiskey/${whiskeyId}`, data, config)
+  }
+
+  const mutation = useMutation(mutationFn, {
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ['whiskey', whiskeyId],
       }),
   })
 
