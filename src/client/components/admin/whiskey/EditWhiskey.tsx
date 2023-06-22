@@ -47,8 +47,6 @@ const EditWhiskey = () => {
   const [selectedWhiskey, setSelectedWhiskey] = useState<Whiskey | null>()
   const deleteWhiskey = useDeleteWhiskey(selectedDistillery?.id)
 
-  console.log(searchParams)
-
   useEffect(() => {
     const distillery = searchParams.get('distillery')
     if (!distillery) return
