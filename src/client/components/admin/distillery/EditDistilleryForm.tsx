@@ -59,6 +59,7 @@ const EditDistilleryForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='mt-6'>
+      <h2 className='text-2xl font-semibold text-black'>Edit distillery</h2>
       <InputField
         register={register('name')}
         id='name'

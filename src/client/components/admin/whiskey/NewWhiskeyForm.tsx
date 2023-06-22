@@ -16,10 +16,12 @@ import {
 } from '../../../validators/whiskey_validator'
 
 import whiskeyTypes from '../../../assets/whiskeyTypes.json'
+import { useDistillery } from '../../../services/distilleryService'
 
 const NewWhiskeyForm = () => {
   const navigate = useNavigate()
   const { distilleryId } = useParams()
+  const { distilleryInfo } = useDistillery(distilleryId)
   const mutateWhiskeys = useCreateWhiskey(distilleryId)
 
   const {
@@ -52,6 +54,9 @@ const NewWhiskeyForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='mt-6'>
+      <h2 className='text-2xl font-semibold text-black'>
+        Create New Whiskey for {distilleryInfo?.data.name}
+      </h2>
       <InputField
         register={register('name')}
         id='name'
