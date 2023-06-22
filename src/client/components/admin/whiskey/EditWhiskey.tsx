@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { enqueueSnackbar } from 'notistack'
 
 import WhiskeySelect from '../WhiskeySelect'
@@ -41,10 +41,25 @@ const WhiskeyCard = ({ whiskey, onDelete }: WhiskeyCardProps) => (
 )
 
 const EditWhiskey = () => {
+  const [searchParams] = useSearchParams()
   const [selectedDistillery, setSelectedDistillery] =
     useState<Distillery | null>()
   const [selectedWhiskey, setSelectedWhiskey] = useState<Whiskey | null>()
   const deleteWhiskey = useDeleteWhiskey(selectedDistillery?.id)
+
+  console.log(searchParams)
+
+  useEffect(() => {
+    const distillery = searchParams.get('distillery')
+    if (!distillery) return
+
+    try {
+      const parsedDistillery = JSON.parse(distillery)
+      setSelectedDistillery(parsedDistillery)
+    } catch (error) {
+      setSelectedDistillery(null)
+    }
+  }, [searchParams])
 
   const handleWhiskeyDelete = () => {
     deleteWhiskey

@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { ChangeEvent } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { useDistilleries } from '../../services/distilleryService'
 
@@ -11,6 +12,7 @@ type DistillerySelectProps = {
 }
 
 const DistillerySelect = ({ value, setValue }: DistillerySelectProps) => {
+  const [, setSearchParams] = useSearchParams()
   const { distilleryData, isLoading } = useDistilleries()
 
   if (isLoading || !distilleryData?.data) return null
@@ -22,6 +24,7 @@ const DistillerySelect = ({ value, setValue }: DistillerySelectProps) => {
     const selected = distilleries.find(
       (distillery) => distillery.id === distilleryId
     )
+    setSearchParams({ distillery: JSON.stringify(selected) })
     setValue(selected)
   }
 

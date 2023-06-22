@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { enqueueSnackbar } from 'notistack'
 
 import { useDeleteDistillery } from '../../../services/distilleryService'
@@ -42,9 +42,22 @@ const DistilleryCard = ({ distillery, onDelete }: DistilleryCardProps) => (
 )
 
 const EditDistillery = () => {
+  const [searchParams] = useSearchParams()
   const deleteDistillery = useDeleteDistillery()
   const [selectedDistillery, setSelectedDistillery] =
     useState<Distillery | null>()
+
+  useEffect(() => {
+    const distillery = searchParams.get('distillery')
+    if (!distillery) return
+
+    try {
+      const parsedDistillery = JSON.parse(distillery)
+      setSelectedDistillery(parsedDistillery)
+    } catch (error) {
+      setSelectedDistillery(null)
+    }
+  }, [searchParams])
 
   const handleDistilleryDelete = () =>
     deleteDistillery
