@@ -122,7 +122,7 @@ class WhiskeyService:
         
         return new_whiskey
     
-    def update_whiskey_description(self, id: str, updates: dict) -> Dict:
+    def update_whiskey(self, id: str, updates: dict) -> Dict:
         """Service for updating the description of a whiskey.
         
         Validates the update input.
@@ -136,7 +136,7 @@ class WhiskeyService:
         """        
         UpdatedWhiskeySchema().load(updates)
         
-        query_result = self._whiskey_repository.update_whiskey_description(id, updates)
+        query_result = self._whiskey_repository.update_whiskey(id, updates)
         
         updated_whiskey = self._to_json(query_result)
         

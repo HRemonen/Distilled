@@ -415,8 +415,8 @@ def create_whiskey():
 
 @app.route("/api/whiskey/<string:id>", methods=["PUT"])
 @jwt_required()
-def update_whiskey_description(id: str):
-    """Update a whiskey description
+def update_whiskey(id: str):
+    """Update a whiskey fields
 
     ---
     tags:
@@ -438,7 +438,7 @@ def update_whiskey_description(id: str):
         if not user_service.is_admin():
             raise Unauthorized("You don't have permission to update whiskeys")
 
-        whiskey_data = whiskey_service.update_whiskey_description(id, body)
+        whiskey_data = whiskey_service.update_whiskey(id, body)
         return {
             "status": "success",
             "message": "whiskey updated",
