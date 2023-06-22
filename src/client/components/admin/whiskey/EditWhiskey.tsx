@@ -8,6 +8,7 @@ import DistillerySelect from '../DistillerySelect'
 
 import { Distillery } from '../../../validators/distillery_validator'
 import { Whiskey } from '../../../validators/whiskey_validator'
+import { useDeleteWhiskey } from '../../../services/whiskeyService'
 
 type WhiskeyCardProps = {
   whiskey: Whiskey
@@ -43,9 +44,22 @@ const EditWhiskey = () => {
   const [selectedDistillery, setSelectedDistillery] =
     useState<Distillery | null>()
   const [selectedWhiskey, setSelectedWhiskey] = useState<Whiskey | null>()
+  const deleteWhiskey = useDeleteWhiskey(selectedDistillery?.id)
 
   const handleWhiskeyDelete = () => {
-    console.log('DELETE')
+    deleteWhiskey
+      .mutateAsync(selectedWhiskey?.id)
+      .then(() => {
+        setSelectedWhiskey(null)
+        enqueueSnackbar('Whiskey deletion successful', {
+          variant: 'success',
+        })
+      })
+      .catch((error) => {
+        enqueueSnackbar(`Whiskey deletion failed: ${error.message}`, {
+          variant: 'error',
+        })
+      })
   }
 
   return (

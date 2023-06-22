@@ -71,3 +71,20 @@ export const useCreateWhiskey = (distilleryId: string | undefined) => {
 
   return mutation
 }
+
+export const useDeleteWhiskey = (distilleryId: string | undefined) => {
+  const { config } = useAuthenticatedUser()
+
+  const mutationFn = async (whiskeyId: string | undefined) => {
+    await apiClient.delete(`/whiskey/${whiskeyId}`, config)
+  }
+
+  const mutation = useMutation(mutationFn, {
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ['distillery-whiskeys', distilleryId],
+      }),
+  })
+
+  return mutation
+}
