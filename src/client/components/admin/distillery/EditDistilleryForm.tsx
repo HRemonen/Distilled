@@ -45,7 +45,7 @@ const EditDistilleryForm = () => {
     mutateDistilleries
       .mutateAsync(data)
       .then(() => {
-        navigate('/admin/modify-distilleries')
+        navigate(-1)
         enqueueSnackbar('Distillery update successful', {
           variant: 'success',
         })

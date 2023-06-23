@@ -40,7 +40,7 @@ const EditWhiskeyForm = () => {
     mutateWhiskeys
       .mutateAsync(data)
       .then(() => {
-        navigate('/admin/modify-whiskeys')
+        navigate(-1)
         enqueueSnackbar('Whiskey creation successful', {
           variant: 'success',
         })
