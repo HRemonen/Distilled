@@ -20,9 +20,9 @@ The Distillery Application is built using the following technologies:
 
 ## Development
 
-Replace [the template env file](server/env.template) with a .env file with your setup.
+Replace [the template env file](src/server/.env.template) with a .env file with your setup.
 
-Launch the app in development mode by running `docker-compose up --build` in the root folder.
+Launch the app in development mode by running `docker-compose -f docker-compose.dev.yml up --build` in the root folder.
 
 This will start the frontend, backend and db in their own containers.
 
@@ -48,7 +48,7 @@ Now the docker compose volumes are configured so that the client node_modules ar
 
 This is because of development in ARM chips causes some packages to be transpiled as non compatible for Linux systems or whatever so the container can not run the application.
 
-If you are developing using Linux you could change the [docker-compose.yml]() app services volumes to
+If you are developing using Linux you could change the [docker-compose.dev.yml]() app services volumes to
 
 ```yml
 volumes:
@@ -65,7 +65,18 @@ Otherwise you must rebuild the image after new package installations
 Close the application with
 
 ```bash
-docker compose down
+docker compose -f docker-compose.dev.yml down
+```
+
+## Production
+
+On the project root run npm run build to build the frontend and serve the files to the Flask backend.
+
+If you get permission error for the build script just run the following command that
+changes the execution permissions for the script
+
+```bash
+chmod +x build-script.sh
 ```
 
 ## Features
