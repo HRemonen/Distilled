@@ -4,6 +4,7 @@
   "description": "Dive into the world of Distilled and embark on an extraordinary whiskey crusade like no other. Unleash your inner whiskey adventurer, savor the flavors of the finest spirits, and connect with fellow enthusiasts who share your passion. Let Distilled be your compass, guiding you on a thrilling quest through the realms of golden nectar and everlasting memories.",
   "scripts": {
     "start": "docker compose up",
+    "build": "./build-script.sh",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "lint": "eslint 'src/client/**/*.{ts,tsx}'",

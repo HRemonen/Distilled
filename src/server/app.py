@@ -9,7 +9,7 @@ from flask_bcrypt import Bcrypt
 
 from config import JWT_SECRET_KEY
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="dist/assets", template_folder="dist")
 
 logging.basicConfig(level=logging.DEBUG)
 
