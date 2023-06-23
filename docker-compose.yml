@@ -8,7 +8,7 @@ services:
       context: ./src/server/
       dockerfile: Dockerfile
     env_file:
-      - ./src/server/.env
+      - .env
     ports:
       - 5000:5000
     volumes:
@@ -20,7 +20,7 @@ services:
     container_name: distillery-db
     image: postgres:alpine
     env_file:
-      - ./src/server/.env
+      - .env
     volumes:
       - ./src/server/postgres_data:/var/lib/postgresql/data
 
