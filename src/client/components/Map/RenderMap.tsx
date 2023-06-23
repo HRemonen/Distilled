@@ -70,7 +70,7 @@ const RenderMap = () => {
       onMove={(evt) => setViewState(evt.viewState)}
       style={{ width: '100vw', height: '100vh' }}
       mapStyle='mapbox://styles/mapbox/dark-v9'
-      mapboxAccessToken={import.meta.env.VITE_MAPBOX_KEY}
+      mapboxAccessToken={process.env.MAPBOX_KEY}
     >
       <GeolocateControl position='top-left' />
       <FullscreenControl position='top-left' />

@@ -1,12 +1,30 @@
 import React, { useContext, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 
-import { AuthContext } from './contexts/AuthContext'
+import { AuthContext, useAuthenticatedUser } from './contexts/AuthContext'
 
 import SearchBar from './components/map/SearchBar'
 import RenderMap from './components/map/RenderMap'
 import Logout from './components/authentication/Logout'
+
+const WhiskeyButton = () => {
+  const { user } = useAuthenticatedUser()
+
+  if (user?.role !== 'admin') return null
+
+  return (
+    <Link to='/admin'>
+      <img
+        className='pin fixed bottom-8 right-4 z-20'
+        width='40'
+        height='40'
+        alt='admin-menu'
+        src='./assets/tumbler-glass_1f943.webp'
+      />
+    </Link>
+  )
+}
 
 const App = () => {
   const { logout } = useContext(AuthContext)
@@ -37,6 +55,7 @@ const App = () => {
       <SearchBar />
       <RenderMap />
       <Logout />
+      <WhiskeyButton />
     </section>
   )
 }
