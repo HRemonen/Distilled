@@ -44,7 +44,7 @@ const DistilleryDrawerReviews = () => {
   }
 
   return (
-    <div className='h-[80vh] overflow-y-scroll'>
+    <div className='h-[80vh] overflow-y-scroll scrollbar-hide'>
       {userReview ? (
         <div>
           <Typography variant='body2'>

@@ -20,11 +20,13 @@ const Rating = ({ rating }: { rating: RatingType }) => {
 
   const avgRating = totalCount !== 0 ? totalRating / totalCount : 0.0
 
+  const roundedRating = Math.round(avgRating * 10) / 10
+
   return (
     <div className='mt-4 border-t-2'>
       <div className='my-3 flex items-center'>
         <RenderStars avgRating={avgRating} />
-        <Typography variant='body2'>{avgRating} out of 5</Typography>
+        <Typography variant='body2'>{roundedRating} out of 5</Typography>
       </div>
       <Typography variant='body2'>{totalCount} global ratings</Typography>
     </div>
