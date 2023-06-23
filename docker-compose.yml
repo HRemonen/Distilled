@@ -6,7 +6,7 @@ services:
     container_name: distillery-api
     build:
       context: ./src/server/
-      dockerfile: dev.Dockerfile
+      dockerfile: Dockerfile
     env_file:
       - ./src/server/.env
     ports:
