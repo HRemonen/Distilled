@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 
 import { useAuthenticatedUser } from '../../contexts/AuthContext'
@@ -39,6 +39,7 @@ const Admin = () => {
   return (
     <section className='m-4 text-black'>
       <h1 className='text-2xl font-light uppercase'>Admin panel</h1>
+      <Link to='..'>{'<'} Back to application</Link>
       <AdminTabs />
       <Outlet />
     </section>
