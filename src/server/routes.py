@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, render_template
 from sqlalchemy.exc import IntegrityError
 from marshmallow import ValidationError
 
@@ -15,7 +15,7 @@ from services.entity_service import entity_service
 
 @app.route("/")
 def index():
-    return "Hello world"
+    return render_template("index.html")
 
 
 # ============= USER RELATED ENDPOINTS ============= #
@@ -95,8 +95,6 @@ def login_user():
 
 
 # ============= DISTILLERY RELATED ENDPOINTS ============= #
-
-
 @app.route("/api/distillery/<string:id>", methods=["GET"])
 def get_distillery(id: str):
     """Get distillery by id
