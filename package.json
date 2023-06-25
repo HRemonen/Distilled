@@ -6,6 +6,7 @@
     "start": "docker compose up",
     "start:dev": "docker compose -f docker-compose.dev.yml up",
     "build": "./build-script.sh",
+    "init": "./setup.sh",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "lint": "eslint 'src/client/**/*.{ts,tsx}'",
