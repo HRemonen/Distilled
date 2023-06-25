@@ -20,10 +20,20 @@ The Distillery Application is built using the following technologies:
 
 ## Development
 
+Initialize the project environment variables with
+
+```bash
+npm run init
+```
+
+in the root folder.
+
+** OR **
+
 Replace [the template backend env file](src/server/.env.template) with a .env file with your setup.
 Also provide your mapbox access token [to the template frontend env file](src/client/.env.template).
 
-Launch the app in development mode by running
+Launch the app in development mode with
 
 ```bash
 npm run start:dev
@@ -35,7 +45,7 @@ This will start the frontend, backend and db in their own containers.
 
 Access the application at `http://localhost:3000/`
 
-You can also access the rest api at `http://localhost:3000/`. Be sure to check out the available endpoints from the routes file.
+You can also access the rest api at `http://localhost:5000/`. Be sure to check out the available endpoints from the routes file.
 
 ### View database in development
 
