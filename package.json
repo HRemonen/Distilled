@@ -4,6 +4,7 @@
   "description": "Dive into the world of Distilled and embark on an extraordinary whiskey crusade like no other. Unleash your inner whiskey adventurer, savor the flavors of the finest spirits, and connect with fellow enthusiasts who share your passion. Let Distilled be your compass, guiding you on a thrilling quest through the realms of golden nectar and everlasting memories.",
   "scripts": {
     "start": "docker compose up",
+    "start:dev": "docker compose -f docker-compose.dev.yml up",
     "build": "./build-script.sh",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
@@ -14,7 +15,9 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "cross-env": "^7.0.3",
     "cypress": "^12.8.1",
+    "dotenv": "^16.3.1",
     "eslint": "^8.36.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",

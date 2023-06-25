@@ -22,9 +22,17 @@ The Distillery Application is built using the following technologies:
 
 Replace [the template env file](src/server/.env.template) with a .env file with your setup.
 
-Launch the app in development mode by running `docker-compose -f docker-compose.dev.yml up --build` in the root folder.
+Launch the app in development mode by running
+
+```bash
+npm run start:dev
+```
+
+in the root folder.
 
 This will start the frontend, backend and db in their own containers.
+
+Access the application at `http://localhost:3000/`
 
 ### View database in development
 
@@ -68,24 +76,13 @@ Close the application with
 docker compose -f docker-compose.dev.yml down
 ```
 
-## Production
-
-On the project root run npm run build to build the frontend and serve the files to the Flask backend.
-
-If you get permission error for the build script just run the following command that
-changes the execution permissions for the script
-
-```bash
-chmod +x build-script.sh
-```
-
 ## Features
 
 - **Distillery Map**: View distilleries on an interactive map, making it easy to locate distilleries in different regions.
-- **Search Functionality**: Search for distilleries or whiskeys based on name, location, type, or other criteria.
+- **Search Functionality**: Search for distilleries based on name
 - **Detailed Distillery Information**: Access comprehensive details about each distillery, including its name, location, year of establishment, website, and whiskeys produced.
 - **Whiskey Listings**: Browse a wide range of whiskeys, with information on their names, types, ages, and descriptions.
-- **User Ratings and Comments**: Users can rate whiskeys and leave comments to share their experiences and opinions.
+- **User Ratings and Comments**: Users can rate distilleries and leave comments to share their experiences and opinions.
 - **User Registration and Authentication**: Allow users to register accounts and log in
 
 ## License

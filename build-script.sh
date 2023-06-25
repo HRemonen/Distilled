@@ -7,7 +7,7 @@ cd src/client
 npm run build
 
 rm ../server/dist
-
 mkdir ../server/dist 
+
 # Copy the frontend assets to src/server
 cp -R dist/* ../server/dist/
