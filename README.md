@@ -18,7 +18,7 @@ The Distillery Application is built using the following technologies:
 - **Validation Anarchy**: Zod, Marshmallow
 - **Environment**: Docker, docker compose
 
-## Development
+## Initial setup
 
 Initialize the project environment variables with
 
@@ -26,12 +26,14 @@ Initialize the project environment variables with
 npm run init
 ```
 
-in the root folder.
+in the root folder. This setup script will prompt you for the environment variables needed for running the application locally.
 
 ** OR **
 
 Replace [the template backend env file](src/server/.env.template) with a .env file with your setup.
 Also provide your mapbox access token [to the template frontend env file](src/client/.env.template).
+
+## Development
 
 Launch the app in development mode with
 
