@@ -20,7 +20,8 @@ The Distillery Application is built using the following technologies:
 
 ## Development
 
-Replace [the template env file](src/server/.env.template) with a .env file with your setup.
+Replace [the template backend env file](src/server/.env.template) with a .env file with your setup.
+Also provide your mapbox access token [to the template frontend env file](src/client/.env.template).
 
 Launch the app in development mode by running
 
@@ -33,6 +34,8 @@ in the root folder.
 This will start the frontend, backend and db in their own containers.
 
 Access the application at `http://localhost:3000/`
+
+You can also access the rest api at `http://localhost:3000/`. Be sure to check out the available endpoints from the routes file.
 
 ### View database in development
 
@@ -75,6 +78,31 @@ Close the application with
 ```bash
 docker compose -f docker-compose.dev.yml down
 ```
+
+## Production
+
+On the project root run
+
+```bash
+npm run build
+```
+
+to build the frontend and serve the files to the Flask backend.
+
+If you get permission error for the build script just run the following command that
+changes the execution permissions for the script
+
+```bash
+chmod +x build-script.sh
+```
+
+Launch the production build with
+
+```
+npm start
+```
+
+Access the application at `http://localhost:5000/`
 
 ## Features
 
