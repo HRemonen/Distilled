@@ -615,3 +615,8 @@ def get_entity_reviews(id: str):
 
     except Exception:
         return {"status": "error", "message": "reviews not found", "data": None}, 404
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template("index.html")
