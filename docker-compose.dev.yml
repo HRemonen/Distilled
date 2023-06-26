@@ -31,6 +31,10 @@ services:
   postgres:
     container_name: distillery-db
     image: postgres:alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=distillery-db
     volumes:
       - ./src/server/postgres_data:/var/lib/postgresql/data
 
