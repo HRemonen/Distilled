@@ -23,20 +23,39 @@ function styledText {
   echo ""
 }
 
-styledText "Welcome to the Environment Setup Script"
+# Go to src/client and run npm install
+styledText "Setting up client environment..."
+echo "Installing client dependencies..."
+cd src/client
+npm install
+cd ../..
+
+# Go to src/server and run poetry install
+styledText "Setting up server environment..."
+echo "Installing server dependencies..."
+cd src/server
+poetry install
+cd ../..
+
+# Run npm install in the root folder
+styledText "Installing root dependencies..."
+npm install
+
+styledText "Welcome to the Distilled Setup Script"
 echo "This script will guide you through the setup process for your project."
 echo "Please provide the following values:"
 
 # Prompt user for VITE_MAPBOX_KEY
 mapboxKey=$(prompt "Enter VITE_MAPBOX_KEY (Mapbox Access Token)")
 
+# Create client .env file with VITE_MAPBOX_KEY
 clientEnvContent="VITE_MAPBOX_KEY=$mapboxKey"
 createEnvFile "$clientEnvContent" "./src/client/.env"
 
 styledText "Client environment file created successfully."
 
 # Create server .env file with default values
-styledText "Now, let's configure the server environment:"
+styledText "Configuring server environment..."
 
 dbEnvContent="FLASK_APP=app.py
 FLASK_ENV=development
@@ -46,6 +65,7 @@ DB_HOST=postgres
 DB_USER=postgres
 DB_PASSWORD=postgres"
 
+# Prompt user for JWT_SECRET_KEY
 jwtSecretKey=$(prompt "Enter JWT_SECRET_KEY (JSON Web Token Secret Key)")
 
 if [[ -n "$jwtSecretKey" ]]; then
