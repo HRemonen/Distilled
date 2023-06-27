@@ -20,7 +20,7 @@ The Distillery Application is built using the following technologies:
 
 ## Initial setup
 
-Initialize the project environment variables with
+Install dependencies and initialize the project environment variables with
 
 ```bash
 npm run init
