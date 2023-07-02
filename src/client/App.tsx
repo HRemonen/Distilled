@@ -4,8 +4,8 @@ import jwt_decode from 'jwt-decode'
 
 import { AuthContext, useAuthenticatedUser } from './contexts/AuthContext'
 
-import SearchBar from './components/map/SearchBar'
-import RenderMap from './components/map/RenderMap'
+import SearchBar from './components/Map/SearchBar'
+import RenderMap from './components/Map/RenderMap'
 import Logout from './components/authentication/Logout'
 
 const WhiskeyButton = () => {
