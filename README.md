@@ -20,18 +20,45 @@ The Distillery Application is built using the following technologies:
 
 ## Initial setup
 
-Install dependencies and initialize the project environment variables with
+1.  Install Docker by following the instructions for your platform:
 
-```bash
-npm run init
-```
+    - [Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
+    - [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
+    - [Docker for Linux](https://docs.docker.com/engine/install/)
 
-in the root folder. This setup script will prompt you for the environment variables needed for running the application locally.
+2.  Install Docker Compose by following the instructions for your platform:
 
-** OR **
+    - [Docker Compose for Mac](https://docs.docker.com/compose/install/)
+    - [Docker Compose for Windows](https://docs.docker.com/compose/install/)
+    - [Docker Compose for Linux](https://docs.docker.com/compose/install/)
 
-Replace [the template backend env file](src/server/.env.template) with a .env file with your setup.
-Also provide your mapbox access token [to the template frontend env file](src/client/.env.template).
+3.  Install NPM
+
+    You can download and install Node.js from the official website: https://nodejs.org/en/
+
+    1. Open your terminal or command prompt.
+    2. Run the following command to install npm:
+
+    ```bash
+    npm install npm@latest -g
+    ```
+
+4.  Install dependencies and initialize the project environment variables with
+
+    ```bash
+    npm run init
+    ```
+
+    in the root folder. This setup script will prompt you for the environment variables needed for running the application locally.
+
+    ** OR **
+
+    Replace [the template backend env file](src/server/.env.template) with a .env file with your setup.
+    Also provide your mapbox access token [to the template frontend env file](src/client/.env.template).
+
+5.  Run the application either in development or production environment locally using the instructions below.
+
+    Either way the database is seeded automatically with the tables and an admin user with the username **admin** and password **admin**
 
 ## Development
 
@@ -124,6 +151,7 @@ Access the application at `http://localhost:5000/`
 - **Whiskey Listings**: Browse a wide range of whiskeys, with information on their names, types, ages, and descriptions.
 - **User Ratings and Comments**: Users can rate distilleries and leave comments to share their experiences and opinions.
 - **User Registration and Authentication**: Allow users to register accounts and log in
+- **Admin Panel**: Admin users can create, update and delete distilleries and whiskeys using the admin panel. Admins can access the admin panel by clicking on the tumbler glass on the bottom right, or by navigating to the `/admin` path.
 
 ## License
 
