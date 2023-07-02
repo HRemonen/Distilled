@@ -28,11 +28,14 @@ class WhiskeyRepository:
                 w.description,
                 d.name AS distillery_name,
                 d.country AS distillery_country
-            FROM whiskeys AS w
+            FROM 
+                whiskeys AS w
             LEFT JOIN
                 distilleries as d ON w.distillery_id = d.id
-            WHERE w.id = :id AND w.deleted_at IS NULL
-            GROUP BY w.id, d.name, d.country
+            WHERE 
+                w.id = :id AND w.deleted_at IS NULL
+            GROUP BY 
+                w.id, d.name, d.country
         """
 
         return self._db.session.execute(text(sql), whiskey_input).fetchone()
@@ -55,9 +58,12 @@ class WhiskeyRepository:
                 w.type,
                 w.age,
                 w.description
-            FROM whiskeys AS w
-            WHERE w.distillery_id = :distillery_id AND w.deleted_at IS NULL
-            ORDER BY name ASC
+            FROM 
+                whiskeys AS w
+            WHERE 
+                w.distillery_id = :distillery_id AND w.deleted_at IS NULL
+            ORDER BY 
+                name ASC
         """
 
         return self._db.session.execute(text(sql), whiskey_input).fetchall()
@@ -76,9 +82,12 @@ class WhiskeyRepository:
                 w.type,
                 w.age,
                 w.description
-            FROM whiskeys AS w
-            WHERE deleted_at IS NULL
-            ORDER BY name ASC
+            FROM 
+                whiskeys AS w
+            WHERE 
+                deleted_at IS NULL
+            ORDER BY 
+                name ASC
         """
 
         return self._db.session.execute(text(sql)).fetchall()
@@ -146,14 +155,16 @@ class WhiskeyRepository:
             "description": updates["description"],
         }
         sql = """
-            UPDATE whiskeys
+            UPDATE 
+                whiskeys
             SET
                 name = :name,
                 type = :type,
                 age = :age,
                 description = :description,
                 updated_at = CURRENT_TIMESTAMP(0)
-            WHERE id = :id AND deleted_at IS NULL
+            WHERE 
+                id = :id AND deleted_at IS NULL
             RETURNING *
         """
 
@@ -178,9 +189,12 @@ class WhiskeyRepository:
             "id": id,
         }
         sql = """
-            UPDATE whiskeys
-            SET deleted_at = CURRENT_TIMESTAMP(0)
-            WHERE id = :id AND deleted_at IS NULL
+            UPDATE 
+                whiskeys
+            SET 
+                deleted_at = CURRENT_TIMESTAMP(0)
+            WHERE 
+                id = :id AND deleted_at IS NULL
             RETURNING *
         """
 

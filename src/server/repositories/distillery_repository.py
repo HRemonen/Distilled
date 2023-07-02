@@ -60,10 +60,14 @@ class DistilleryRepository:
             Row: Returning the found distillery objects.
         """
         sql = """
-            SELECT *
-            FROM distilleries
-            WHERE deleted_at IS NULL
-            ORDER BY name ASC
+            SELECT 
+                *
+            FROM 
+                distilleries
+            WHERE 
+                deleted_at IS NULL
+            ORDER BY 
+                name ASC
         """
 
         return self._db.session.execute(text(sql)).fetchall()
@@ -136,7 +140,8 @@ class DistilleryRepository:
             "website": updates["website"],
         }
         sql = """
-            UPDATE distilleries
+            UPDATE 
+                distilleries
             SET 
                 name = :name,
                 location = :location,
@@ -144,7 +149,8 @@ class DistilleryRepository:
                 year_established = :year_established,
                 website = :website,
                 updated_at = CURRENT_TIMESTAMP(0)
-            WHERE id = :id AND deleted_at IS NULL
+            WHERE 
+                id = :id AND deleted_at IS NULL
             RETURNING *
         """
 
@@ -169,9 +175,12 @@ class DistilleryRepository:
             "id": id,
         }
         sql = """
-            UPDATE distilleries
-            SET deleted_at = CURRENT_TIMESTAMP(0)
-            WHERE id = :id AND deleted_at IS NULL
+            UPDATE 
+                distilleries
+            SET 
+                deleted_at = CURRENT_TIMESTAMP(0)
+            WHERE 
+                id = :id AND deleted_at IS NULL
             RETURNING *
         """
 
