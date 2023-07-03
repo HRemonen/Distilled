@@ -29,6 +29,9 @@ const ReviewForm = ({
   } = useForm<Review>({
     mode: 'onBlur',
     resolver: zodResolver(ReviewZod),
+    defaultValues: {
+      rating: 0,
+    },
   })
 
   if (!user) return null
