@@ -8,6 +8,8 @@ import SearchBar from './components/map/SearchBar'
 import RenderMap from './components/map/RenderMap'
 import Logout from './components/authentication/Logout'
 
+import tumbler from './assets/tumbler.webp'
+
 const WhiskeyButton = () => {
   const { user } = useAuthenticatedUser()
 
@@ -20,7 +22,7 @@ const WhiskeyButton = () => {
         width='40'
         height='40'
         alt='admin-menu'
-        src='./assets/tumbler-glass_1f943.webp'
+        src={tumbler}
       />
     </Link>
   )
