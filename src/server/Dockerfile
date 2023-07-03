@@ -29,4 +29,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["poetry", "run", "gunicorn", "-b", "0.0.0.0:5000", "app:app", "--timeout 120", "--workers=4", "--threads=4", "--worker-connections=1000"]
+CMD ["poetry", "run", "gunicorn", "-b", "0.0.0.0:5000", "app:app", "--timeout 120", "--workers=1", "--threads=4", "--worker-connections=1000"]
