@@ -38,7 +38,11 @@ const EditDistilleryForm = () => {
   })
 
   useEffect(() => {
-    if (!isLoading && distilleryInfo?.data) reset(distilleryInfo.data)
+    if (!isLoading && distilleryInfo?.data)
+      reset({
+        ...distilleryInfo.data,
+        ...{ website: distilleryInfo.data.website ?? '' },
+      })
   }, [isLoading, distilleryInfo, reset])
 
   const onSubmit = (data: EditDistillery) => {
