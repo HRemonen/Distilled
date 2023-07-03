@@ -25,8 +25,6 @@ const MissingStar = () => (
 )
 
 const RenderStars = ({ avgRating }: { avgRating: number }) => {
-  if (!avgRating) return null
-
   const fullStars = Math.floor(avgRating)
 
   const render = (index: number) => {

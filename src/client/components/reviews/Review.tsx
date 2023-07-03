@@ -21,7 +21,7 @@ const Review = ({ review }: { review: EntityReview }) => {
           Reviewed on <time dateTime={review.created_at}>{createdDate}</time>
         </p>
       </footer>
-      {showFull ? (
+      {showFull || review.comment.length < 500 ? (
         <p className='mb-4 text-gray-400'>{review.comment}</p>
       ) : (
         <p className='mb-4 text-gray-400'>{`${review.comment.substring(
@@ -29,13 +29,15 @@ const Review = ({ review }: { review: EntityReview }) => {
           500
         )}...`}</p>
       )}
-      <button
-        type='button'
-        className='mb-5 block text-sm font-medium text-blue-500 hover:underline'
-        onClick={() => setShowFull(!showFull)}
-      >
-        {showFull ? 'Show less' : 'Read more'}
-      </button>
+      {review.comment.length > 500 && (
+        <button
+          type='button'
+          className='mb-5 block text-sm font-medium text-blue-500 hover:underline'
+          onClick={() => setShowFull(!showFull)}
+        >
+          {showFull ? 'Show less' : 'Read more'}
+        </button>
+      )}
     </article>
   )
 }
