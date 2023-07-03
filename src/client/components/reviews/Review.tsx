@@ -22,9 +22,11 @@ const Review = ({ review }: { review: EntityReview }) => {
         </p>
       </footer>
       {showFull || review.comment.length < 500 ? (
-        <p className='mb-4 text-gray-400'>{review.comment}</p>
+        <p className='mb-4 w-full break-words text-gray-400'>
+          {review.comment}
+        </p>
       ) : (
-        <p className='mb-4 text-gray-400'>{`${review.comment.substring(
+        <p className='mb-4 w-full break-words text-gray-400'>{`${review.comment.substring(
           0,
           500
         )}...`}</p>
