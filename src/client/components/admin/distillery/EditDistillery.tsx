@@ -17,7 +17,9 @@ type DistilleryCardProps = {
 const DistilleryCard = ({ distillery, onDelete }: DistilleryCardProps) => (
   <div className='mt-6 rounded-lg border border-gray-300 bg-white p-4'>
     <h2 className='text-2xl font-bold text-gray-800'>{distillery.name}</h2>
-    <p className='text-gray-600'>Location: {distillery.location}</p>
+    <p className='text-gray-600'>
+      Location: {distillery.location[0]}° N - {distillery.location[1]}° W,
+    </p>
     <p className='text-gray-600'>Country: {distillery.country}</p>
     <p className='text-gray-600'>
       Year Established: {distillery.year_established}
